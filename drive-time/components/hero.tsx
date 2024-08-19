@@ -1,4 +1,5 @@
 import React from 'react'
+import { CustomButton } from '.'
 
 const hero = () => {
   return (
@@ -10,7 +11,7 @@ const hero = () => {
             <p className='hero__subtitle'>
             Discover a wide selection of vehicles to suit every journey.
             </p>
-
+            <CustomButton/>
         </div>
     </div>
   )

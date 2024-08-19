@@ -1,9 +1,10 @@
 import React from 'react'
 import { CustomButton } from '.'
+"use client";
 
 const hero = () => {
     const handleScroll = () =>{
-        
+
     }
   return (
     
@@ -16,7 +17,7 @@ const hero = () => {
             Discover a wide selection of vehicles to suit every journey.
             </p>
             <CustomButton title="explore cars" containerStyles="bg-customRed text-white rounded-full mt-10"
-            handleClick={}
+            handleClick={handleScroll}
             />
         </div>
     </div>

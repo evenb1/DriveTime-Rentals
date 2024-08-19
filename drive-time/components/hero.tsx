@@ -11,7 +11,7 @@ const hero = () => {
             <p className='hero__subtitle'>
             Discover a wide selection of vehicles to suit every journey.
             </p>
-            <CustomButton/>
+            <CustomButton title="explore cars" containerStyles="bg-customRed"/>
         </div>
     </div>
   )

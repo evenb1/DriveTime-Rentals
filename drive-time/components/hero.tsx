@@ -1,6 +1,7 @@
+"use client";
+
 import React from 'react'
 import { CustomButton } from '.'
-"use client";
 
 const hero = () => {
     const handleScroll = () =>{

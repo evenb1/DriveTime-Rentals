@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { CustomButton } from '.';
+import HeroThumbnail from ''
 
 const Hero = () => {
     const handleScroll = () => {

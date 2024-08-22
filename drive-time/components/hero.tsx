@@ -1,28 +1,27 @@
 "use client";
 
-import React from 'react'
-import { CustomButton } from '.'
+import React from 'react';
+import { CustomButton } from '.';
 
-const hero = () => {
-    const handleScroll = () =>{
-
+const Hero = () => {
+    const handleScroll = () => {
+        // Your scroll logic here
     }
-  return (
-    
-    <div className='hero'>
-        <div className='flex-1 pt-36 padding-x'>
-            <h1 className='hero__title'>
-            Premium Car Rentals
-            </h1>
-            <p className='hero__subtitle'>
-            Discover a wide selection of vehicles to suit every journey.
-            </p>
-            <CustomButton title="explore cars" containerStyles="bg-customRed text-white rounded-full mt-10"
-            handleClick={handleScroll}
-            />
+
+    return (
+        <div className='hero flex justify-center items-center flex-col text-center'>
+            <div className='flex-1 pt-36 flex flex-col justify-center items-center padding-x'>
+                <h1 className='hero__title'>
+                    Premium Car Rentals
+                </h1>
+                <CustomButton
+                    title="Book Now"
+                    containerStyles="bg-customBlue text-white rounded-full mt-10"
+                    handleClick={handleScroll}
+                />
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
-export default hero
+export default Hero;

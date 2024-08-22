@@ -11,7 +11,7 @@ module.exports = {
         inter: ["Inter", "sans-serif"],
       },
       colors: {
-        customRed: '#CC313D',
+        customBlue: '#1E5DE3',
         "black-100": "#2B2C35",
         "primary-blue": {
           DEFAULT: "#2B59FF",

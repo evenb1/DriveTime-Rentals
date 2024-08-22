@@ -12,7 +12,7 @@ const hero = () => {
     <div className='hero'>
         <div className='flex-1 pt-36 padding-x'>
             <h1 className='hero__title'>
-            Your Journey Begins Here
+            Premium Car Rentals
             </h1>
             <p className='hero__subtitle'>
             Discover a wide selection of vehicles to suit every journey.

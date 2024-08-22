@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { CustomButton } from '.';
-import HeroThumbnail from ''
+import { heroThumbnail } from '@/public';
 
 const Hero = () => {
     const handleScroll = () => {
@@ -10,7 +10,7 @@ const Hero = () => {
     }
 
     return (
-        <div className='hero flex justify-center items-center flex-col text-center'>
+        <div className='hero flex justify-center items-center flex-col text-center '>
             <div className='flex-1 pt-36 flex flex-col justify-center items-center padding-x'>
                 <h1 className='hero__title'>
                     Premium Car Rentals

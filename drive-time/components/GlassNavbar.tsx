@@ -10,7 +10,7 @@ const GlassNavbar = () => {
     };
 
     return (
-        <nav className="flex justify-between items-center px-10 py-5 mx-9 my-5 bg-white bg-opacity-50 rounded-lg shadow-lg backdrop-blur-md relative">
+        <nav className="flex justify-between items-center px-10 py-4 mx-9 my-5 bg-white bg-opacity-70 rounded-lg shadow-lg backdrop-blur-md relative">
             {/* Left Section: Logo */}
             <div className="flex items-center">
                 <a href="/" className="text-white text-lg font-bold">
@@ -19,15 +19,15 @@ const GlassNavbar = () => {
             </div>
 
             {/* Middle Section: Links */}
-            <div className="hidden md:flex space-x-8 items-center justify-center mx-auto">
-                <a href="#" className="text-white hover:text-gray-300">Products</a>
-                <a href="#" className="text-white hover:text-gray-300">History</a>
-                <a href="#" className="text-white hover:text-gray-300">Contact</a>
+            <div className="hidden md:flex space-x-8 items-center justify-center gap-10 mx-auto">
+                <a href="#" className="text-black hover:text-gray-300">Products</a>
+                <a href="#" className="text-black hover:text-gray-300">History</a>
+                <a href="#" className="text-black hover:text-gray-300">Contact</a>
             </div>
 
             {/* Right Section: Sign in and Button */}
             <div className="flex items-center space-x-4">
-                <a href="#" className="text-white hover:text-gray-300 hidden md:block">Sign in</a>
+                <a href="#" className="text-black hover:text-gray-300 hidden md:block">Sign in</a>
                 <button className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600">Try free</button>
             </div>
 

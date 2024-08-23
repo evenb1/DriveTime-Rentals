@@ -29,7 +29,7 @@ const GlassNavbar = () => {
             {/* Right Section: Sign in and Button */}
             <div className="flex items-center space-x-4">
                 <a href="#" className="text-black hover:text-gray-400 hidden md:block">Sign in</a>
-                <button className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600">Try free</button>
+                <button className="bg-customBlue text-white py-2 px-4 rounded-full hover:bg-black">Try free</button>
             </div>
 
             {/* Mobile Menu Toggle Button */}

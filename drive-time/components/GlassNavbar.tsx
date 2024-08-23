@@ -10,13 +10,13 @@ const GlassNavbar = () => {
     };
 
     return (
-        <nav className="flex justify-between items-center p-6 m-5 bg-black bg-opacity-40 rounded-lg shadow-lg backdrop-blur-md relative">
+        <nav className="flex justify-between items-center px-6 py-4 m-5  bg-white bg-opacity-50 rounded-lg shadow-lg backdrop-blur-md relative">
             <div className="flex items-center space-x-8">
                 <a href="/" className="text-white text-lg font-bold">
                     <img src="/logonew.png" width={180} height={120} alt="Logo" />
                 </a>
                 <div className="hidden md:flex space-x-8">
-                    <a href="#" className="text-white hover:text-gray-300">Products</a>
+                    <a href="#" className="text-white  hover:text-gray-300">Products</a>
                     <a href="#" className="text-white hover:text-gray-300">History</a>
                     <a href="#" className="text-white hover:text-gray-300">Contact</a>
                 </div>

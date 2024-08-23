@@ -12,7 +12,7 @@ const Hero = () => {
     return (
         <div className="relative w-full  h-screen bg-hero-bg bg-cover bg-center">
             {/* Transparent Overlay */}
-            <div className="absolute inset-0 bg-black bg-opacity-40 z-5"></div>
+            <div className="absolute inset-0 bg-black bg-opacity-15 z-5"></div>
 
             {/* Hero Content with Navbar */}
             <div className='relative z-20 flex flex-col h-full'>

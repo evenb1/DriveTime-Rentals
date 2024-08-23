@@ -14,7 +14,8 @@ module.exports = {
       
       colors: {
         'custom-gradient': 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(51,9,121,1) 0%, rgba(43,41,142,1) 0%, rgba(38,63,156,1) 0%, rgba(33,82,169,1) 0%, rgba(30,94,177,1) 18%, rgba(21,128,200,1) 100%, rgba(0,212,255,1) 100%)',
-        customBlue: '#CF5110',
+        customBlue: '#0378C9',
+        charcoal: '#101820',
         "black-100": "#2B2C35",
         "primary-blue": {
           DEFAULT: "#2B59FF",

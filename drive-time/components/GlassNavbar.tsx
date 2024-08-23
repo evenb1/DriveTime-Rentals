@@ -12,7 +12,8 @@ const GlassNavbar = () => {
     return (
         <nav className="flex justify-between items-center p-6 m-5 bg-black bg-opacity-40 rounded-lg shadow-lg backdrop-blur-md relative">
             <div className="flex items-center space-x-8">
-                <a href="#" className="text-white text-lg font-bold">logo.</a>
+                <img src=''></img>
+                <a href="/" className="text-white text-lg font-bold">logo.</a>
                 <div className="hidden md:flex space-x-8">
                     <a href="#" className="text-white hover:text-gray-300">Products</a>
                     <a href="#" className="text-white hover:text-gray-300">History</a>

@@ -4,7 +4,7 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
     if (!isOpen) return null;
 
     return (
-        <div id="login-popup" className="bg-black/50 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 h-full items-center justify-center flex">
+        <div id="login-popup" className="bg-black/50 overflow-y-auto overflow-x-hidden font-montserrat fixed top-0 right-0 left-0 z-50 h-full items-center justify-center flex">
             <div className="relative p-4 w-full max-w-md h-full md:h-auto">
                 <div className="relative bg-white mt-14 px-4 pt-3 rounded-lg shadow">
                     <button 
@@ -20,7 +20,6 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
                     <div className="p-5">
                               <div className="text-center">
                             <p className="mb-3 text-2xl font-semibold leading-5 text-slate-900">Login to your account</p>
-                            <p className="mt-3 text-sm leading-4 text-slate-600">You must be logged in to perform this action.</p>
                         </div>
                         <div className="mt-7 flex flex-col gap-2">
                             {/* Social login buttons */}

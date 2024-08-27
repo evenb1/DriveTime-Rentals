@@ -18,7 +18,7 @@ const GlassNavbar: React.FC = () => {
             <nav className="flex items-center justify-between max-sm:rounded-none px-4 md:px-10 py-3 mx-4 md:mx-9 my-5 bg-white bg-opacity-70 backdrop-blur-md rounded-lg shadow-lg relative">
                 {/* Left Section (Navigation Links for larger devices) */}
                 <div className="hidden md:flex flex-1 justify-start gap-5 space-x-8">
-                    <a href="#" className="text-gray-600 hover:text-gray-400">Products</a>
+                    <a href="#" className="text-gray-600 hover:text-gray-400">Fleet</a>
                     <a href="#" className="text-gray-600 hover:text-gray-400">History</a>
                     <a href="#" className="text-gray-600 hover:text-gray-400">Contact</a>
                 </div>
@@ -56,7 +56,7 @@ const GlassNavbar: React.FC = () => {
                 {isMenuOpen && (
                     <div className="absolute top-12 left-0 w-full bg-charcoal bg-opacity-100 backdrop-blur-md shadow-lg md:hidden">
                         <div className="flex flex-col items-start px-4 py-2 space-y-2">
-                            <a href="#" className="text-gray-200 hover:text-gray-400 w-full text-left">Products</a>
+                            <a href="#" className="text-gray-200 hover:text-gray-400 w-full text-left">Fleet</a>
                             <a href="#" className="text-gray-200 hover:text-gray-400 w-full text-left">History</a>
                             <a href="#" className="text-gray-200 hover:text-gray-400 w-full text-left">Contact</a>
                             <a href="#" onClick={toggleModal} className="text-gray-200 hover:text-gray-400 w-full text-left">Sign In</a>

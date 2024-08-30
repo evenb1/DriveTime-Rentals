@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
+import { Footer } from "@/components";
 
 export const metadata: Metadata = {
   title: "DriveTime Rentals",
@@ -14,7 +14,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="relative">{children}</body>
+      <body className="relative">
+        {children}
+        <Footer />
+        </body>
     </html>
   );
 }

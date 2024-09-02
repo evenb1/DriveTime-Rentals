@@ -7,6 +7,9 @@ const Footer = () => {
                 <img src='/logonew.png' width={118} height={18} className='object-contain'></img>
                 <p className="text-base text-gray-700 ">DriveTime Rentals <br/> All rights reserved &copy;</p>
             </div>
+            <div className="footer__links">
+
+            </div>
         </div>
 
     </footer>

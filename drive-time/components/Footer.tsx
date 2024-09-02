@@ -1,4 +1,4 @@
-
+import { footerLinks } from "@/constants"
 const Footer = () => {
   return (
     <footer className='flex flex-col text-black-100 mt-5 border-t border-gray-100'>
@@ -8,7 +8,9 @@ const Footer = () => {
                 <p className="text-base text-gray-700 ">DriveTime Rentals <br/> All rights reserved &copy;</p>
             </div>
             <div className="footer__links">
-
+                {footerLinks.map((link) => (
+                    <div key={link.title} className="footer__link" > <h3 key={link.title }></h3></div>
+                ))}
             </div>
         </div>
 

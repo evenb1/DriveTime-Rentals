@@ -31,10 +31,7 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
                                 <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="h-[18px] w-[18px]" />
                                 Continue with Google
                             </button>
-                            <button className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1">
-                                <img src="https://www.svgrepo.com/show/448234/linkedin.svg" alt="LinkedIn" className="h-[18px] w-[18px]" />
-                                Continue with LinkedIn
-                            </button>
+                            
                         </div>
                         <div className="flex w-full items-center gap-2 py-6 text-sm text-slate-600">
                             <div className="h-px w-full bg-slate-200"></div>

@@ -5,7 +5,7 @@ const Footer = () => {
         <div className='flex max-md:flex-col flex-wrap justify-between gap-5 sm:px-16 px-6 py-10'>
             <div className='flex flex-col justify-start items-start gap-6'>
                 <img src='/logonew.png' width={118} height={18} className='object-contain'></img>
-
+                <p className="text-base text-gray-700 ">DriveTime Rentals <br/> All rights reserved &copy;</p>
             </div>
         </div>
 

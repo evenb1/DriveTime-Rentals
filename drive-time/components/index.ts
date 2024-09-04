@@ -3,7 +3,8 @@ import CustomButton from './CustomButton'
 import Footer from './Footer'
 export{
     Hero,
-    CustomButton,
-    Footer
+    
+    Footer,
+    CustomButton
 
 }

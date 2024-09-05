@@ -9,7 +9,12 @@ const Footer = () => {
             </div>
             <div className="footer__links">
                 {footerLinks.map((link) => (
-                    <div key={link.title} className="footer__link px-2" > <h3 key={link.title }></h3></div>
+                    <div key={link.title} className="footer__link" > 
+                    <h3 key={link.title }>
+                        </h3>
+                        {link.links.map((item))}
+                        
+                        </div>
                 ))}
             </div>
         </div>

@@ -12,7 +12,6 @@ const Footer = () => {
                     <div key={link.title} className="footer__link" > 
                     <h3 key={link.title }>
                         </h3>
-                        {link.links.map((item))}
                         
                         </div>
                 ))}

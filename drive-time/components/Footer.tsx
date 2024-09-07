@@ -1,4 +1,5 @@
 import { footerLinks } from "@/constants"
+import Link from 'next/link';
 const Footer = () => {
   return (
     <footer className='flex flex-col text-black-100 mt-5 border-t border-gray-100'>
@@ -14,7 +15,7 @@ const Footer = () => {
                     {link.title }
                         </h3>
                         {link.links.map((item)=>(
-                            <link key={item.title} href={item.url} className="text-gray-500">{item.title}</link>
+                            <Link key={item.title} href={item.url} className="text-gray-500">{item.title}</Link>
                         ))}
                         
                         </div>

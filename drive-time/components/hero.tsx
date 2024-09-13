@@ -36,7 +36,7 @@ const Hero = () => {
                         Premium Car Rental
                     </motion.h1>
                     <motion.button
-                        className="relative mt-5 flex h-[50px] w-40 items-center justify-center overflow-hidden bg-charcoal rounded-full text-white shadow-2xl transition-all before:absolute before:h-0 before:w-0 before:rounded-full before:bg-customBlue before:duration-500 before:ease-out hover:shadow-customBlue-600 hover:before:h-56 hover:before:w-56"
+                        className="relative mt-5 flex h-[50px] w-40 items-center justify-center overflow-hidden bg-customBlue rounded-full text-white shadow-2xl transition-all before:absolute before:h-0 before:w-0 before:rounded-full before:bg-charcoal before:duration-500 before:ease-out hover:shadow-charcoal-600 hover:before:h-56 hover:before:w-56"
                         variants={buttonVariants}
                         initial="hidden"
                         animate="visible"

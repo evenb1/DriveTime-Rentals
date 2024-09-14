@@ -19,7 +19,7 @@ const Hero = () => {
     return (
         <div className="relative w-full h-screen bg-hero-bg bg-cover bg-center">
             {/* Transparent Overlay */}
-            <div className="absolute inset-0 bg-black bg-opacity-30 z-5"></div>
+            <div className="absolute inset-0 bg-black bg-opacity-20 z-5"></div>
 
             {/* Hero Content with Navbar */}
             <div className='relative z-20 flex flex-col h-full'>
@@ -28,7 +28,7 @@ const Hero = () => {
                 </div>
                 <div className='flex-1 flex flex-col justify-center mt-[-300px] px-5 items-center text-center'>
                     <motion.h1
-                        className='hero__title font-montserrat text-white text-extrabold leading-none text-opacity-80'
+                        className='hero__title font-montserrat text-white text-extrabold leading-none text-opacity-90'
                         variants={titleVariants}
                         initial="hidden"
                         animate="visible"

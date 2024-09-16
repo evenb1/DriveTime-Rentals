@@ -3,7 +3,13 @@ import { Combobox, Transition } from '@headlessui/react'
 
 const searchManufacturer = ({manufacturer, setManufacturer} : SearchManufacturerProps) => {
   return (
-    <div>searchManufacturer</div>
+    <div className='search-manufacturer'>
+      <Combobox>
+        <div className="relative w-full">
+          
+        </div>
+      </Combobox>
+    </div>
   )
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const searchManufacturer = () => {
+const searchManufacturer = ({manufacturer, setManufacturer}) => {
   return (
     <div>searchManufacturer</div>
   )

@@ -21,7 +21,19 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
           displayValue={(manufacturer: string)=>manufacturer} onChange={(e) => setquery(e.target.value)}/>
           <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom='opactiy-100' afterLeave={() => setquery('')}>
             <ComboboxOptions >
+                {filtereManufacturers.length === 0 && query !== "" && (
+                  <ComboboxOption value={query} className="search-manufacturer__option">
+                    Create "{query}"
 
+                </ComboboxOption>):(
+                  filtereManufacturers.map((item) => (
+                    <Combobox.Option key={item} className={({active}) => `
+                    relative search
+                    `}>
+
+                    </Combobox.Option>
+                  ))
+                ) }
             </ComboboxOptions>
 
           </Transition>

@@ -1,9 +1,29 @@
 import React, { useState } from 'react';
+import { signUpWithEmail, logInWithEmail, signInWithOAuth } from '../lib/auth'; // Adjust the path
 
 const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
     const [isSignUp, setIsSignUp] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [countryCode, setCountryCode] = useState('+1'); // Default country code
 
     if (!isOpen) return null;
+
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const { error } = await logInWithEmail(email, password);
+        if (error) console.error(error);
+        // Handle successful login (e.g., close modal, redirect, etc.)
+    };
+
+    const handleSignUp = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const { error } = await signUpWithEmail(email, password);
+        if (error) console.error(error);
+        // Handle successful sign-up (e.g., close modal, redirect, etc.)
+    };
 
     return (
         <div id="login-popup" className="bg-black/50 overflow-y-auto overflow-x-hidden font-montserrat fixed top-0 right-0 left-0 z-50 h-full items-center justify-center flex">
@@ -21,17 +41,17 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
                     </button>
                     <div className="p-5">
                         <div className="text-center">
-                            <p className="mb-3 text-2xl font-semibold leading-5 text-slate-900">{isSignUp ? 'Create an Account' : 'Login to your account'}</p>
+                            <p className="mb-3 text-2xl font-semibold leading-5 text-slate-900">{isSignUp ? 'Create your account' : 'Login to your account'}</p>
                         </div>
                         <div className="mt-7 flex flex-col gap-2">
                             {/* Social login buttons */}
-                            <button className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-[18px] w-[18px]" viewBox="0 0 128 128"><path d="M97.905 67.885c.174 18.8 16.494 25.057 16.674 25.137-.138.44-2.607 8.916-8.597 17.669-5.178 7.568-10.553 15.108-19.018 15.266-8.318.152-10.993-4.934-20.504-4.934-9.508 0-12.479 4.776-20.354 5.086-8.172.31-14.395-8.185-19.616-15.724C15.822 94.961 7.669 66.8 18.616 47.791c5.438-9.44 15.158-15.417 25.707-15.571 8.024-.153 15.598 5.398 20.503 5.398 4.902 0 14.106-6.676 23.782-5.696 4.051.169 15.421 1.636 22.722 12.324-.587.365-13.566 7.921-13.425 23.639M82.272 21.719c4.338-5.251 7.258-12.563 6.462-19.836-6.254.251-13.816 4.167-18.301 9.416-4.02 4.647-7.54 12.087-6.591 19.216 6.971.54 14.091-3.542 18.43-8.796"/></svg>
-                                Continue with Apple
-                            </button>
-                            <button className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1">
+                            <button onClick={() => signInWithOAuth('google')} className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1">
                                 <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="h-[18px] w-[18px]" />
                                 Continue with Google
+                            </button>
+                            <button onClick={() => signInWithOAuth('apple')} className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-[18px] w-[18px]" viewBox="0 0 128 128"><path d="M97.905 67.885c.174 18.8 16.494 25.057 16.674 25.137-.138.44-2.607 8.916-8.597 17.669-5.178 7.568-10.553 15.108-19.018 15.266-8.318.152-10.993-4.934-20.504-4.934-9.508 0-12.479 4.776-20.354 5.086-8.172.31-14.395-8.185-19.616-15.724C15.822 94.961 7.669 66.8 18.616 47.791c5.438-9.44 15.158-15.417 25.707-15.571 8.024-.153 15.598 5.398 20.503 5.398 4.902 0 14.106-6.676 23.782-5.696 4.051.169 15.421 1.636 22.722 12.324-.587.365-13.566 7.921-13.425 23.639M82.272 21.719c4.338-5.251 7.258-12.563 6.462-19.836-6.254.251-13.816 4.167-18.301 9.416-4.02 4.647-7.54 12.087-6.591 19.216 6.971.54 14.091-3.542 18.43-8.796"/></svg>
+                                Continue with Apple
                             </button>
                         </div>
                         <div className="flex w-full items-center gap-2 py-6 text-sm text-slate-600">
@@ -39,61 +59,37 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
                             OR
                             <div className="h-px w-full bg-slate-200"></div>
                         </div>
-                        <form className="w-full">
-                            {isSignUp ? (
+                        <form className="w-full" onSubmit={isSignUp ? handleSignUp : handleLogin}>
+                            {isSignUp && (
                                 <>
                                     <label htmlFor="name" className="sr-only">Name</label>
-                                    <input name="name" type="text" required className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Full Name" />
-                                    <label htmlFor="email" className="sr-only">Email address</label>
-                                    <input name="email" type="email" autoComplete="email" required className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Email Address" />
+                                    <input name="name" type="text" required value={name} onChange={(e) => setName(e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Name" />
                                     <label htmlFor="phone" className="sr-only">Phone Number</label>
-                                    <div className="flex mt-2">
-                                       
-                                        <input name="phone" type="tel" required className="flex-1 rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Phone Number" />
-                                    </div>
-                                    <label htmlFor="password" className="sr-only">Password</label>
-                                    <input name="password" type="password" autoComplete="new-password" required className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Password" />
-                                </>
-                            ) : (
-                                <>
-                                    <label htmlFor="email" className="sr-only">Email address</label>
-                                    <input name="email" type="email" autoComplete="email" required className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Email Address" />
-                                    <label htmlFor="password" className="sr-only">Password</label>
-                                    <input name="password" type="password" autoComplete="current-password" required className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Password" />
-                                    <p className="mb-3 mt-2 text-sm text-gray-500">
-                                        <a href="/forgot-password" className="text-blue-800 hover:text-blue-600">Reset your password?</a>
-                                    </p>
+                                    <input name="phone" type="tel" required value={phone} onChange={(e) => setPhone(e.target.value)} className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Phone Number" />
+                                    <select value={countryCode} onChange={(e) => setCountryCode(e.target.value)} className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none focus:ring-2 focus:ring-black focus:ring-offset-1">
+                                        <option value="+1">+1</option>
+                                        <option value="+44">+44</option>
+                                        {/* Add more country codes as needed */}
+                                    </select>
                                 </>
                             )}
-                            <button type="submit" className="inline-flex w-full mt-2 items-center hover:bg-gray-800 justify-center rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400">
-                                {isSignUp ? 'Sign Up' : 'Continue'}
-                            </button>
+                            <label htmlFor="email" className="sr-only">Email address</label>
+                            <input name="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} className="block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1 mt-2" placeholder="Email Address" />
+                            <label htmlFor="password" className="sr-only">Password</label>
+                            <input name="password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Password" />
+                            {isSignUp ? (
+                                <p className="mb-3 mt-2 text-sm text-gray-500">
+                                    Already have an account? 
+                                    <button type="button" onClick={() => setIsSignUp(false)} className="text-blue-800 hover:text-blue-600">Login</button>
+                                </p>
+                            ) : (
+                                <p className="mb-3 mt-2 text-sm text-gray-500">
+                                    Don't have an account? 
+                                    <button type="button" onClick={() => setIsSignUp(true)} className="text-blue-800 hover:text-blue-600">Sign Up</button>
+                                </p>
+                            )}
+                            <button type="submit" className="inline-flex w-full items-center justify-center rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400">Continue</button>
                         </form>
-                        <p className="mt-4 text-sm text-gray-500">
-                        {isSignUp ? (
-                                <>
-                                    Already have an account?  
-                                    <button 
-                                        type="button" 
-                                        className="text-blue-800 ml-1 hover:text-blue-600" 
-                                        onClick={() => setIsSignUp(false)}
-                                    >
-                                        Log in
-                                    </button>
-                                </>
-                            ) : (
-                                <>
-                                    Don't have an account?  
-                                    <button 
-                                        type="button" 
-                                        className="text-blue-800 ml-1 hover:text-blue-600" 
-                                        onClick={() => setIsSignUp(true)}
-                                    >
-                                         Sign up
-                                    </button>
-                                </>
-                            )}
-                        </p>
                     </div>
                 </div>
             </div>

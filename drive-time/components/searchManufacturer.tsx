@@ -2,7 +2,7 @@
 import { useState, Fragment } from 'react';
 import Image from 'next/image';
 import { SearchManufacturerProps } from '@/types';
-import { Combobox, Combobox.Options, Combobox.Option, Transition } from '@headlessui/react';
+import { Combobox, Transition } from '@headlessui/react'; // No destructuring here
 import { manufacturers } from '@/constants';
 
 const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacturerProps) => {
@@ -40,8 +40,9 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
                       value={item} 
                       className={({ active }) => `
                       relative search-manufacturer__option ${active ? 'bg-primary-blue text-white':'text-gray-900'}
-                    `}>
-                      {item}
+                    `} value={item} >
+                      {({selected, active}) => {}}
+                      
                     </Combobox.Option>
                   ))
                 )}

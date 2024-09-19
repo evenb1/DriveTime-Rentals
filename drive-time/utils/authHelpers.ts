@@ -1,6 +1,6 @@
 // /utils/authHelpers.ts
 
-import { supabase } from './supabaseClient';
+import { supabase } from '../lib/supabaseClient';
 
 // Sign-in with email and password
 export const signInWithEmail = async (email: string, password: string) => {

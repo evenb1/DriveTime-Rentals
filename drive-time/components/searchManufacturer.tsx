@@ -41,7 +41,12 @@ const SearchManufacturer = ({ manufacturer, setManufacturer }: SearchManufacture
                       className={({ active }) => `
                       relative search-manufacturer__option ${active ? 'bg-primary-blue text-white':'text-gray-900'}
                     `} value={item} >
-                                            {({selected, active}) => {}}
+                                            {({selected, active}) => {
+
+                                              <>
+                                              
+                                              </>
+                                            }}
 
                     </Combobox.Option>
                   ))

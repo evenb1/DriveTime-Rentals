@@ -1,9 +1,10 @@
-import Hero from './Hero'
+import Hero from './hero'
 import CustomButton from './CustomButton'
 import Footer from './Footer'
 import SearchBar from './SearchBar'
 import CustomFilter from './CustomFilter'
 import { SupabaseClient } from '@supabase/supabase-js'
+import CarCard from './CarCard'
 export{
     Hero,
     
@@ -11,6 +12,7 @@ export{
     CustomButton,
     SearchBar,
     CustomFilter,
-    SupabaseClient
+    SupabaseClient,
+    CarCard
 
 }

@@ -1,5 +1,3 @@
-const fetch = require('node-fetch');
-
 const url = 'https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=corolla';
 const options = {
   method: 'GET',
@@ -15,4 +13,7 @@ try {
 	console.log(result);
 } catch (error) {
 	console.error(error);
+}
+export async function fetchCars(){
+    const headers = 
 }

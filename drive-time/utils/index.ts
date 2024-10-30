@@ -15,5 +15,8 @@ try {
 	console.error(error);
 }
 export async function fetchCars(){
-    const headers = 
+    const headers = {
+        'x-rapidapi-key': '6f8b752166mshd72cbd3229f278ap139b64jsna99ee7e78f37',
+    'x-rapidapi-host': 'cars-by-api-ninjas.p.rapidapi.com'
+    }
 }

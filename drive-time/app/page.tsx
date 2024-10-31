@@ -3,7 +3,7 @@ import Image from "next/image";
 import GlassNavbar from "@/components/GlassNavbar";
 import { fetchCars } from "@/utils";
 import { div } from "framer-motion/client";
-
+import { CarCard } from "@/components";
 
 export default async function Home() {
 

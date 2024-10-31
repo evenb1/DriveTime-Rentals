@@ -6,7 +6,7 @@ const HeroSearch = () => {
   const [returnDate, setReturnDate] = useState('');
 
   return (
-    <div className='flex justify-between items-center '>
+    <div className='flex items-center justify-between bg-white shadow-lg rounded-lg p-4 max-w-4xl mx-auto'>
         
         
     </div>

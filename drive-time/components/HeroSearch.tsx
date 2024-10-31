@@ -37,6 +37,12 @@ const HeroSearch = () => {
                     className="border border-gray-300 rounded-lg px-4 py-2 w-full text-gray-600 focus:outline-none focus:border-blue-500"
                 />
             </div>
+            <button
+                className="ml-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-300"
+                onClick={() => console.log("Searching...")}
+            >
+                Search
+            </button>
     </div>
   )
 }

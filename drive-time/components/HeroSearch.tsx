@@ -18,7 +18,9 @@ const HeroSearch = () => {
                 />
             </div>
             <span className="w-px h-10 bg-gray-200 mx-4"></span>
-
+            <div className="flex flex-col items-start">
+              
+            </div>
     </div>
   )
 }

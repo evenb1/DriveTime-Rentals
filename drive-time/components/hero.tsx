@@ -4,6 +4,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CustomButton } from '.';
 import GlassNavbar from './GlassNavbar';
+import HeroSearch from './HeroSearch';
 
 const Hero = () => {
     const titleVariants = {
@@ -45,6 +46,7 @@ const Hero = () => {
                         <span className="relative z-10 leading-10 font-montserrat">Book Now</span>
                     </motion.button>
                 </div>
+                <HeroSearch/>
             </div>
         </div>
     );

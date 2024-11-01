@@ -15,7 +15,7 @@ const GlassNavbar: React.FC = () => {
 
     return (
         <>
-            <nav className="flex items-center justify-between max-sm:rounded-none px-4 md:px-10 py-3 mx-4 md:mx-9 my-5 bg-white bg-opacity-70 backdrop-blur-md  shadow-xl relative">
+            <nav className="flex items-center justify-between max-sm:rounded-none px-4 md:px-10 py-3 mx-4 md:mx-9 my-5 bg-white bg-opacity-90 backdrop-blur-md  shadow-xl relative">
                 {/* Left Section (Navigation Links for larger devices) */}
                 <div className="hidden md:flex flex-1 justify-start gap-5 space-x-8">
                     <a href="#" className="text-gray-600 hover:text-gray-400">Fleet</a>

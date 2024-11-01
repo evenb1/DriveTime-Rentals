@@ -46,7 +46,8 @@ const Hero = () => {
                         <span className="relative z-10 leading-10 font-montserrat">Book Now</span>
                     </motion.button>
                 </div>
-                <HeroSearch/>
+                <div className='py-6'><HeroSearch/></div>
+                
             </div>
         </div>
     );

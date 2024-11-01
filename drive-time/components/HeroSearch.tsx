@@ -26,21 +26,22 @@ export default function HeroSearch() {
     }, []);
 
     return (
-        <div className="flex items-center justify-between border-none bg-white shadow-xl rounded-lg px-3 py-1 max-w-4xl mx-auto">
+        <div className="flex items-center font-montserrat justify-between border border-none bg-white shadow-xl rounded-xl px-3 py-3 max-w-4xl mx-auto">
             {/* Location Input */}
-            <div className="flex flex-col items-start">
-                <label className="text-gray-800 font-montserrat leading-4 font-medium mb-0">Location</label>
-                <div className="flex flex-row items-start">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8 p-0 m-0">
+            <div className="flex flex-row items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-8 h-8 p-0 m-0">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                     </svg>
+                <div className="flex flex-col items-start">
+                <label className="text-gray-800 font-medium leading-4 ml-2 mb-0">Location</label>
+
                     <input
                         type="text"
                         placeholder="Search your location"
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
-                        className="border-none rounded-lg px-4 py-1 w-full text-gray-600 focus:outline-none"
+                        className="border-none rounded-lg px-2 py-1 w-full text-gray-600 focus:outline-none"
                     />
                 </div>
             </div>
@@ -83,7 +84,7 @@ export default function HeroSearch() {
 
             {/* Search Button */}
             <button
-                className="ml-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-300"
+                className="ml-4 bg-blue-500 hover:bg-blue-600 text-white font-montserrat font-semibold px-6 py-3 rounded-lg transition-colors duration-300"
                 onClick={() => console.log("Searching...")}
             >
                 Search

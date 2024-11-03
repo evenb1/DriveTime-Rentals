@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import { carProps } from "@/types";
 
-interface carCardProps{
-    car: car
+interface CarCardProps{
+    car: carProps
 }
 const CarCard = ({car}) => {
   return (

@@ -23,6 +23,10 @@ const CarCard = ({car}: CarCardProps) => {
             <span className="self-end text-[14px] font-medium">/day</span>
 
         </p>
+        <div className="relative w-full h-40 my-3 object-contain">
+            <Image src="/" alt="car model" fill priority className="object-contain"/>
+
+        </div>
     </div>
   )
 }

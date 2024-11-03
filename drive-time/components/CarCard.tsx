@@ -2,8 +2,10 @@
 import { useState } from "react";
 import Image from "next/image";
 
-
-const CarCard = () => {
+interface carCardProps{
+    car: car
+}
+const CarCard = ({car}) => {
   return (
     <div>CarCard</div>
   )

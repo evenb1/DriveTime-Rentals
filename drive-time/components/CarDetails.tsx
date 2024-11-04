@@ -12,7 +12,9 @@ interface CarsDetailsProps{
 const CarDetails = ({isOpen, closeModal, car}:CarsDetailsProps) => {
    
   return (
-    <div>CarDetails</div>
+    <>
+    
+    </>
   )
 }
 

@@ -1,10 +1,14 @@
+import { carProps } from '@/types';
 import React from 'react'
 
-const CarDetails = () => {
-    interface CarsDetailsProps{
-        isOpen: boolean;
-        
-    }
+interface CarsDetailsProps{
+    isOpen: boolean;
+    closeModal: () => void;
+   car: carProps; 
+}
+
+const CarDetails = ({isOpen, closeModal, car}:CarsDetailsProps) => {
+   
   return (
     <div>CarDetails</div>
   )

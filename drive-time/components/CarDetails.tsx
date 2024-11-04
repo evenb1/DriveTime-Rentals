@@ -13,7 +13,9 @@ const CarDetails = ({isOpen, closeModal, car}:CarsDetailsProps) => {
    
   return (
     <>
-    
+    <Transition appear show={isOpen} as={Fragment}>
+      
+    </Transition>
     </>
   )
 }

@@ -1,7 +1,10 @@
 import React from 'react'
 
 const CarDetails = () => {
-    interface
+    interface CarsDetailsProps{
+        isOpen: boolean;
+        
+    }
   return (
     <div>CarDetails</div>
   )

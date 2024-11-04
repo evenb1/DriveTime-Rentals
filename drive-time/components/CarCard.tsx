@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { carProps } from "@/types";
 import CustomButton from "./CustomButton";
+import CarDetails from "./CarDetails";
 
 interface CarCardProps{
     car: carProps;
@@ -60,7 +61,7 @@ const CarCard = ({car}: CarCardProps) => {
             </div>
 
         </div>
-        <CarDetails/>
+        <CarDetails isOpen/>
     </div>
   )
 }

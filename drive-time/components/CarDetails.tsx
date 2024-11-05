@@ -23,7 +23,17 @@ const CarDetails = ({isOpen, closeModal, car}:CarsDetailsProps) => {
         </Transition.Child>
         <div className="fixed inset-0 overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4 text-center">
-          
+        <Transition.Child 
+        as={Fragment} 
+        enter="ease-out duration-300" 
+        enterFrom='opacity-o' 
+        enterTo='opacity-100' 
+        leave='ease-in duration-200'
+        leaveFrom='opactiy-100' 
+        leaveTo='opactiy-0'
+        >
+          <div className='fixed inset-0 bg-black bg-opacity-25'/>
+        </Transition.Child>
         </div>
         </div>
       </Dialog>

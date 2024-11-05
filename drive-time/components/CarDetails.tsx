@@ -16,7 +16,9 @@ const CarDetails = ({isOpen, closeModal, car}:CarsDetailsProps) => {
     <>
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as='div' className='relative z-10' onClose={closeModal}>
-        <Transition.Child as={Fragment} enter="ease-out duration-300">
+        <Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom='opacity-o' enterTo='opacity-100' leave='ease-in duration-200'
+        leaveFrom='opactiy-100' leaveTo='opactiy-0'
+        >
           <div className='fixed inset-0 bg-black bg-opacity-25'/>
         </Transition.Child>
       </Dialog>

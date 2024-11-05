@@ -14,9 +14,11 @@ const CarDetails = ({isOpen, closeModal, car}:CarsDetailsProps) => {
   return (
     <>
     <Transition appear show={isOpen} as={Fragment}>
-      <dialog as="div" className='relative z-10' onclose={closeModal}>
-        
-      </dialog>
+      <Dialog as='div' className='relative z-10' onClose={closeModal}>
+        <Transition.child>
+          <div className='fixed inset-0 bg-black bg-opacity-25'/>
+        </Transition.child>
+      </Dialog>
     </Transition>
     </>
   )

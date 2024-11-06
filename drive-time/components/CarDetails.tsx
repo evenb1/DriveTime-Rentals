@@ -32,7 +32,9 @@ const CarDetails = ({isOpen, closeModal, car}:CarsDetailsProps) => {
         leaveFrom='opactiy-100 scale-100' 
         leaveTo='opactiy-0 scale-100'
         >
-          <div className='fixed inset-0 bg-black bg-opacity-25'/>
+          <Dialog.Panel>
+            
+          </Dialog.Panel>
         </Transition.Child>
         </div>
         </div>

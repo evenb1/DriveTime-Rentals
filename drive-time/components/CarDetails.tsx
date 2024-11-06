@@ -34,7 +34,7 @@ const CarDetails = ({isOpen, closeModal, car}:CarsDetailsProps) => {
         leaveTo='opactiy-0 scale-100'
         >
           <Dialog.Panel className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto transform rounded-2xl bg-white
-          text-left shadow-xsl transition-all flex flex-col flex-5 gap-5 ">
+          text-left shadow-xl transition-all flex flex-col flex-5 gap-5 p-6">
           <button
                   type='button'
                   className='absolute top-2 right-2 z-10 w-fit p-2 bg-primary-blue-100 rounded-full'
@@ -79,7 +79,7 @@ const CarDetails = ({isOpen, closeModal, car}:CarsDetailsProps) => {
                     {Object.entries(car).map(([key, value]) => (
                       <div className="flex justify-between gap-5 w-full text-right" key={key}>
                         <h4 className='text-gray capitalize'>{key.split("_").join(" ")}</h4>
-                        <p>{value}</p>
+                        <p className='font-semibold text-black-100'>{value}</p>
 
                       </div>
                     ))}

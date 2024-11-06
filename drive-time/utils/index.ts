@@ -1,3 +1,5 @@
+import { carProps } from "@/types";
+
 export async function fetchCars(){
     const headers = {
         'x-rapidapi-key': '6f8b752166mshd72cbd3229f278ap139b64jsna99ee7e78f37',
@@ -10,4 +12,6 @@ export async function fetchCars(){
     const result = await response.json();
     return result;
 }
-export const generatCarImageUrl=
+export const generatCarImageUrl = (car: carProps, angle?: String) => {
+    
+}

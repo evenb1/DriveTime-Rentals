@@ -12,6 +12,3 @@ export async function fetchCars(){
     const result = await response.json();
     return result;
 }
-export const generatCarImageUrl = (car: carProps, angle?: String) => {
-    
-}

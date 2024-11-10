@@ -7,7 +7,7 @@ const SideBar = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
-  
+
   const navItems = [
     { label: "Dashboard", icon: <AiOutlineHome />, path: "/dashboard" },
     { label: "Properties", icon: <AiOutlineCar />, path: "/dashboard/properties" },
@@ -16,3 +16,14 @@ const SideBar = () => {
     { label: "Users", icon: <AiOutlineUser />, path: "/dashboard/users" },
     { label: "Settings", icon: <AiOutlineSetting />, path: "/dashboard/settings" },
   ];
+  return (
+    <div className={`h-screen ${isCollapsed ? "w-20" : "w-64"} bg-gray-900 text-white transition-width duration-300`}>
+      {/* Sidebar Header */}
+      <div className="flex items-center justify-between px-4 py-5 border-b border-gray-800">
+        <div className={`${isCollapsed ? "hidden" : "block"} text-xl font-bold`}>Drivetime</div>
+        <button
+          className="text-xl"
+          onClick={() => setIsCollapsed(!isCollapsed)}
+        >
+          {isCollapsed ? "→" : "←"}
+        </button>

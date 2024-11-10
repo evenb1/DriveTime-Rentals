@@ -8,6 +8,7 @@ const SideBar = () => {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
+  // Navigation Links
   const navItems = [
     { label: "Dashboard", icon: <AiOutlineHome />, path: "/dashboard" },
     { label: "Properties", icon: <AiOutlineCar />, path: "/dashboard/properties" },
@@ -16,6 +17,7 @@ const SideBar = () => {
     { label: "Users", icon: <AiOutlineUser />, path: "/dashboard/users" },
     { label: "Settings", icon: <AiOutlineSetting />, path: "/dashboard/settings" },
   ];
+
   return (
     <div className={`h-screen ${isCollapsed ? "w-20" : "w-64"} bg-gray-900 text-white transition-width duration-300`}>
       {/* Sidebar Header */}
@@ -27,7 +29,7 @@ const SideBar = () => {
         >
           {isCollapsed ? "→" : "←"}
         </button>
-        </div>
+      </div>
 
       {/* Navigation Links */}
       <nav className="mt-5">
@@ -38,8 +40,8 @@ const SideBar = () => {
             className={`flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-800 ${
               pathname === item.path ? "bg-gray-700" : ""
             }`}
-          ></div>
-          <span className="text-lg">{item.icon}</span>
+          >
+            <span className="text-lg">{item.icon}</span>
             {!isCollapsed && <span className="text-sm">{item.label}</span>}
           </div>
         ))}

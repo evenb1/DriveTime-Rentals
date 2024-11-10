@@ -1,6 +1,6 @@
 import React from "react";
-import Sidebar from "./components/Sidebar";
 import TopNav from "./components/TopNav";
+import SideBar from "./components/Sidebar";
 
 export default function DashboardLayout({
   children,
@@ -9,7 +9,7 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="flex h-screen">
-      <Sidebar />
+      <SideBar/>
       <div className="flex-1 flex flex-col">
         <TopNav />
         <main className="p-6 bg-gray-100 flex-1">{children}</main>

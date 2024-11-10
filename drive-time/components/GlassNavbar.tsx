@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from './Modal'; // Adjust the import path as necessary
-
+import Link from 'next/link';
 const GlassNavbar: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,6 +21,7 @@ const GlassNavbar: React.FC = () => {
                     <a href="#" className="text-gray-600 hover:text-gray-400">Fleet</a>
                     <a href="#" className="text-gray-600 hover:text-gray-400">History</a>
                     <a href="#" className="text-gray-600 hover:text-gray-400">Contact</a>
+                    <Link href="/dashboard"> Dashboard</Link>
                 </div>
 
                 {/* Logo Section */}

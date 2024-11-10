@@ -39,3 +39,13 @@ const SideBar = () => {
               pathname === item.path ? "bg-gray-700" : ""
             }`}
           ></div>
+          <span className="text-lg">{item.icon}</span>
+            {!isCollapsed && <span className="text-sm">{item.label}</span>}
+          </div>
+        ))}
+      </nav>
+    </div>
+  );
+};
+
+export default SideBar;

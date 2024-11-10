@@ -27,3 +27,15 @@ const SideBar = () => {
         >
           {isCollapsed ? "→" : "←"}
         </button>
+        </div>
+
+      {/* Navigation Links */}
+      <nav className="mt-5">
+        {navItems.map((item, index) => (
+          <div
+            key={index}
+            onClick={() => router.push(item.path)}
+            className={`flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-800 ${
+              pathname === item.path ? "bg-gray-700" : ""
+            }`}
+          ></div>

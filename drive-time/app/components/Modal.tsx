@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { signUpWithEmail, logInWithEmail, signInWithOAuth } from '../lib/auth'; // Adjust the path
+import { signUpWithEmail, logInWithEmail, signInWithOAuth } from '../../lib/auth'; // Adjust the path
 
 const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
     const [isSignUp, setIsSignUp] = useState(false);

@@ -1,3 +1,4 @@
+// Sidebar.tsx
 "use client";
 
 import Link from 'next/link';
@@ -18,7 +19,6 @@ const Sidebar = () => {
       <ul className="space-y-4">
         {links.map((link) => (
           <li key={link.href}>
-            {/* Updated: Removed the <a> tag and used Link directly */}
             <Link 
               href={link.href}
               className={`block p-2 rounded ${pathname === link.href ? 'bg-gray-700' : ''}`}

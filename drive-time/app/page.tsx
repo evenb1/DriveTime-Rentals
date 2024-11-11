@@ -1,9 +1,9 @@
-import { Hero, SearchBar, CustomFilter } from "@/components";
+import { Hero, SearchBar, CustomFilter } from "@/app/components";
 import Image from "next/image";
-import GlassNavbar from "@/components/GlassNavbar";
+import GlassNavbar from "@/app/components/GlassNavbar";
 import { fetchCars } from "@/utils";
 import { div } from "framer-motion/client";
-import { CarCard } from "@/components";
+import { CarCard } from "@/app/components";
 
 export default async function Home() {
 

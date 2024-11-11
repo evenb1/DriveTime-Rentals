@@ -1,53 +1,31 @@
-import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
-import { AiOutlineHome, AiOutlineCar, AiOutlineSetting, AiOutlineUser } from "react-icons/ai";
-import { FaMoneyCheckAlt, FaClipboardList } from "react-icons/fa";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-const SideBar = () => {
-  const router = useRouter();
+const Sidebar = () => {
   const pathname = usePathname();
-  const [isCollapsed, setIsCollapsed] = useState(false);
 
-  // Navigation Links
-  const navItems = [
-    { label: "Dashboard", icon: <AiOutlineHome />, path: "/dashboard" },
-    { label: "Properties", icon: <AiOutlineCar />, path: "/dashboard/properties" },
-    { label: "Bookings", icon: <FaClipboardList />, path: "/dashboard/bookings" },
-    { label: "Payments", icon: <FaMoneyCheckAlt />, path: "/dashboard/payments" },
-    { label: "Users", icon: <AiOutlineUser />, path: "/dashboard/users" },
-    { label: "Settings", icon: <AiOutlineSetting />, path: "/dashboard/settings" },
+  const links = [
+    { href: '/dashboard', label: 'Dashboard' },
+    { href: '/dashboard/properties', label: 'Properties' },
+    { href: '/dashboard/profile', label: 'Profile' },
   ];
 
   return (
-    <div className={`h-screen ${isCollapsed ? "w-20" : "w-64"} bg-gray-900 text-white transition-width duration-300`}>
-      {/* Sidebar Header */}
-      <div className="flex items-center justify-between px-4 py-5 border-b border-gray-800">
-        <div className={`${isCollapsed ? "hidden" : "block"} text-xl font-bold`}>Drivetime</div>
-        <button
-          className="text-xl"
-          onClick={() => setIsCollapsed(!isCollapsed)}
-        >
-          {isCollapsed ? "→" : "←"}
-        </button>
-      </div>
-
-      {/* Navigation Links */}
-      <nav className="mt-5">
-        {navItems.map((item, index) => (
-          <div
-            key={index}
-            onClick={() => router.push(item.path)}
-            className={`flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-800 ${
-              pathname === item.path ? "bg-gray-700" : ""
-            }`}
-          >
-            <span className="text-lg">{item.icon}</span>
-            {!isCollapsed && <span className="text-sm">{item.label}</span>}
-          </div>
+    <nav className="bg-gray-900 text-white h-screen w-64 p-6">
+      <h2 className="text-xl font-bold mb-6">Drivetime Rental</h2>
+      <ul className="space-y-4">
+        {links.map((link) => (
+          <li key={link.href}>
+            <Link href={link.href}>
+              <a className={`block p-2 rounded ${pathname === link.href ? 'bg-gray-700' : ''}`}>
+                {link.label}
+              </a>
+            </Link>
+          </li>
         ))}
-      </nav>
-    </div>
+      </ul>
+    </nav>
   );
 };
 
-export default SideBar;
+export default Sidebar;

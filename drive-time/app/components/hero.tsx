@@ -27,7 +27,7 @@ const Hero = () => {
                 <div className="">
                     <GlassNavbar />
                 </div>
-                <div className='flex-1 flex flex-col justify-center mt-[-300px] px-5 items-center text-center'>
+                <div className='flex-1 flex flex-col justify-center pb-48 px-5 items-center text-center'>
                     <motion.h1
                         className='hero__title font-montserrat text-white text-extrabold leading-none text-opacity-90'
                         variants={titleVariants}
@@ -37,13 +37,13 @@ const Hero = () => {
                         Premium Car Rental
                     </motion.h1>
                     <button
-                        className="relative mt-5 flex h-[50px] w-40 items-center justify-center overflow-hidden bg-blue-500 rounded-full text-white shadow-2xl transition-all before:absolute before:h-0 before:w-0 before:rounded-full before:bg-charcoal before:duration-500 before:ease-out hover:shadow-charcoal-600 hover:before:h-56 hover:before:w-56"
+                        className="relative mt-5 max-sm:hidden flex h-[50px] w-40 items-center justify-center overflow-hidden bg-blue-500 rounded-full text-white shadow-2xl transition-all before:absolute before:h-0 before:w-0 before:rounded-full before:bg-charcoal before:duration-500 before:ease-out hover:shadow-charcoal-600 hover:before:h-56 hover:before:w-56"
                         
                     >
                         <span className="relative z-10 leading-10 font-montserrat">Book Now</span>
                     </button>
                 </div>
-                <div className='py-6'><HeroSearch/></div>
+                <div className='pb-2'><HeroSearch/></div>
                 
             </div>
         </div>

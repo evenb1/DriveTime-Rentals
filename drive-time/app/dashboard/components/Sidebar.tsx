@@ -1,69 +1,127 @@
 // Sidebar.tsx
+
 "use client";
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 const Sidebar = () => {
   const pathname = usePathname();
 
+  // Icon and label items for sidebar links
+  const sidebarItems = [
+    { href: '/dashboard', label: 'Dashboard', icon: 'home' },
+    { href: '/dashboard/messages', label: 'Messages', icon: 'envelope' },
+    { href: '/dashboard/bookings', label: 'Bookings', icon: 'bookmark' },
+    { href: '/dashboard/profile', label: 'Profile', icon: 'user' },
+  ];
 
+  // Animate item appearance
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0 },
+  };
 
   return (
-    <nav className="bg-gray-200 text-black h-screen w-[250px] p-8">
+    <nav className="bg-gray-800 text-white h-screen w-[250px] p-8 shadow-lg flex flex-col justify-between">
+      <div>
+        {/* Sidebar title */}
+        <motion.h2
+          className="text-2xl font-bold mb-6"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+        >
+          Drivetime Rental
+        </motion.h2>
+        <hr className="my-4 border-t border-gray-600" />
 
-      <h2 className="text-xl font-bold mb-6">Drivetime Rental</h2>
-      <hr className="my-4 border-t border-gray-400" />
-
-      <ul className="space-y-4 flex flex-col pt-5 gap-3">
-        <div className="flex flex-row gap-1">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-</svg>
-
-        <Link 
-              href="/dashboard"
+        {/* Sidebar links */}
+        <ul className="space-y-4 justify-start">
+          {sidebarItems.map((item, index) => (
+            <motion.li
+              key={item.href}
+              variants={itemVariants}
+              initial="hidden"
+              animate="visible"
+              transition={{ delay: index * 0.1 }}
             >
-              <label className='font-inter font-2xl'>Dashboard</label>
-            </Link>
+              <Link href={item.href} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-lg font-semibold transition ${pathname === item.href ? 'bg-gray-700' : 'hover:bg-gray-700'}`}>
+                {/* Icons */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  {item.icon === 'home' && (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                    />
+                  )}
+                  {item.icon === 'envelope' && (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+                    />
+                  )}
+                  {item.icon === 'bookmark' && (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
+                    />
+                  )}
+                  {item.icon === 'user' && (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+                    />
+                  )}
+                </svg>
+                {/* Label */}
+                <span>{item.label}</span>
+              </Link>
+            </motion.li>
+          ))}
+        </ul>
+      </div>
 
-        </div>
-        <div className="flex flex-row gap-1">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-</svg>
-        <Link 
-              href="/dashboard/messages"
-            >
-              <label>Messages</label>
-            </Link>
-
-        </div><div className="flex flex-row gap-1">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
-</svg>
-
-        <Link 
-              href="/dashboard/bookings"
-            >
-              <label>Bookings</label>
-            </Link>
-
-        </div><div className="flex flex-row gap-1">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-</svg>
-
-        <Link 
-              href="/dashboard/profile"
-            >
-              <label>Profile</label>
-            </Link>
-
-        </div>
-          
-      
-      </ul>
+      {/* Logout Section */}
+      <motion.div
+        className="mt-4"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+      >
+        <Link href="/logout" className="flex items-center gap-3 px-4 py-3 rounded-lg bg-red-500 hover:bg-red-600 text-white font-semibold">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M15.75 9V5.25a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 5.25 5.25v13.5a2.25 2.25 0 0 0 2.25 2.25h6a2.25 2.25 0 0 0 2.25-2.25V15M9.75 12h10.5m0 0-3-3m3 3-3 3"
+            />
+          </svg>
+          <span>Logout</span>
+        </Link>
+      </motion.div>
     </nav>
   );
 };

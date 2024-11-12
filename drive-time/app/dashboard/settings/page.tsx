@@ -1,12 +1,11 @@
-// Settings.tsx
-
+"use client"
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Settings = () => {
-  const [expandedSection, setExpandedSection] = useState('');
+  const [expandedSection, setExpandedSection] = useState<string>('');
 
-  const toggleSection = (section) => {
+  const toggleSection = (section: string) => {
     setExpandedSection(expandedSection === section ? '' : section);
   };
 

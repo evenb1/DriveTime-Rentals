@@ -29,7 +29,7 @@ const Hero = () => {
                     <div className="">
                         <GlassNavbar />
                     </div>
-                    <div className="flex-1 flex flex-col justify-center pb-46 max-sm:gap-60 px-5 items-center text-center">
+                    <div className="flex-1 flex flex-col justify-center pb-48  max-sm:gap-60 px-5 items-center text-center">
                         <motion.h1
                             className="hero__title font-montserrat text-white text-extrabold leading-none text-opacity-90"
                             variants={titleVariants}

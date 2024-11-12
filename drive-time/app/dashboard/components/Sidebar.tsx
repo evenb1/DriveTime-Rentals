@@ -5,7 +5,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-
+import Image from 'next/image';
 const Sidebar = () => {
   const pathname = usePathname();
 
@@ -26,7 +26,7 @@ const Sidebar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 text-white h-screen w-[250px] p-8 shadow-lg flex flex-col justify-between">
+    <nav className="bg-gray-200 text-black h-screen w-[250px] p-8 shadow-lg flex flex-col justify-between">
       <div>
         {/* Sidebar title */}
         <motion.h2
@@ -35,7 +35,10 @@ const Sidebar = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          Drivetime Rental
+          <Link href={'/'}>
+          <img src="/logonew.png" className="w-32 md:w-40" alt="Logo" />
+          </Link>
+          
         </motion.h2>
         <hr className="my-4 border-t border-gray-600" />
 

@@ -22,3 +22,12 @@ const HomeDashboard = () => {
             <button className="bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-gray-100 transition">Messages</button>
           </div>
         </motion.div>
+ {/* Quick Overview Section */}
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Upcoming Bookings */}
+          <motion.div
+            className="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >

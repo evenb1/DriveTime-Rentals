@@ -67,3 +67,29 @@ const HomeDashboard = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           ></motion.div>
+<h2 className="text-xl font-semibold text-gray-700 mb-4">Rental Insights</h2>
+            <div className="space-y-2">
+              <p className="text-gray-600">Total Rentals: <strong>15</strong></p>
+              <p className="text-gray-600">Most Rented Car Type: <strong>SUV</strong></p>
+              <p className="text-gray-600">Favorite Location: <strong>Los Angeles</strong></p>
+            </div>
+          </motion.div>
+          {/* Notifications */}
+          <motion.div
+            className="bg-white rounded-lg shadow-lg p-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+          >
+            <h2 className="text-xl font-semibold text-gray-700 mb-4">Notifications</h2>
+            <ul className="space-y-3">
+              <li className="flex justify-between text-gray-600">
+                <span>Upcoming booking reminder</span>
+                <span className="text-sm font-medium text-green-500">New</span>
+              </li>
+              <li className="flex justify-between text-gray-600">
+                <span>Special discount on next rental</span>
+                <span className="text-sm font-medium text-yellow-500">Promo</span>
+              </li>
+            </ul>
+          </motion.div>

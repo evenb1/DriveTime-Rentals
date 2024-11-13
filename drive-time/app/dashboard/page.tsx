@@ -58,3 +58,12 @@ const HomeDashboard = () => {
             <button className="mt-4 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition">View Transactions</button>
           </motion.div>
         </div>
+        {/* Detailed Insights Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Rental Summary */}
+          <motion.div
+            className="bg-white rounded-lg shadow-lg p-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          ></motion.div>

@@ -58,7 +58,7 @@ export default function HeroSearch() {
                 </div>
             </div>
 
-            <span className="hidden md:inline-block w-px h-10 bg-gray-200 mx-4"></span>
+            <span className="hidden md:inline-block w-px h-10 bg-gray-200 mr-3"></span>
 
             {/* Return Date Display */}
             <div className="flex items-center gap-2 w-full md:w-auto mb-4 md:mb-0">

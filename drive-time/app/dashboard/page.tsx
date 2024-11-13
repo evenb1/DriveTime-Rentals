@@ -93,3 +93,22 @@ const HomeDashboard = () => {
               </li>
             </ul>
           </motion.div>
+          </div>
+
+{/* Review Section */}
+<motion.div
+  className="bg-white rounded-lg shadow-lg p-6 mt-6"
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.7 }}
+>
+  <h2 className="text-xl font-semibold text-gray-700 mb-4">Pending Reviews</h2>
+  <p className="text-gray-600">Don’t forget to leave a review for your last rental!</p>
+  <button className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition">Leave a Review</button>
+</motion.div>
+</div>
+</div>
+);
+};
+
+export default HomeDashboard;

@@ -46,3 +46,15 @@ const HomeDashboard = () => {
             <p className="text-gray-500 mt-2">You have <strong>2 unread messages</strong>.</p>
             <button className="mt-4 bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition">View Messages</button>
           </motion.div>
+          {/* Payment Summary */}
+          <motion.div
+            className="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <h2 className="text-xl font-semibold text-gray-700">Payment Summary</h2>
+            <p className="text-gray-500 mt-2">Total spent: <strong>$1500</strong></p>
+            <button className="mt-4 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition">View Transactions</button>
+          </motion.div>
+        </div>

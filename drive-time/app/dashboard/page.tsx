@@ -31,3 +31,7 @@ const HomeDashboard = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
+            <h2 className="text-xl font-semibold text-gray-700">Upcoming Bookings</h2>
+            <p className="text-gray-500 mt-2">Your next booking is a <strong>Premium SUV</strong> on <strong>Dec 20</strong> at <strong>9:00 AM</strong>.</p>
+            <button className="mt-4 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">View Details</button>
+          </motion.div>

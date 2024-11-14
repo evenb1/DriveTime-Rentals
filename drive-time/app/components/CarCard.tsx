@@ -18,7 +18,7 @@ const CarCard = ({ car }: CarCardProps) => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await fetch("/api/getFleetImages");
+        const response = await fetch("../../utils/getFleetImages");
         const allImages: string[] = await response.json();
 
         // Filter images based on make and model

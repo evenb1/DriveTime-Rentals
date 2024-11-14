@@ -12,6 +12,23 @@ const CarCard = ({car}: CarCardProps) => {
      const {city_mpg, year, make, model, transmission, drive} = car;
      const [IsOpen, setIsOpen] = useState(false);
 
+     const FleetSection = () => {
+        // Import all images in the `public/fleet` folder
+        const importImages = () => {
+          const context = require.context(
+            '../public/fleet',      // Path to the images folder
+            false,                  // Don't search subdirectories
+            /\.(png|jpe?g|svg)$/    // Match image files
+          );
+          return context.keys().reduce((images, path) => {
+            const name = path.replace('./', ''); // Remove "./" prefix from path
+            images[name] = context(path);        // Map filename to module path
+            return images;
+          }, {});
+        };
+      
+        const images = importImages(); // Load all images in the folder
+      
   return (
     <div className="car-card group">
         <div className="car-card__content">

@@ -35,8 +35,7 @@
     "images": [
       "/fleet/cadillac1.png",
       "/fleet/cadillac2.png",
-      "/fleet/cadillac3.png",
-      "/fleet/cadillac4.png"
+      "/fleet/cadillac3.png"
     ]
   },
   {
@@ -44,9 +43,7 @@
     "model": "Luxury",
     "images": [
       "/fleet/sclass1.png",
-      "/fleet/sclass2.png",
-      "/fleet/sclass3.png",
-      "/fleet/sclass4.png"
+      "/fleet/sclass2.png"
     ]
   },
   {
@@ -64,19 +61,14 @@
     "model": "Rover",
     "images": [
       "/fleet/range1.png",
-      "/fleet/range2.png",
-      "/fleet/range3.png",
-      "/fleet/range4.png"
+      "/fleet/range2.png"
     ]
   },
   {
     "make": "cayenne",
     "model": "Porsche",
     "images": [
-      "/fleet/cayenne1.png",
-      "/fleet/cayenne2.png",
-      "/fleet/cayenne3.png",
-      "/fleet/cayenne4.png"
+      "/fleet/cayenne1.png"
     ]
   }
 ]

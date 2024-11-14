@@ -1,10 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { carProps } from "@/types";
 import CustomButton from "./CustomButton";
 import CarDetails from "./CarDetails";
-import fleetData from "../../public/cars/fleet.json"; // Adjust the path if needed
 
 interface CarCardProps {
   car: carProps;
@@ -13,26 +12,27 @@ interface CarCardProps {
 const CarCard = ({ car }: CarCardProps) => {
   const { city_mpg, year, make, model, transmission, drive } = car;
   const [isOpen, setIsOpen] = useState(false);
+  const [carImages, setCarImages] = useState<string[]>([]);
 
-  // Dynamically import images based on the car's make and model
-  const importImages = () => {
-    const context = require.context(
-      "../../public/fleet", // Path to the fleet images folder
-      false,                 // Do not search subdirectories
-      /\.(png|jpe?g|svg)$/   // Match image files
-    );
+  // Fetch images from the API
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await fetch("/api/getFleetImages");
+        const allImages: string[] = await response.json();
 
-    return context.keys().reduce((images: { [key: string]: any }, path: string) => {
-      const name = path.replace("./", ""); // Remove "./" from the start of the path
-      images[name] = context(path);        // Map image file name to its path
-      return images;
-    }, {});
-  };
+        // Filter images based on make and model
+        const filteredImages = allImages.filter((img) =>
+          img.includes(`${make.toLowerCase()}${model.toLowerCase()}`)
+        );
+        setCarImages(filteredImages);
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      }
+    };
 
-  const images = importImages(); // Load all images in the folder
-  const carImages = Object.keys(images).filter(
-    (img) => img.startsWith(`${make.toLowerCase()}${model.toLowerCase()}`)
-  );
+    fetchImages();
+  }, [make, model]);
 
   return (
     <div className="car-card group">
@@ -51,7 +51,7 @@ const CarCard = ({ car }: CarCardProps) => {
       <div className="relative w-full h-40 my-3 object-contain">
         {carImages.length > 0 ? (
           <Image
-            src={images[carImages[0]].default} // Display the first image in carImages
+            src={carImages[0]} // Display the first image in carImages
             alt={`${make} ${model}`}
             fill
             priority

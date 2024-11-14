@@ -20,7 +20,13 @@ const Hero = () => {
     return (
         <>
             {/* Hero Section */}
-            <div className="relative w-full h-screen bg-hero-bg bg-cover bg-center">
+            <div
+    className="relative w-full h-screen bg-cover bg-center"
+    style={{
+        backgroundImage: `url('../../public/hero.jpg')`, // Adjust the path
+    }}
+>
+
                 {/* Transparent Overlay */}
                 <div className="absolute inset-0 bg-black bg-opacity-20 z-5"></div>
 

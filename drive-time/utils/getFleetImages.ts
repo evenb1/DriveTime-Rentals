@@ -5,7 +5,7 @@ import path from "path";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   // Path to the fleet images directory
-  const fleetDirectory = path.join(process.cwd(), "public/fleet");
+  const fleetDirectory = path.join(process.cwd(), "../../public/fleet");
 
   // Read all files in the fleet directory
   const files = fs.readdirSync(fleetDirectory);

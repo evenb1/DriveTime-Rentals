@@ -1,0 +1,10 @@
+[
+  { "model": "lexus", "name": "Lexus LC400" },
+  { "model": "wagon", "name": "Mercedes G-Wagon" },
+  { "model": "land", "name": "Land Cruiser" },
+  { "model": "cadillac", "name": "Cadillac" },
+  { "model": "sclass", "name": "Mercedes S-Class" },
+  { "model": "sprinter", "name": "Sprinter" },
+  { "model": "range", "name": "Range Rover" },
+  { "model": "cayenne", "name": " Porsche Cayenne" }
+]

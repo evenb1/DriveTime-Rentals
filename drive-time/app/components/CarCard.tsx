@@ -80,3 +80,14 @@ const CarCard = ({ car }: CarCardProps) => {
           />
         </div>
       </div>
+      {/* Car Details Modal */}
+      <CarDetails
+        isOpen={isOpen}
+        closeModal={() => setIsOpen(false)}
+        car={car}
+      />
+    </div>
+  );
+};
+
+export default CarCard;

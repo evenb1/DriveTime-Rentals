@@ -11,14 +11,14 @@ interface CarCardProps {
 
 // Map of car makes to their respective main images
 const carImages: { [key: string]: string } = {
-  lexus: "/fleet/lexus1.png",
-  land: "/fleet/land1.png",
-  wagon: "/fleet/wagon1.png",
-  cadillac: "/fleet/cadillac1.png",
-  sclass: "/fleet/sclass1.png",
-  sprinter: "/fleet/sprinter1.png",
-  range: "/fleet/range1.png",
-  cayenne: "/fleet/cayenne1.png",
+  lexus: "../../public/cars/lexus1.png",
+  land: "../../public/cars/land1.png",
+  wagon: "../../public/cars/wagon1.png",
+  cadillac: "../../public/cars/cadillac1.png",
+  sclass: "../../public/cars/sclass1.png",
+  sprinter: "../../public/cars/sprinter1.png",
+  range: "/../../public/cars/range1.png",
+  cayenne: "../../public/cars/cayenne1.png",
 };
 const CarCard = ({ car }: CarCardProps) => {
     const { city_mpg, year, make, model, transmission, drive } = car;

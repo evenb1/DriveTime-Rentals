@@ -26,7 +26,7 @@ const Sidebar = () => {
   };
 
   return (
-    <nav className="bg-gray-200 font-inter text-gray-500 h-screen w-[250px] p-8 shadow-lg flex flex-col justify-between">
+    <nav className="bg-gray-900 font-inter text-white h-screen w-[250px] p-8 shadow-lg flex flex-col justify-between ">
       <div>
         {/* Sidebar title */}
         <motion.h2

@@ -9,48 +9,42 @@ interface CarCardProps {
   car: carProps;
 }
 
-// Map of car makes to their respective main images
-const carImages: { [key: string]: string } = {
-  lexus: "../../public/cars/lexus1.png",
-  land: "../../public/cars/land1.png",
-  wagon: "../../public/cars/wagon1.png",
-  cadillac: "../../public/cars/cadillac1.png",
-  sclass: "../../public/cars/sclass1.png",
-  sprinter: "../../public/cars/sprinter1.png",
-  range: "/../../public/cars/range1.png",
-  cayenne: "../../public/cars/cayenne1.png",
-};
 const CarCard = ({ car }: CarCardProps) => {
-    const { city_mpg, year, make, model, transmission, drive } = car;
-    const [isOpen, setIsOpen] = useState(false);
-  
-    // Get the image for the car's make from the carImages object
-    const mainImage = carImages[make.toLowerCase()] || "/default-placeholder.png"; // Fallback to a placeholder if not found
-    return (
-        <div className="car-card group">
-          <div className="car-card__content">
-            <h2 className="car-card__content-title">
-              {make} {model}
-            </h2>
-          </div>
-          <p className="flex mt-6 text-[32px] font-extrabold">
-            <span className="self-start text-[14px] font-semibold">$</span>
-            100
-            <span className="self-end text-[14px] font-medium">/day</span>
-          </p>
-          {/* Main Car Image */}
+  const { city_mpg, year, make, model, transmission, drive } = car;
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Dynamically generate the main image path
+  const mainImage = `/cars/${make.toLowerCase()}1.png`; // Adjust the naming pattern if necessary
+  const fallbackImage = "/default-placeholder.png"; // Placeholder if the image is missing
+
+  return (
+    <div className="car-card group">
+      <div className="car-card__content">
+        <h2 className="car-card__content-title">
+          {make} {model}
+        </h2>
+      </div>
+      <p className="flex mt-6 text-[32px] font-extrabold">
+        <span className="self-start text-[14px] font-semibold">$</span>
+        100
+        <span className="self-end text-[14px] font-medium">/day</span>
+      </p>
+
+      {/* Main Car Image */}
       <div className="relative w-full h-40 my-3 object-contain">
         <Image
-          src={mainImage}
+          src={mainImage} // Dynamically generated path
           alt={`${make} ${model}`}
+          onError={(e) => (e.currentTarget.src = fallbackImage)} // Fallback to placeholder on error
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // Responsive sizes for better performance
           priority
           className="object-contain"
         />
       </div>
- {/* Car Specs */}
- <div className="relative flex w-full mt-2">
+
+      {/* Car Specs */}
+      <div className="relative flex w-full mt-2">
         <div className="flex group-hover:invisible w-full justify-between text-gray">
           <div className="flex flex-col justify-center items-center gap-2">
             <Image src="/steering-wheel.svg" width={20} height={20} alt="steering" />
@@ -69,8 +63,9 @@ const CarCard = ({ car }: CarCardProps) => {
             <p className="text-[14px]">{city_mpg}</p>
           </div>
         </div>
-{/* View More Button */}
-<div className="car-card__btn-container">
+
+        {/* View More Button */}
+        <div className="car-card__btn-container">
           <CustomButton
             title="View More"
             containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
@@ -80,6 +75,7 @@ const CarCard = ({ car }: CarCardProps) => {
           />
         </div>
       </div>
+
       {/* Car Details Modal */}
       <CarDetails
         isOpen={isOpen}

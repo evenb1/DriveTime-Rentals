@@ -6,16 +6,16 @@ import { FaHome } from "react-icons/fa";
 
 const TopNav = ({ userName = "John Doe", avatarUrl = "/default-avatar.png" }) => {
   return (
-    <nav className="w-full h-16 bg-white shadow-md flex items-center justify-between px-6">
+    <nav className="fixed top-0 right-0 z-50 bg-gray-900 shadow-lg rounded-full m-3 px-4 py-2 flex items-center gap-4">
       {/* Home Icon */}
       <Link href="/">
         <FaHome className="text-blue-500 text-2xl cursor-pointer hover:text-blue-600 transition" />
       </Link>
 
       {/* User Info */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         {/* User Name */}
-        <span className="text-gray-700 font-medium text-lg">{userName}</span>
+        <span className="text-white font-montserrat font-medium text-lg">{userName}</span>
 
         {/* User Avatar */}
         <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-300">

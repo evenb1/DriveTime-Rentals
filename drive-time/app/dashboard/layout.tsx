@@ -7,7 +7,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <div className="flex min-h-screen ">
       {/* Sidebar as a Client Component */}
       <Sidebar />
-      
+      <TopNav/>
       <main className="flex-1 p-8 bg-gray-100">{children}</main>
     </div>
   );

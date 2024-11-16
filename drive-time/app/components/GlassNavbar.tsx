@@ -27,7 +27,7 @@ const GlassNavbar: React.FC = () => {
                 {/* Logo Section */}
                 <div className="flex-shrink-0 flex-1 md:flex justify-center">
                     <a href="/" className="text-white text-lg font-bold">
-                        <img src="/logonew.png" className="w-32 md:w-40" alt="Logo" />
+                        <img src="/logo1new.png" className="w-32 md:w-40" alt="Logo" />
                     </a>
                 </div>
 

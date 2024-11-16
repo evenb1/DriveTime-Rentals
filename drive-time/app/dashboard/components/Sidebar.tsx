@@ -36,7 +36,7 @@ const Sidebar = () => {
           transition={{ delay: 0.1 }}
         >
           <Link href={'/'}>
-          <img src="/logonew.png" className="w-32 md:w-40" alt="Logo" />
+          <img src="/logo1new.png" className="w-32 md:w-40" alt="Logo" />
           </Link>
           
         </motion.h2>

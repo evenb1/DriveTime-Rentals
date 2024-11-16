@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 const HomeDashboard = () => {
   return (
@@ -20,8 +21,8 @@ const HomeDashboard = () => {
           <h1 className="text-3xl font-bold">Welcome back, John!</h1>
           <p className="text-lg mt-2">Here’s a quick overview of your account</p>
           <div className="mt-4 flex gap-4">
-            <button className="bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-gray-100 transition">Book Now</button>
-            <button className="bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-gray-100 transition">Messages</button>
+            <button className="bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-gray-100 transition"><Link href="/dashboard/bookings">Book Now</Link></button>
+            <button className="bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-gray-100 transition"><Link href="/dashboard/bookings">Messages</Link></button>
           </div>
         </motion.div>
 

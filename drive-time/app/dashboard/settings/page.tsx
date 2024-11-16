@@ -1,117 +1,63 @@
-"use client"
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+"use client";
+import React from "react";
+import { FaEnvelope, FaLock } from "react-icons/fa";
 
 const Settings = () => {
-  const [expandedSection, setExpandedSection] = useState<string>('');
-
-  const toggleSection = (section: string) => {
-    setExpandedSection(expandedSection === section ? '' : section);
-  };
-
   return (
-    <div className="p-6 bg-white shadow-lg rounded-lg">
-      <h1 className="text-2xl font-bold mb-4">Account Settings</h1>
+    <div className="p-8 bg-white shadow-lg rounded-lg max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">Account Settings</h1>
 
-      {/* Profile Settings */}
-      <div className="mb-4">
-        <button
-          className="text-lg font-semibold text-gray-700 flex justify-between items-center w-full"
-          onClick={() => toggleSection('profile')}
-        >
-          Profile Settings
-        </button>
-        <AnimatePresence>
-          {expandedSection === 'profile' && (
-            <motion.div
-              className="pl-4 pt-2"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <input type="text" placeholder="Update name" className="w-full border rounded px-2 py-1 mt-2" />
-              {/* Additional profile inputs */}
-            </motion.div>
-          )}
-        </AnimatePresence>
+      {/* Email Preferences Section */}
+      <div className="mb-8">
+        <h2 className="text-xl font-semibold text-gray-700 flex items-center gap-2 mb-4">
+          <FaEnvelope className="text-blue-500" /> Email Preferences
+        </h2>
+        <div className="mt-4">
+          <label className="flex items-center mb-3">
+            <input
+              type="checkbox"
+              className="w-5 h-5 text-blue-500 border-gray-300 focus:ring-blue-400"
+            />
+            <span className="ml-2 text-gray-600">Receive Booking Updates</span>
+          </label>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              className="w-5 h-5 text-blue-500 border-gray-300 focus:ring-blue-400"
+            />
+            <span className="ml-2 text-gray-600">Receive Promotions and Offers</span>
+          </label>
+        </div>
       </div>
 
-      {/* Email Preferences */}
-      <div className="mb-4">
-        <button
-          className="text-lg font-semibold text-gray-700 flex justify-between items-center w-full"
-          onClick={() => toggleSection('email')}
-        >
-          Email Preferences
-        </button>
-        <AnimatePresence>
-          {expandedSection === 'email' && (
-            <motion.div
-              className="pl-4 pt-2"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <label className="flex items-center mt-2">
-                <input type="checkbox" className="mr-2" />
-                Receive Booking Updates
-              </label>
-              {/* Additional email preferences */}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* Privacy Settings */}
-      <div className="mb-4">
-        <button
-          className="text-lg font-semibold text-gray-700 flex justify-between items-center w-full"
-          onClick={() => toggleSection('privacy')}
-        >
-          Privacy Settings
-        </button>
-        <AnimatePresence>
-          {expandedSection === 'privacy' && (
-            <motion.div
-              className="pl-4 pt-2"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <label className="flex items-center mt-2">
-                <input type="checkbox" className="mr-2" />
-                Allow Profile Visibility
-              </label>
-              {/* Additional privacy options */}
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      {/* Security Settings */}
-      <div className="mb-4">
-        <button
-          className="text-lg font-semibold text-gray-700 flex justify-between items-center w-full"
-          onClick={() => toggleSection('security')}
-        >
-          Security Settings
-        </button>
-        <AnimatePresence>
-          {expandedSection === 'security' && (
-            <motion.div
-              className="pl-4 pt-2"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <button className="bg-red-500 text-white py-1 px-2 rounded">Change Password</button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+      {/* Security Section */}
+      <div>
+        <h2 className="text-xl font-semibold text-gray-700 flex items-center gap-2 mb-4">
+          <FaLock className="text-blue-500" /> Security Settings
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label className="block text-gray-600 font-medium mb-1">Current Password</label>
+            <input
+              type="password"
+              placeholder="********"
+              className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-600 font-medium mb-1">New Password</label>
+            <input
+              type="password"
+              placeholder="********"
+              className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+          <div className="col-span-1 md:col-span-2">
+            <button className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition">
+              Change Password
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

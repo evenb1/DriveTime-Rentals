@@ -4,8 +4,9 @@ import { FaEnvelope, FaLock } from "react-icons/fa";
 
 const Settings = () => {
   return (
-    <div className="p-8 bg-white shadow-lg rounded-lg max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Account Settings</h1>
+    <div className="p-8 flex flex-col gap-2 rounded-lg max-w-5xl mx-auto">
+      <h1 className="text-3xl font-extrabold mb-6 text-gray-800">Account Settings</h1>
+      <hr className="my-4 border-t border-gray-300" />
 
       {/* Email Preferences Section */}
       <div className="mb-8">
@@ -29,6 +30,7 @@ const Settings = () => {
           </label>
         </div>
       </div>
+      <hr className="my-4 border-t border-gray-300" />
 
       {/* Security Section */}
       <div>

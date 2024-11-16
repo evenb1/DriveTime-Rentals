@@ -42,11 +42,12 @@ const Profile = () => {
     <div className="max-w-5xl mx-auto p-8">
       {/* Header Section */}
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-extrabold text-gray-800">Profile Settings</h1>
+        <h1 className="text-3xl font-extrabold text-gray-800">Profile</h1>
       </div>
+      <hr className="my-4 border-t border-gray-300" />
 
       {/* Avatar and Details */}
-      <div className="flex flex-col md:flex-row items-center gap-8">
+      <div className="flex flex-col md:flex-row p-6 items-center gap-8">
         {/* Avatar Section */}
         <div className="relative">
           {avatar ? (

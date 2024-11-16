@@ -5,9 +5,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import TopNav from './components/TopNav';
 
 const HomeDashboard = () => {
   return (
+
     <div className=" bg-white ">
       <div className="max-w-6xl mx-auto space-y-8">
         

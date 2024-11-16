@@ -30,7 +30,7 @@ const Settings = () => {
           </label>
         </div>
       </div>
-      <hr className="my-4 border-t border-gray-200" />
+      <hr className="my-4 border-t border-gray-300" />
 
       {/* Security Section */}
       <div>

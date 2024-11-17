@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaHome } from "react-icons/fa";
 
-const TopNav = ({ userName = "John Doe", avatarUrl = "/default-avatar.png" }) => {
+const TopNav = ({ userName = "John Doe", avatarUrl = "/default-avatar.jpg" }) => {
   return (
     <nav className="fixed top-0 right-0 z-50 bg-gray-900 shadow-lg rounded-full m-3 px-4 py-2 flex items-center gap-4">
       {/* Home Icon */}

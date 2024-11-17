@@ -29,7 +29,7 @@ const Hero = () => {
                     <div className="">
                         <GlassNavbar />
                     </div>
-                    <div className="flex-1 flex flex-col justify-center pb-48  max-sm:gap-60 px-5 items-center text-center">
+                    <div className="flex-1 flex flex-col justify-center pb-48 max-sm:mt-10  max-sm:gap-56 px-5 items-center text-center">
                         <motion.h1
                             className="hero__title font-montserrat text-white text-extrabold leading-none text-opacity-90"
                             variants={titleVariants}
@@ -46,14 +46,14 @@ const Hero = () => {
                     </div>
 
                     {/* Render HeroSearch within Hero on larger screens only */}
-                    <div className="pb-2 hidden sm:block">
+                    <div className="pb-4 hidden sm:block">
                         <HeroSearch />
                     </div>
                 </div>
             </div>
 
             {/* Render HeroSearch as a separate section on smaller screens */}
-            <div className="block sm:hidden mt-6 px-4">
+            <div className="block sm:hidden mt-6 px-4 ">
                 <HeroSearch />
             </div>
         </>

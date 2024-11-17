@@ -27,3 +27,15 @@ const Features = () => {
         description: "Drive with peace of mind knowing your safety is our priority.",
       },
     ];
+    return (
+        <section className="bg-gray-50 py-12">
+          <div className="max-w-7xl mx-auto px-6">
+            {/* Title */}
+            <motion.h2
+              className="text-3xl font-extrabold text-center text-gray-800 mb-6"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              Why Choose Us?
+            </motion.h2>

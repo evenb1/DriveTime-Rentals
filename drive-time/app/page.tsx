@@ -4,6 +4,7 @@ import GlassNavbar from "@/app/components/GlassNavbar";
 import { fetchCars } from "@/utils";
 import { div } from "framer-motion/client";
 import { CarCard } from "@/app/components";
+import Features from "./components/Features";
 
 export default async function Home() {
 
@@ -28,6 +29,7 @@ export default async function Home() {
           <CustomFilter title="year"/>
         </div>
       </div>
+      <Features/>
 
       {!isDataEmpty ? (
         <section>

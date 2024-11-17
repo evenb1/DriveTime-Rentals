@@ -53,3 +53,15 @@ const Features = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             ></motion.div>
+            {/* Icon */}
+            <div className="mb-4">{feature.icon}</div>
+
+            {/* Title */}
+            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              {feature.title}
+            </h3>
+
+            {/* Description */}
+            <p className="text-gray-600">{feature.description}</p>
+          </motion.div>
+        ))}

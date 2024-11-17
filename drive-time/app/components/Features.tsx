@@ -39,3 +39,17 @@ const Features = () => {
             >
               Why Choose Us?
             </motion.h2>
+            {/* Features Grid */}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 1 }}
+        >
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center text-center"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            ></motion.div>

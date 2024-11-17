@@ -65,3 +65,10 @@ const Features = () => {
             <p className="text-gray-600">{feature.description}</p>
           </motion.div>
         ))}
+          </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default Features;

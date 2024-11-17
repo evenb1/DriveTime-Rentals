@@ -15,7 +15,6 @@ export default async function Home() {
   return (
     <main className="overflow-hidden ">
       <Hero />
-    
       <div className="mt-12 padding-x padding-y max-width" id="discover">
         <div className="home__text-container">
           <h1 className="text-4xl font-extrabold"> Our Fleet</h1>
@@ -29,7 +28,7 @@ export default async function Home() {
           <CustomFilter title="year"/>
         </div>
       </div>
-      <Features/>
+      
 
       {!isDataEmpty ? (
         <section>
@@ -44,6 +43,11 @@ export default async function Home() {
         </div>
         
       )}
+    
+      <Features/>
+     
+           
+
     </main>
   );
 }

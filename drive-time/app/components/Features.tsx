@@ -28,11 +28,11 @@ const HomeFeatures = () => {
   ];
 
   return (
-    <section className="bg-gray-50 py-12">
+    <section className="bg-gray-50 py-20 mt-8">
       <div className="max-w-7xl mx-auto px-6">
         {/* Title */}
         <motion.h2
-          className="text-3xl font-extrabold text-center text-gray-800 mb-6"
+          className="text-3xl font-extrabold font-montserrat leading-5 text-center text-gray-800 mb-6"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}

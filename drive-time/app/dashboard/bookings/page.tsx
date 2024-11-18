@@ -1,42 +1,128 @@
-// Bookings.tsx
+"use client";
+import React, { useState } from "react";
+import { FaSearch, FaCar, FaCalendarAlt, FaClock, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
-import React from 'react';
-
-const Bookings = () => {
-  const bookings = [
+const BookingsPage = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [bookings, setBookings] = useState([
     {
       id: 1,
-      property: 'Cozy Apartment in Downtown',
-      date: '12 Dec 2024 - 18 Dec 2024',
-      status: 'Confirmed',
+      car: "Lexus RX 350",
+      date: "Nov 12 - Nov 15",
+      time: "10:00 AM - 6:00 PM",
+      status: "Confirmed",
     },
     {
       id: 2,
-      property: 'Modern Loft',
-      date: '22 Jan 2025 - 28 Jan 2025',
-      status: 'Pending',
+      car: "Mercedes S-Class",
+      date: "Nov 18 - Nov 20",
+      time: "9:00 AM - 5:00 PM",
+      status: "Pending",
     },
-  ];
+    {
+      id: 3,
+      car: "Range Rover Sport",
+      date: "Nov 25 - Nov 28",
+      time: "8:00 AM - 4:00 PM",
+      status: "Cancelled",
+    },
+  ]);
 
- 
+  const filteredBookings = bookings.filter((booking) =>
+    booking.car.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold mb-4">My Bookings</h1>
-      <ul className="space-y-4">
-        {bookings.map((booking) => (
-          <li key={booking.id} className="p-4 bg-gray-100 rounded flex justify-between items-center">
-            <div>
-              <h2 className="font-semibold">{booking.property}</h2>
-              <p className="text-sm text-gray-600">{booking.date}</p>
-            </div>
-            <p className={`text-${booking.status === 'Confirmed' ? 'green' : 'orange'}-500`}>
-              {booking.status}
-            </p>
-          </li>
-        ))}
-      </ul>
+    <div className="max-w-7xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+      {/* Page Title */}
+      <h1 className="text-3xl font-bold text-gray-800 mb-6">My Bookings</h1>
+
+      {/* Search Bar */}
+      <div className="flex items-center mb-6 bg-gray-50 p-4 rounded-lg shadow-sm">
+        <FaSearch className="text-gray-400 text-lg mr-2" />
+        <input
+          type="text"
+          placeholder="Search bookings..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full bg-transparent focus:outline-none text-gray-700 placeholder-gray-400"
+        />
+      </div>
+
+      {/* Bookings Table */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border-collapse border border-gray-200">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-4 text-left text-gray-700 font-medium border-b">Car</th>
+              <th className="p-4 text-left text-gray-700 font-medium border-b">Rental Period</th>
+              <th className="p-4 text-left text-gray-700 font-medium border-b">Time</th>
+              <th className="p-4 text-left text-gray-700 font-medium border-b">Status</th>
+              <th className="p-4 text-left text-gray-700 font-medium border-b">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredBookings.length > 0 ? (
+              filteredBookings.map((booking) => (
+                <tr key={booking.id} className="hover:bg-gray-50">
+                  <td className="p-4 flex items-center gap-2 text-gray-700">
+                    <FaCar className="text-blue-500" />
+                    {booking.car}
+                  </td>
+                  <td className="p-4 text-gray-600">
+                    <FaCalendarAlt className="inline mr-1 text-gray-400" />
+                    {booking.date}
+                  </td>
+                  <td className="p-4 text-gray-600">
+                    <FaClock className="inline mr-1 text-gray-400" />
+                    {booking.time}
+                  </td>
+                  <td className="p-4">
+                    {booking.status === "Confirmed" && (
+                      <span className="flex items-center gap-1 text-green-600">
+                        <FaCheckCircle className="text-green-500" /> Confirmed
+                      </span>
+                    )}
+                    {booking.status === "Pending" && (
+                      <span className="flex items-center gap-1 text-yellow-600">
+                        <FaClock className="text-yellow-500" /> Pending
+                      </span>
+                    )}
+                    {booking.status === "Cancelled" && (
+                      <span className="flex items-center gap-1 text-red-600">
+                        <FaTimesCircle className="text-red-500" /> Cancelled
+                      </span>
+                    )}
+                  </td>
+                  <td className="p-4">
+                    <button className="text-blue-500 hover:underline">
+                      View Details
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={5}
+                  className="p-4 text-center text-gray-500 italic"
+                >
+                  No bookings found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      {/* CTA Button */}
+      <div className="mt-6 text-right">
+        <button className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-600 transition">
+          Create New Booking
+        </button>
+      </div>
     </div>
   );
 };
 
-export default Bookings;
+export default BookingsPage;

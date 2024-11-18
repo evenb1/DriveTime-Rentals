@@ -1,112 +1,130 @@
-// HomeDashboard.tsx
-
 "use client";
+import React, { useState } from "react";
+import { FaSearch, FaCar, FaCalendarAlt, FaClock, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import TopNav from './components/TopNav';
+const BookingsPage = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [bookings, setBookings] = useState([
+    {
+      id: 1,
+      car: "Lexus RX 350",
+      date: "Nov 12 - Nov 15",
+      time: "10:00 AM - 6:00 PM",
+      status: "Confirmed",
+    },
+    {
+      id: 2,
+      car: "Mercedes S-Class",
+      date: "Nov 18 - Nov 20",
+      time: "9:00 AM - 5:00 PM",
+      status: "Pending",
+    },
+    {
+      id: 3,
+      car: "Range Rover Sport",
+      date: "Nov 25 - Nov 28",
+      time: "8:00 AM - 4:00 PM",
+      status: "Cancelled",
+    },
+  ]);
 
-const HomeDashboard = () => {
+  const filteredBookings = bookings.filter((booking) =>
+    booking.car.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
+    <div className="max-w-7xl mx-auto p-12 rounded-lg">
+      {/* Page Title */}
+      <h1 className="text-3xl font-extrabold text-gray-800 mb-6">My Bookings</h1>
+      <hr className="my-4 border-t border-gray-300" />
 
-    <div className=" bg-white ">
-      <div className="max-w-6xl mx-auto space-y-8">
-        
-        {/* Welcome Banner */}
-        <motion.div
-          className="bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg p-6  text-white"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h1 className="text-3xl font-bold">Welcome back, John!</h1>
-          <p className="text-lg mt-2">Here’s a quick overview of your account</p>
-          <div className="mt-4 flex gap-4">
-            <button className="bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-gray-100 transition"><Link href="/dashboard/bookings">Book Now</Link></button>
-            <button className="bg-white text-blue-600 px-4 py-2 rounded-lg shadow hover:bg-gray-100 transition"><Link href="/dashboard/bookings">Messages</Link></button>
-          </div>
-        </motion.div>
 
-        {/* Quick Overview Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Upcoming Bookings */}
-          <motion.div
-            className="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            <h2 className="text-xl font-semibold text-gray-700">Upcoming Bookings</h2>
-            <p className="text-gray-500 mt-2">Your next booking is a <strong>Premium SUV</strong> on <strong>Dec 20</strong> at <strong>9:00 AM</strong>.</p>
-            <button className="mt-4 bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">View Details</button>
-          </motion.div>
+      {/* Search Bar */}
+      <div className="flex items-center mb-6 bg-gray-50 p-4 rounded-lg shadow-md">
+        <FaSearch className="text-gray-400 text-lg mr-2" />
+        <input
+          type="text"
+          placeholder="Search bookings..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full bg-transparent focus:outline-none text-gray-700 placeholder-gray-400"
+        />
+      </div>
 
-          {/* Recent Messages */}
-          <motion.div
-            className="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <h2 className="text-xl font-semibold text-gray-700">Recent Messages</h2>
-            <p className="text-gray-500 mt-2">You have <strong>2 unread messages</strong>.</p>
-            <button className="mt-4 bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition">View Messages</button>
-          </motion.div>
+      {/* Bookings Table */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border-collapse border border-gray-200">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-4 text-left text-gray-700 font-medium border-b">Car</th>
+              <th className="p-4 text-left text-gray-700 font-medium border-b">Rental Period</th>
+              <th className="p-4 text-left text-gray-700 font-medium border-b">Time</th>
+              <th className="p-4 text-left text-gray-700 font-medium border-b">Status</th>
+              <th className="p-4 text-left text-gray-700 font-medium border-b">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredBookings.length > 0 ? (
+              filteredBookings.map((booking) => (
+                <tr key={booking.id} className="hover:bg-gray-50">
+                  <td className="p-4 flex items-center gap-2 text-gray-700">
+                    <FaCar className="text-blue-500" />
+                    {booking.car}
+                  </td>
+                  <td className="p-4 text-gray-600">
+                    <FaCalendarAlt className="inline mr-1 text-gray-400" />
+                    {booking.date}
+                  </td>
+                  <td className="p-4 text-gray-600">
+                    <FaClock className="inline mr-1 text-gray-400" />
+                    {booking.time}
+                  </td>
+                  <td className="p-4">
+                    {booking.status === "Confirmed" && (
+                      <span className="flex items-center gap-1 text-green-600">
+                        <FaCheckCircle className="text-green-500" /> Confirmed
+                      </span>
+                    )}
+                    {booking.status === "Pending" && (
+                      <span className="flex items-center gap-1 text-yellow-600">
+                        <FaClock className="text-yellow-500" /> Pending
+                      </span>
+                    )}
+                    {booking.status === "Cancelled" && (
+                      <span className="flex items-center gap-1 text-red-600">
+                        <FaTimesCircle className="text-red-500" /> Cancelled
+                      </span>
+                    )}
+                  </td>
+                  <td className="p-4">
+                    <button className="text-blue-500 hover:underline">
+                      View Details
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan={5}
+                  className="p-4 text-center text-gray-500 italic"
+                >
+                  No bookings found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
 
-          {/* Payment Summary */}
-          <motion.div
-            className="bg-white rounded-lg shadow-lg p-6 flex flex-col justify-between"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            <h2 className="text-xl font-semibold text-gray-700">Payment Summary</h2>
-            <p className="text-gray-500 mt-2">Total spent: <strong>$1500</strong></p>
-            <button className="mt-4 bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition">View Transactions</button>
-          </motion.div>
-        </div>
-
-        {/* Detailed Insights Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Rental Summary */}
-          <motion.div
-            className="bg-white rounded-lg shadow-lg p-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-          >
-            <h2 className="text-xl font-semibold text-gray-700 mb-4">Rental Insights</h2>
-            <div className="space-y-2">
-              <p className="text-gray-600">Total Rentals: <strong>15</strong></p>
-              <p className="text-gray-600">Most Rented Car Type: <strong>SUV</strong></p>
-              <p className="text-gray-600">Favorite Location: <strong>Los Angeles</strong></p>
-            </div>
-          </motion.div>
-
-          {/* Notifications */}
-          <motion.div
-            className="bg-white rounded-lg shadow-lg p-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-          >
-            <h2 className="text-xl font-semibold text-gray-700 mb-4">Notifications</h2>
-            <ul className="space-y-3">
-              <li className="flex justify-between text-gray-600">
-                <span>Upcoming booking reminder</span>
-                <span className="text-sm font-medium text-green-500">New</span>
-              </li>
-              <li className="flex justify-between text-gray-600">
-                <span>Special discount on next rental</span>
-                <span className="text-sm font-medium text-yellow-500">Promo</span>
-              </li>
-            </ul>
-          </motion.div>
-        </div>
+      {/* CTA Button */}
+      <div className="mt-6 text-right">
+        <button className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-600 transition">
+          Create New Booking
+        </button>
       </div>
     </div>
   );
 };
 
-export default HomeDashboard;
+export default BookingsPage;

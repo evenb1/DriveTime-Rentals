@@ -1,34 +1,32 @@
-// Sidebar.tsx
-
 "use client";
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+
 const Sidebar = () => {
   const pathname = usePathname();
 
-  // Icon and label items for sidebar links
+  // Sidebar items with updated paths
   const sidebarItems = [
-    { href: '/dashboard', label: 'Dashboard', icon: 'home' },
+    { href: '/dashboard', label: 'Bookings', icon: 'bookmark' }, // Updated to point to root
     { href: '/dashboard/messages', label: 'Messages', icon: 'envelope' },
-    { href: '/dashboard/bookings', label: 'Bookings', icon: 'bookmark' },
     { href: '/dashboard/profile', label: 'Profile', icon: 'user' },
     { href: '/dashboard/payments', label: 'Payments', icon: 'credit-card' },
     { href: '/dashboard/settings', label: 'Settings', icon: 'settings' },
   ];
 
-  // Animate item appearance
+  // Animation for sidebar items
   const itemVariants = {
     hidden: { opacity: 0, x: -20 },
     visible: { opacity: 1, x: 0 },
   };
 
   return (
-    <nav className="bg-gray-900 font-inter text-white h-screen w-[250px] p-8 shadow-lg flex flex-col justify-between ">
+    <nav className="bg-gray-900 font-inter text-white h-screen w-[250px] p-8 shadow-lg flex flex-col justify-between">
       <div>
-        {/* Sidebar title */}
+        {/* Logo */}
         <motion.h2
           className="text-2xl font-bold mb-6"
           initial={{ opacity: 0, y: -20 }}
@@ -36,14 +34,13 @@ const Sidebar = () => {
           transition={{ delay: 0.1 }}
         >
           <Link href={'/'}>
-          <img src="/logo1new.png" className="w-32 md:w-40" alt="Logo" />
+            <img src="/logo1new.png" className="w-32 md:w-40" alt="Logo" />
           </Link>
-          
         </motion.h2>
         <hr className="my-4 border-t border-gray-600" />
 
         {/* Sidebar links */}
-        <ul className="space-y-4 justify-start">
+        <ul className="space-y-4">
           {sidebarItems.map((item, index) => (
             <motion.li
               key={item.href}
@@ -52,7 +49,12 @@ const Sidebar = () => {
               animate="visible"
               transition={{ delay: index * 0.1 }}
             >
-              <Link href={item.href} className={`flex items-center gap-3 px-4 py-3 rounded-lg text-lg font-semibold transition ${pathname === item.href ? 'bg-gray-700' : 'hover:bg-gray-700'}`}>
+              <Link
+                href={item.href}
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg text-lg font-semibold transition ${
+                  pathname === item.href ? 'bg-gray-700' : 'hover:bg-gray-700'
+                }`}
+              >
                 {/* Icons */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -61,12 +63,12 @@ const Sidebar = () => {
                   stroke="currentColor"
                   className="w-6 h-6"
                 >
-                  {item.icon === 'home' && (
+                  {item.icon === 'bookmark' && (
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={1.5}
-                      d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                      d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
                     />
                   )}
                   {item.icon === 'envelope' && (
@@ -75,14 +77,6 @@ const Sidebar = () => {
                       strokeLinejoin="round"
                       strokeWidth={1.5}
                       d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
-                    />
-                  )}
-                  {item.icon === 'bookmark' && (
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
                     />
                   )}
                   {item.icon === 'user' && (
@@ -102,12 +96,14 @@ const Sidebar = () => {
                     />
                   )}
                   {item.icon === 'settings' && (
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 0 1-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 1 1-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 0 1 6.336-4.486l-3.276 3.276a3.004 3.004 0 0 0 2.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852Z" />                  
-                   
-
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={1.5}
+                      d="M21.75 6.75a4.5 4.5 0 0 1-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 1 1-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 0 1 6.336-4.486l-3.276 3.276a3.004 3.004 0 0 0 2.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852Z"
+                    />
                   )}
                 </svg>
-                {/* Label */}
                 <span>{item.label}</span>
               </Link>
             </motion.li>
@@ -122,7 +118,10 @@ const Sidebar = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
-        <Link href="/logout" className="flex items-center gap-3 px-4 py-3 rounded-lg bg-red-500 hover:bg-red-600 text-white font-semibold">
+        <Link
+          href="/logout"
+          className="flex items-center gap-3 px-4 py-3 rounded-lg bg-red-500 hover:bg-red-600 text-white font-semibold"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

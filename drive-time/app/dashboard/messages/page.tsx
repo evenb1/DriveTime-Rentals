@@ -30,14 +30,14 @@ const MessagesPage = () => {
     msg.sender.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleSelectMessage = (message) => {
+  const handleSelectMessage = (message: React.SetStateAction<null>) => {
     setSelectedMessage(message);
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex p-16 bg-gray-100">
       {/* Sidebar - List of Messages */}
-      <div className="w-1/3 bg-white shadow-lg p-4">
+      <div className="w-1/3 bg-white  p-3">
         {/* Search Bar */}
         <div className="flex items-center mb-4 bg-gray-50 p-3 rounded-lg shadow-sm">
           <FaSearch className="text-gray-400 text-lg mr-2" />
@@ -78,9 +78,11 @@ const MessagesPage = () => {
           )}
         </ul>
       </div>
+      <span className="hidden md:inline-block w-px h-10 bg-gray-200"></span>
 
       {/* Message Content */}
-      <div className="flex-1 bg-white shadow-lg rounded-lg p-6 flex flex-col">
+      <div className="flex-1 bg-white rounded-r-lg p-6 flex flex-col">
+        
         {selectedMessage ? (
           <>
             {/* Header */}

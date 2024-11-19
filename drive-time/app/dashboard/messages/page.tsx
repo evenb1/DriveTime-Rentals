@@ -35,7 +35,7 @@ const MessagesPage = () => {
   };
 
   return (
-    <div className="flex p-16 bg-gray-100">
+    <div className="flex p-14 bg-gray-100">
       {/* Sidebar - List of Messages */}
       <div className="w-1/3 bg-white  p-3">
         {/* Search Bar */}

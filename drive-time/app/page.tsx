@@ -5,7 +5,7 @@ import { fetchCars } from "@/utils";
 import { div } from "framer-motion/client";
 import { CarCard } from "@/app/components";
 import Features from "./components/Features";
-
+import carData from '@/public/cars/cars.json'
 export default async function Home() {
 
   const allcars = await fetchCars();
@@ -31,9 +31,11 @@ export default async function Home() {
       
 
       {!isDataEmpty ? (
-        <section>
+        <section className="p-10">
             <div className="home__cars-wrapper">
-            {allcars?.map((car)=>( <CarCard car={car} />))}
+            {carData.map((car, index) => (
+        <CarCard key={index} car={car} />
+      ))}
             </div>
         </section>
       ) : (
@@ -43,6 +45,7 @@ export default async function Home() {
         </div>
         
       )}
+      
     
       <Features/>
      

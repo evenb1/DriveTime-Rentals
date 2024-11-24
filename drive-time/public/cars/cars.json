@@ -14,10 +14,10 @@
     "year": 2023,
     "price": 100,
     "images": [
-      "./lexus1.png",
-      "./lexus2.png",
-      "./lexus3.png",
-      "./lexus4.png"
+      "/cars/lexus1.png",
+      "/cars/lexus2.png",
+      "/cars/lexus3.png",
+      "/cars/lexus4.png"
     ]
   },
   {
@@ -35,7 +35,7 @@
     "year": 2023,
     "price": 150,
     "images": [
-      "./cayenne1.png"
+      "/cars/cayenne1.png"
     ]
   },
   {
@@ -53,8 +53,9 @@
     "year": 2022,
     "price": 180,
     "images": [
-      "./range1.png",
-      "./range2.png"    ]
+      "/cars/range1.png",
+      "/cars/range2.png"
+    ]
   },
   {
     "city_mpg": 14,
@@ -71,9 +72,9 @@
     "year": 2023,
     "price": 200,
     "images": [
-      "./cadillac1.png",
-      "./cadillac2.png",
-      "./cadillac3.png"
+      "/cars/cadillac1.png",
+      "/cars/cadillac2.png",
+      "/cars/cadillac3.png"
     ]
   },
   {
@@ -91,10 +92,10 @@
     "year": 2021,
     "price": 170,
     "images": [
-      "./land1.png",
-      "./land2.png",
-      "./land3.png",
-      "./land4.png"
+      "/cars/land1.png",
+      "/cars/land2.png",
+      "/cars/land3.png",
+      "/cars/land4.png"
     ]
   },
   {
@@ -112,9 +113,9 @@
     "year": 2023,
     "price": 190,
     "images": [
-      "./sclass1.png",
-      "./sclass2.png"
-        ]
+      "/cars/sclass1.png",
+      "/cars/sclass2.png"
+    ]
   },
   {
     "city_mpg": 13,
@@ -131,10 +132,10 @@
     "year": 2022,
     "price": 220,
     "images": [
-      "./wagon1.png",
-      "./wagon2.png",
-      "./wagon3.png",
-      "./wagon4.png"
+      "/cars/wagon4.png",
+      "/cars/wagon2.png",
+      "/cars/wagon3.png",
+      "/cars/wagon1.png"
     ]
   },
   {
@@ -152,10 +153,10 @@
     "year": 2023,
     "price": 140,
     "images": [
-      "./sprinter1.png",
-      "./sprinter2.png",
-      "./sprinter3.png",
-      "./sprinter4.png"
+      "/cars/sprinter1.png",
+      "/cars/sprinter2.png",
+      "/cars/sprinter3.png",
+      "/cars/sprinter4.png"
     ]
   }
 ]

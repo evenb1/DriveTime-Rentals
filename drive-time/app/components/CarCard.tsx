@@ -4,7 +4,6 @@ import { useState } from 'react';
 import CarDetails from './CarDetails'; // Modal Component
 import CustomButton from './CustomButton'; // Button Component
 import {car} from '@/types/index'
-import 
 interface CarCardProps {
     car: car;
   }
@@ -25,8 +24,11 @@ interface CarCardProps {
     <div className="car-card group">
       <div className="car-card__content">
         <h2 className="car-card__content-title">
-          {make} {model}
+          {make} 
+          <span className='font-light text-base'>{model}</span>
+
         </h2>
+        
       </div>
       <p className="flex mt-6 text-[32px] font-extrabold">
         <span className="self-start text-[14px] font-semibold">$</span>

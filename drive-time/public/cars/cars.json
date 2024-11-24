@@ -1,0 +1,32 @@
+[
+  {
+    "city_mpg": 25,
+    "class": "SUV",
+    "combination_mpg": 22,
+    "cylinders": 8,
+    "displacement": 2.5,
+    "drive": "fwd",
+    "fuel_type": "Gasoline",
+    "highway_mpg": 30,
+    "make": "Lexus",
+    "model": "RX 350",
+    "transmission": "a",
+    "year": 2023,
+    "price": 100
+  },
+  {
+    "city_mpg": 20,
+    "class": "Sedan",
+    "combination_mpg": 18,
+    "cylinders": 6,
+    "displacement": 3.0,
+    "drive": "awd",
+    "fuel_type": "Diesel",
+    "highway_mpg": 25,
+    "make": "Porsche",
+    "model": "Cayenne",
+    "transmission": "a",
+    "year": 2022,
+    "price": 120
+  }
+]

@@ -31,7 +31,7 @@ export default async function Home() {
       
 
       {!isDataEmpty ? (
-        <section className="p-10">
+        <section className="p-16">
             <div className="home__cars-wrapper">
             {carData.map((car, index) => (
         <CarCard key={index} car={car} />

@@ -24,8 +24,8 @@ interface CarCardProps {
     <div className="car-card group">
       <div className="car-card__content">
         <h2 className="car-card__content-title">
-          {make} 
-          <span className='font-light text-base'>{model}</span>
+          {make}  
+          <span className='font-medium  text-base'> {model}</span>
 
         </h2>
         

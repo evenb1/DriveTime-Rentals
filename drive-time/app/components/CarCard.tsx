@@ -1,9 +1,10 @@
+"use client"
 import Image from 'next/image';
 import { useState } from 'react';
 import CarDetails from './CarDetails'; // Modal Component
 import CustomButton from './CustomButton'; // Button Component
 import {car} from '@/types/index'
-
+import 
 interface CarCardProps {
     car: car;
   }
@@ -33,14 +34,20 @@ interface CarCardProps {
         <span className="self-end text-[14px] font-medium">/day</span>
       </p>
       <div className="relative w-full h-40 my-3 object-contain">
-        <Image
-          src={images[0]} // Display the first image
-          alt={`${make} ${model}`}
-          fill
-          priority
-          className="object-contain"
-        />
-      </div>
+  {images && images.length > 0 ? (
+    <Image
+      src={images[0]} // Display the first image
+      alt={`${make} ${model}`}
+      fill
+      priority
+      className="object-contain"
+    />
+  ) : (
+    <div className="w-full h-full flex items-center justify-center bg-gray-200">
+      <p className="text-gray-500">No Image Available</p>
+    </div>
+  )}
+</div>
       <div className="relative flex w-full mt-2">
         <div className="flex group-hover:invisible w-full justify-between text-gray">
           <div className="flex flex-col justify-center items-center gap-2">

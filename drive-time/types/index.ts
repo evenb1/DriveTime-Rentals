@@ -13,7 +13,7 @@ export interface SearchManufacturerProps{
     manufacturer: string;
     setManufacturer: (manufacturer: string)=> void;
 }
-export interface carProps{
+export interface car{
     city_mpg: number;
 class: string;
 combination_mpg:number;
@@ -27,4 +27,5 @@ model:string;
 transmission:string;
 year:number;
 price: number;
+images: string[];
 }

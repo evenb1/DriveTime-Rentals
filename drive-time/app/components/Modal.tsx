@@ -25,6 +25,22 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
       onClose(); // Close modal
     }
   };
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false, // Prevent auto-redirect
+    });
+  
+    if (result?.error) {
+      alert("Login failed. Check your email or password.");
+    } else {
+      // Redirect to the dashboard after successful login
+      window.location.href = "/dashboard"; // Or use router.push("/dashboard") for Next.js routing
+    }
+  };
+  
 
   return (
     <div

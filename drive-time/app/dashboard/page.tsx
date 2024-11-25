@@ -1,8 +1,23 @@
 "use client";
 import React, { useState } from "react";
+import { useSession } from "next-auth/react"; // Import useSession from NextAuth
 import { FaSearch, FaCar, FaCalendarAlt, FaClock, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
+import { useRouter } from "next/router"; // Use this for redirecting unauthenticated users
 
 const BookingsPage = () => {
+  const { data: session, status } = useSession(); // Get session data
+  const router = useRouter(); // Router for redirecting
+
+  // Redirect to login page if the user is not authenticated
+  if (status === "loading") {
+    return <p>Loading...</p>; // While the session is loading
+  }
+
+  if (!session) {
+    router.push("/auth/signin"); // Redirect unauthenticated users to the sign-in page
+    return <p>Redirecting...</p>; // Show a loading message while redirecting
+  }
+
   const [searchQuery, setSearchQuery] = useState("");
   const [bookings, setBookings] = useState([
     {
@@ -37,7 +52,6 @@ const BookingsPage = () => {
       {/* Page Title */}
       <h1 className="text-3xl font-extrabold text-gray-800 mb-6">My Bookings</h1>
       <hr className="my-4 border-t border-gray-300" />
-
 
       {/* Search Bar */}
       <div className="flex items-center mb-6 bg-gray-50 p-4 rounded-lg shadow-md">

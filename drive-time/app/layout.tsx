@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Footer } from "@/app/components";
 import { SessionProvider } from "next-auth/react";
+import { AppProps } from "next/app";
+
 
 export const metadata: Metadata = {
   title: "DriveTime Rentals",

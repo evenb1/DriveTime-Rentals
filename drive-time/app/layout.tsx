@@ -1,9 +1,6 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import { Footer } from "@/app/components";
-import { SessionProvider } from "next-auth/react";
-import { AppProps } from "next/app";
-
+import { Footer } from "@/app/components"; // Import your footer component
+import { SessionProvider } from "next-auth/react"; // Import SessionProvider
+import { Metadata } from "next"; // Import Metadata
 
 export const metadata: Metadata = {
   title: "DriveTime Rentals",
@@ -16,13 +13,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SessionProvider session={pageProps.session}>
-    <html lang="en">
-      <body className="relative ">
-        {children}
-        <Footer />
+    <SessionProvider>
+      {/* The children (your pages) will now have access to the session */}
+      <html lang="en">
+        <body className="relative">
+          {children} {/* Render children (the content of the page) */}
+          <Footer /> {/* Your Footer component */}
         </body>
-    </html>
+      </html>
     </SessionProvider>
   );
 }

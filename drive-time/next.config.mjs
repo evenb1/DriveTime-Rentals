@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
   images: {
-    domains: ["lh3.googleusercontent.com"], // Add Google-hosted images here
+    domains: ["lh3.googleusercontent.com"], 
   },
 };
 

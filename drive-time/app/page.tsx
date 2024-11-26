@@ -46,13 +46,10 @@ export default async function Home() {
           <p>{allcars?.message}</p>
         </div>
         
-      )}
-      
+      )}   
     
       <Features/>
      
-           
-
     </main>
   );
 }

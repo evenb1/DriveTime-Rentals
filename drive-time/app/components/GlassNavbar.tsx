@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from './Modal'; // Adjust the import path as necessary
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 const GlassNavbar: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,8 +13,11 @@ const GlassNavbar: React.FC = () => {
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+   
+    const { data: session } = useSession();
 
     return (
+        
         <>
             <nav className="flex items-center justify-between max-sm:rounded-none px-4 md:px-10 py-3 mx-4 md:mx-9 my-5 bg-white bg-opacity-90 backdrop-blur-md  shadow-xl relative">
                 {/* Left Section (Navigation Links for larger devices) */}
@@ -21,7 +25,13 @@ const GlassNavbar: React.FC = () => {
                     <a href="#" className="text-gray-600 hover:text-gray-400">Fleet</a>
                     <a href="#" className="text-gray-600 hover:text-gray-400">History</a>
                     <a href="#" className="text-gray-600 hover:text-gray-400">Contact</a>
-                    <Link href="/dashboard"> Dashboard</Link>
+                    
+                    {session ? (
+ <Link href="/dashboard"> Dashboard</Link>
+                    ):(
+                        <Link href="/dashboard" className='hidden'> Dashboard</Link>
+                    )}
+                   
                 </div>
 
                 {/* Logo Section */}

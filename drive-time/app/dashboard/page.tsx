@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/react"; // Import useSession from NextAuth
 import { FaSearch, FaCar, FaCalendarAlt, FaClock, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
-import { useRouter } from "next/router"; // Use this for redirecting unauthenticated users
+import { useRouter } from "next/navigation";
 
 const BookingsPage = () => {
   const { data: session, status } = useSession(); // Get session data
@@ -14,7 +14,7 @@ const BookingsPage = () => {
   }
 
   if (!session) {
-    router.push("/auth/signin"); // Redirect unauthenticated users to the sign-in page
+    router.push("/"); // Redirect unauthenticated users to the sign-in page
     return <p>Redirecting...</p>; // Show a loading message while redirecting
   }
 

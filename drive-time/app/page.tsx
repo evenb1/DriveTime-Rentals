@@ -6,6 +6,8 @@ import { div } from "framer-motion/client";
 import { CarCard } from "@/app/components";
 import Features from "./components/Features";
 import carData from '@/public/cars/cars.json'
+
+
 export default async function Home() {
 
   const allcars = await fetchCars();

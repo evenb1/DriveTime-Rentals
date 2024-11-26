@@ -60,7 +60,13 @@ export default NextAuth({
   cookies: {
     sessionToken: {
       name: "next-auth.session-token", // Customize the cookie name if needed
-     
+      options: {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production", // Make sure this is true in production
+        path: "/",
+        sameSite: "lax", // Adjust if needed
+      },
+    },
   },
   // pages: {
   //   signIn: "/auth/signin", 

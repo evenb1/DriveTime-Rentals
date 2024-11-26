@@ -36,7 +36,6 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
     if (result?.error) {
       alert("Login failed. Check your email or password.");
     } else {
-      // Redirect to the dashboard after successful login
       window.location.href = "/dashboard"; // Or use router.push("/dashboard") for Next.js routing
     }
   };

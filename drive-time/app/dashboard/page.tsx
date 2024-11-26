@@ -34,13 +34,7 @@ const BookingsPage = () => {
       time: "9:00 AM - 5:00 PM",
       status: "Pending",
     },
-    {
-      id: 3,
-      car: "Range Rover Sport",
-      date: "Nov 25 - Nov 28",
-      time: "8:00 AM - 4:00 PM",
-      status: "Cancelled",
-    },
+  
   ]);
 
   const filteredBookings = bookings.filter((booking) =>

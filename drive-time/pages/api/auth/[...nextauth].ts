@@ -57,6 +57,11 @@ export default NextAuth({
     strategy: "jwt", 
     maxAge: 60 * 60, 
   },
+  cookies: {
+    sessionToken: {
+      name: "next-auth.session-token", // Customize the cookie name if needed
+     
+  },
   // pages: {
   //   signIn: "/auth/signin", 
   // },

@@ -22,7 +22,7 @@ const GlassNavbar: React.FC = () => {
             <nav className="flex items-center justify-between max-sm:rounded-none px-4 md:px-10 py-3 mx-4 md:mx-9 my-5 bg-white bg-opacity-90 backdrop-blur-md  shadow-xl relative">
                 {/* Left Section (Navigation Links for larger devices) */}
                 <div className="hidden md:flex flex-1 justify-start gap-5 space-x-8">
-                    <a href="#" className="text-gray-600 hover:text-gray-400">Fleet</a>
+                    <a href="#fleet" className="text-gray-600 hover:text-gray-400">Fleet</a>
                     <a href="#" className="text-gray-600 hover:text-gray-400">History</a>
                     <a href="#" className="text-gray-600 hover:text-gray-400">Contact</a>
                     
@@ -78,11 +78,8 @@ const GlassNavbar: React.FC = () => {
                             {session ? (
                             <a href="/dashboard" className="text-gray-200 hover:text-gray-400 w-full text-left">Dashboard</a>
 
-                                
-
                             ):(
                                 <a href="#" onClick={toggleModal} className="text-gray-200 hover:text-gray-400 w-full text-left">Sign In</a>
-
                             )}
 
                         </div>

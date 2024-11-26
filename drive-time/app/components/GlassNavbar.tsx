@@ -26,12 +26,7 @@ const GlassNavbar: React.FC = () => {
                     <a href="#" className="text-gray-600 hover:text-gray-400">History</a>
                     <a href="#" className="text-gray-600 hover:text-gray-400">Contact</a>
                     
-                    {session ? (
- <Link href="/dashboard"> Dashboard</Link>
-                    ):(
-                        <Link href="/dashboard" className='hidden'> Dashboard</Link>
-                    )}
-                   
+                  
                 </div>
 
                 {/* Logo Section */}
@@ -42,7 +37,14 @@ const GlassNavbar: React.FC = () => {
                 </div>
 
                 {/* Right Section (Sign In Button for larger devices) */}
-                <div className="hidden md:flex flex-1 items-center justify-end space-x-4">
+                {session ? (
+                    
+                 <div className="hidden md:flex flex-1 items-center justify-end space-x-4">
+                 <Link href="/dashboard" className='py-2 px-4 font-medium'> Dashboard</Link>
+             </div>
+
+                ):(
+                    <div className="hidden md:flex flex-1 items-center justify-end space-x-4">
                     <button
                         className="flex items-center space-x-2 bg-none font-montserrat font-light text-sm text-charcoal py-2 px-4 rounded-full hover:bg-black hover:text-white"
                         onClick={toggleModal}
@@ -53,6 +55,9 @@ const GlassNavbar: React.FC = () => {
                         </svg>
                     </button>
                 </div>
+
+                )}
+               
 
                 {/* Mobile Menu Toggle Button */}
                 <div className="md:hidden flex items-center">
@@ -70,7 +75,16 @@ const GlassNavbar: React.FC = () => {
                             <a href="#" className="text-gray-200 hover:text-gray-400 w-full text-left">Fleet</a>
                             <a href="#" className="text-gray-200 hover:text-gray-400 w-full text-left">History</a>
                             <a href="#" className="text-gray-200 hover:text-gray-400 w-full text-left">Contact</a>
-                            <a href="#" onClick={toggleModal} className="text-gray-200 hover:text-gray-400 w-full text-left">Sign In</a>
+                            {session ? (
+                            <a href="/dashboard" className="text-gray-200 hover:text-gray-400 w-full text-left">Dashboard</a>
+
+                                
+
+                            ):(
+                                <a href="#" onClick={toggleModal} className="text-gray-200 hover:text-gray-400 w-full text-left">Sign In</a>
+
+                            )}
+
                         </div>
                     </div>
                 )}

@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { signOut } from "next-auth/react";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -118,6 +119,7 @@ const Sidebar = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
+        <button onClick={() => signOut()}>
         <Link
           href="/logout"
           className="flex items-center gap-3 px-4 py-3 rounded-lg bg-red-500 hover:bg-red-600 text-white font-semibold"
@@ -136,8 +138,12 @@ const Sidebar = () => {
               d="M15.75 9V5.25a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 5.25 5.25v13.5a2.25 2.25 0 0 0 2.25 2.25h6a2.25 2.25 0 0 0 2.25-2.25V15M9.75 12h10.5m0 0-3-3m3 3-3 3"
             />
           </svg>
+          
           <span>Logout</span>
+          
+          
         </Link>
+        </button>
       </motion.div>
     </nav>
   );

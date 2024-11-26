@@ -5,18 +5,6 @@ import { FaSearch, FaCar, FaCalendarAlt, FaClock, FaCheckCircle, FaTimesCircle }
 import { useRouter } from "next/navigation";
 
 const BookingsPage = () => {
-  const { data: session, status } = useSession(); // Get session data
-  const router = useRouter(); // Router for redirecting
-
-  // Redirect to login page if the user is not authenticated
-  if (status === "loading") {
-    return <p>Loading...</p>; // While the session is loading
-  }
-
-  if (!session) {
-    router.push("/"); // Redirect unauthenticated users to the sign-in page
-    return <p>Redirecting...</p>; // Show a loading message while redirecting
-  }
 
   const [searchQuery, setSearchQuery] = useState("");
   const [bookings, setBookings] = useState([
@@ -34,12 +22,31 @@ const BookingsPage = () => {
       time: "9:00 AM - 5:00 PM",
       status: "Pending",
     },
-  
+    {
+      id: 3,
+      car: "Range Rover Sport",
+      date: "Nov 25 - Nov 28",
+      time: "8:00 AM - 4:00 PM",
+      status: "Cancelled",
+    },
   ]);
 
   const filteredBookings = bookings.filter((booking) =>
     booking.car.toLowerCase().includes(searchQuery.toLowerCase())
   );
+  const { data: session, status } = useSession(); // Get session data
+  const router = useRouter(); // Router for redirecting
+
+  // Redirect to login page if the user is not authenticated
+  if (status === "loading") {
+    return <p>Loading...</p>; // While the session is loading
+  }
+
+  if (!session) {
+    router.push("/"); // Redirect unauthenticated users to the sign-in page
+    return <p>Redirecting...</p>; // Show a loading message while redirecting
+  }
+
 
   return (
     <div className="max-w-7xl mx-auto p-12 rounded-lg">

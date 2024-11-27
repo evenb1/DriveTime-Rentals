@@ -33,26 +33,25 @@ const HomeFeatures = () => {
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
     const entry = entries[0];
     if (entry.isIntersecting) {
-      setIsVisible(true); // Start animation when the section is in view
+      setIsVisible(true); 
     }
   };
 
   useEffect(() => {
     const observer = new IntersectionObserver(handleIntersection, {
-      threshold: 0.5, // Trigger when 50% of the section is visible
+      threshold: 0.5, 
     });
 
     const target = document.getElementById("motion-section");
     if (target) observer.observe(target);
 
     return () => {
-      if (target) observer.unobserve(target); // Cleanup observer
+      if (target) observer.unobserve(target); 
     };
   }, []);
   return (
     <section className="bg-white py-48 ">
       <div className="max-w-7xl mx-auto items-center justify-center px-6">
-        {/* Title */}
         <motion.h2
           className="text-4xl font-extrabold font-montserrat leading-5 text-center text-gray-800 mb-28"
           id="motion-section"
@@ -77,15 +76,12 @@ const HomeFeatures = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {/* Icon */}
               <div className="mb-4">{feature.icon}</div>
 
-              {/* Title */}
               <h3 className="text-xl font-semibold text-gray-800 mb-2">
                 {feature.title}
               </h3>
 
-              {/* Description */}
               <p className="text-gray-600">{feature.description}</p>
             </motion.div>
           ))}

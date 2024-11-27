@@ -1,9 +1,10 @@
 "use client"
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CarDetails from './CarDetails'; // Modal Component
 import CustomButton from './CustomButton'; // Button Component
 import {car} from '@/types/index'
+import { motion } from 'framer-motion';
 interface CarCardProps {
     car: car;
   }
@@ -17,11 +18,36 @@ interface CarCardProps {
     city_mpg,
     images
   } = car;
+  const [isVisible, setIsVisible] = useState(false);
 
   const [isOpen, setIsOpen] = useState(false);
+  
+  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+    const entry = entries[0];
+    if (entry.isIntersecting) {
+      setIsVisible(true); // Start animation when the section is in view
+    }
+  };
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleIntersection, {
+      threshold: 0.5, // Trigger when 50% of the section is visible
+    });
+
+    const target = document.getElementById("motion-section");
+    if (target) observer.observe(target);
+
+    return () => {
+      if (target) observer.unobserve(target); // Cleanup observer
+    };
+  }, []);
   return (
-    <div className="car-card group">
+    <motion.div className="car-card group"
+    id="motion-section"
+    initial={{ opacity: 0, y: 80 }}
+    animate={isVisible ? { opacity: 1, y: 0 } : {}}
+    transition={{ duration: 1.0 }}
+    >
       <div className="car-card__content">
         <h2 className="car-card__content-title">
           {make}  
@@ -80,7 +106,7 @@ interface CarCardProps {
         </div>
       </div>
       <CarDetails isOpen={isOpen} closeModal={() => setIsOpen(false)} car={car} />
-    </div>
+    </motion.div>
   );
 };
 

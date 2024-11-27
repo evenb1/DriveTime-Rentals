@@ -30,6 +30,10 @@ export default NextAuth({
       },
     }),
   ],
+  session: {
+    strategy: "jwt", 
+    maxAge: 60 * 60, 
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -53,10 +57,7 @@ export default NextAuth({
       return session;
     },
   },
-  session: {
-    strategy: "jwt", 
-    maxAge: 60 * 60, 
-  },
+ 
   cookies: {
     sessionToken: {
       name: "next-auth.session-token", // Customize the cookie name if needed

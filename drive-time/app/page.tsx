@@ -18,22 +18,19 @@ export default async function Home() {
     <main className="overflow-hidden ">
       <Hero />
       <div className="mt-12 padding-x padding-y max-width" id="discover">
-        <div className="home__text-container">
+        <div className="home__text-container text-center">
           <h1 className="text-4xl font-extrabold" id="fleet"> Our Fleet</h1>
           <p>Explore cars you might like</p>
         </div>
         <div className="home__filters">
           <SearchBar/>
         </div>
-        <div className="home__filter-container">
-          <CustomFilter title="fuel"/>
-          <CustomFilter title="year"/>
-        </div>
+        
       </div>
       
 
       {!isDataEmpty ? (
-        <section className="p-16">
+        <section className="px-14 py-10">
             <div className="home__cars-wrapper">
             {carData.map((car, index) => (
         <CarCard key={index} car={car} />

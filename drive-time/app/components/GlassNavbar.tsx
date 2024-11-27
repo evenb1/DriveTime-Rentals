@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Modal from './Modal'; // Adjust the import path as necessary
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 const GlassNavbar: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -40,7 +41,17 @@ const GlassNavbar: React.FC = () => {
                 {session ? (
                     
                  <div className="hidden md:flex flex-1 items-center justify-end space-x-4">
-                 <Link href="/dashboard" className='py-2 px-4 font-medium'> Dashboard</Link>
+                    <Link href="/dashboard" className='py-2 font-medium'> Dashboard</Link>
+                        <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-300">
+                        <Image
+                            src={session.user.image || "/default-avatar.png"}
+                            alt="User Avatar"
+                            width={40}
+                            height={40}
+                            className="object-cover"
+                        />
+                        </div>
+                 
              </div>
 
                 ):(
@@ -72,7 +83,7 @@ const GlassNavbar: React.FC = () => {
                 {isMenuOpen && (
                     <div className="absolute top-12 left-0 w-full bg-charcoal bg-opacity-100 backdrop-blur-md shadow-lg md:hidden">
                         <div className="flex flex-col items-start px-4 py-2 space-y-2">
-                            <a href="#" className="text-gray-200 hover:text-gray-400 w-full text-left">Fleet</a>
+                            <a href="#fleet" className="text-gray-200 hover:text-gray-400 w-full text-left">Fleet</a>
                             <a href="#" className="text-gray-200 hover:text-gray-400 w-full text-left">History</a>
                             <a href="#" className="text-gray-200 hover:text-gray-400 w-full text-left">Contact</a>
                             {session ? (

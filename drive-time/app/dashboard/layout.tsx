@@ -1,7 +1,7 @@
-"use client"; // Mark as a client component
+"use client"; 
 
-import Sidebar from "./components/Sidebar"; // Sidebar client component
-import TopNav from "./components/TopNav"; // TopNav client component
+import Sidebar from "./components/Sidebar"; 
+import TopNav from "./components/TopNav"; 
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (

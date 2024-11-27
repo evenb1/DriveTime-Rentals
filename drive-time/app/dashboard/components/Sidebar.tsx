@@ -119,11 +119,8 @@ const Sidebar = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
-        <button onClick={() => signOut()} className='px-5'>
-        <Link
-          href="/logout"
-          className="flex items-center gap-3 px-10 py-3 rounded-lg bg-red-500 hover:bg-red-600 text-white font-semibold"
-        >
+        <button onClick={() => signOut()} className='flex items-center gap-3 px-10 py-3 rounded-lg bg-red-500 hover:bg-red-600 text-white font-semibold'>
+       
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -142,7 +139,7 @@ const Sidebar = () => {
           <span>Logout</span>
           
           
-        </Link>
+      
         </button>
       </motion.div>
     </nav>

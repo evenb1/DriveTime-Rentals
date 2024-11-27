@@ -1,9 +1,11 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FaCar, FaClock, FaStar, FaShieldAlt } from "react-icons/fa";
 
 const HomeFeatures = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
   const features = [
     {
       icon: <FaCar className="text-blue-500 text-4xl" />,
@@ -27,24 +29,43 @@ const HomeFeatures = () => {
     },
   ];
 
+  
+  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+    const entry = entries[0];
+    if (entry.isIntersecting) {
+      setIsVisible(true); // Start animation when the section is in view
+    }
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleIntersection, {
+      threshold: 0.5, // Trigger when 50% of the section is visible
+    });
+
+    const target = document.getElementById("motion-section");
+    if (target) observer.observe(target);
+
+    return () => {
+      if (target) observer.unobserve(target); // Cleanup observer
+    };
+  }, []);
   return (
-    <section className="bg-gray-50 py-20 mt-8">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="bg-white py-48 ">
+      <div className="max-w-7xl mx-auto items-center justify-center px-6">
         {/* Title */}
         <motion.h2
-          className="text-3xl font-extrabold font-montserrat leading-5 text-center text-gray-800 mb-6"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          className="text-4xl font-extrabold font-montserrat leading-5 text-center text-gray-800 mb-28"
+         
         >
           Why Choose Us?
         </motion.h2>
 
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+          id="motion-section"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 1 }}
+          animate={isVisible ? { opacity: 2 }:{}}
+          transition={{ delay: 0.6, duration: 1 }}
         >
           {features.map((feature, index) => (
             <motion.div

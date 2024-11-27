@@ -4,7 +4,7 @@ import clientPromise from "@/lib/mongodb";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const client = await clientPromise;
-  const db = client.db("DriveTime");
+  const db = client.db("drivetime");
 
   const { id } = req.query; // Get the user ID from the request
 

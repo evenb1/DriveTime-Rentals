@@ -55,7 +55,10 @@ const HomeFeatures = () => {
         {/* Title */}
         <motion.h2
           className="text-4xl font-extrabold font-montserrat leading-5 text-center text-gray-800 mb-28"
-         
+          id="motion-section"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isVisible ? { opacity: 1, y: 0 }:{}}
+          transition={{ duration: 1.0 }}
         >
           Why Choose Us?
         </motion.h2>

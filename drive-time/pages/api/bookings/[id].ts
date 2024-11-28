@@ -12,7 +12,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(400).json({ message: "Invalid booking ID" });
   }
   if (req.method === "PUT") {
-    // Update a booking
     const { status } = req.body;
 
     const result = await db.collection("bookings").updateOne(
@@ -22,7 +21,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     return res.status(200).json(result);
   } else if (req.method === "DELETE") {
-    // Delete a booking
     const result = await db.collection("bookings").deleteOne({ _id: new ObjectId(id as string) });
     return res.status(200).json(result);
   } else {

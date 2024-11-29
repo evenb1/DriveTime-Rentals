@@ -6,6 +6,7 @@ import { div } from "framer-motion/client";
 import { CarCard } from "@/app/components";
 import Features from "./components/Features";
 import carData from '@/public/cars/cars.json'
+import Counter from "./components/Counter";
 
 
 export default async function Home() {
@@ -44,7 +45,7 @@ export default async function Home() {
         </div>
         
       )}   
-    
+    <Counter/>
       <Features/>
      
     </main>

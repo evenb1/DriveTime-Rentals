@@ -13,6 +13,21 @@ const Logos = () => {
   return (
     <motion.div className='flex flex-row gap-14 items-center justify-center '
     
+    >
+        <Image src={lexus} alt='lexus' className='w-28 '/>
+        <span className="hidden md:inline-block w-px h-32 bg-gray-200 mr-3"></span>
+        <Image src={porsche} alt='porsche' className='w-28'/>
+        <span className="hidden md:inline-block w-px h-32 bg-gray-200 mr-3"></span>
+
+        <Image src={mercedes} alt='mercedes' className='w-28'/>
+        <span className="hidden md:inline-block w-px h-32 bg-gray-200 mr-3"></span>
+
+        <Image src={rover} alt='rover' className='w-28'/>
+        <span className="hidden md:inline-block w-px h-32 bg-gray-200 mr-3"></span>
+
+        <Image src={caddy} alt='cadillac' className='w-28'/>
+
+
     </motion.div>
   )
 }

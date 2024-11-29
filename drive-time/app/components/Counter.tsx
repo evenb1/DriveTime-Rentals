@@ -49,7 +49,12 @@ const Counter = () => {
                 <h3 className='text-slate-100 font-inter font-light'>Only the best</h3>
                 <p className='text-slate-100 text-sm'>Praesent elementum facilisis leo vel fringilla est. Vest bulum lectus a urise ultrices eros in cursus turpi uto.</p>
             </div>
-            <motion.div>
+            <motion.div
+                id="motion-section"
+                initial={{ opacity: 0, y: 0, x:80 }}
+                animate={isVisible ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 1.0 }}
+            >
             {stats.map((item, index) => {
         const suffix = item.num === 300 ? "k+" : "+";
 

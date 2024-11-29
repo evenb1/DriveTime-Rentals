@@ -22,9 +22,7 @@ const FeaturesTwo = () => {
       <div className=" flex px-0"
       
       >
-        <div className="relative w-full items-end justify-end">
-          <Image src={driver} className="object-contain" alt="chauffer" />
-        </div>
+       
       </div>
     </section>
   );

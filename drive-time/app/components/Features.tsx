@@ -42,7 +42,7 @@ const HomeFeatures = () => {
       threshold: 0.5, 
     });
 
-    const target = document.getElementById("motion-section");
+    const target = document.getElementById("motions-part");
     if (target) observer.observe(target);
 
     return () => {
@@ -54,7 +54,7 @@ const HomeFeatures = () => {
       <div className="max-w-7xl mx-auto items-center justify-center px-6">
         <motion.h2
           className="text-4xl font-extrabold font-montserrat leading-5 text-center text-gray-800 mb-28"
-          id="motion-section"
+          id="motions-part"
           initial={{ opacity: 0, y: 40 }}
           animate={isVisible ? { opacity: 1, y: 0 }:{}}
           transition={{ duration: 1.0 }}

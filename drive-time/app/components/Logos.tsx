@@ -12,7 +12,10 @@ import { motion } from 'framer-motion'
 const Logos = () => {
   return (
     <motion.div className='flex flex-row gap-14 items-center justify-center '
-    
+    initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1 }}
+  transition={{ duration: 0.9 }}
+  viewport={{ once: true, amount: 0.4 }}
     >
         <Image src={lexus} alt='lexus' className='w-28 '/>
         <span className="hidden md:inline-block w-px h-32 bg-gray-200 mr-3"></span>

@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import driver from "@/public/driver.jpg";
 import { motion } from "framer-motion";
@@ -23,7 +24,12 @@ const FeaturesTwo = () => {
       <div className=" flex px-0"
       
       >
-        <motion.div className="relative w-full items-end justify-end">
+        <motion.div className="relative w-full items-end justify-end"
+        initial={{ opacity: 0, x: -80 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.9 }}
+        viewport={{ once: true, amount: 0.4 }}
+        >
           <Image src={driver} className="object-contain" alt="chauffer" />
         </motion.div>
       </div>

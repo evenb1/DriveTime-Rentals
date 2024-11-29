@@ -9,7 +9,7 @@ const Counter = () => {
 
         </div>
         <div className='flex flex-row'>
-            <div className=''>
+            <div className='flex flex-row'>
                 <h1>Premium Cars Rental</h1>
                 <h3>Only the best</h3>
             </div>

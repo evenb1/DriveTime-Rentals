@@ -1,5 +1,6 @@
 import Image from "next/image";
 import driver from "@/public/driver.jpg";
+import { motion } from "framer-motion";
 
 const FeaturesTwo = () => {
   return (
@@ -22,9 +23,9 @@ const FeaturesTwo = () => {
       <div className=" flex px-0"
       
       >
-        <div className="relative w-full items-end justify-end">
+        <motion.div className="relative w-full items-end justify-end">
           <Image src={driver} className="object-contain" alt="chauffer" />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -7,6 +7,9 @@ import { CarCard } from "@/app/components";
 import Features from "./components/Features";
 import carData from '@/public/cars/cars.json'
 import Counter from "./components/Counter";
+import FeaturesTwo from "./components/FeaturesTwo";
+import Contact from "./components/Contact";
+import Logos from "./components/Logos";
 
 
 export default async function Home() {
@@ -18,10 +21,10 @@ export default async function Home() {
   return (
     <main className="overflow-hidden ">
       <Hero />
-      <div className="mt-12 padding-x padding-y max-width" id="discover">
-        <div className="home__text-container text-center">
-          <h1 className="text-4xl font-extrabold" id="fleet"> Our Fleet</h1>
-          <p>Explore cars you might like</p>
+      <div className="mt-12 padding-x  max-width" id="discover">
+        <div className="text-start">
+          <h1 className="text-6xl font-bold" id="fleet"> Our Collection</h1>
+          <p className="font-md">Explore cars you might like</p>
         </div>
         <div className="home__filters">
           <SearchBar/>
@@ -45,8 +48,20 @@ export default async function Home() {
         </div>
         
       )}   
-    <Counter/>
+
+      <section className="bg-white h-screen">
+      <Counter/>
+
+      </section>
+      <section className="pb-24">
+        <Logos/>
+      </section>
+      <FeaturesTwo/>
+
       <Features/>
+      <section id="contact" className="bg-features bg-cover">
+        <Contact/>
+      </section>
      
     </main>
   );

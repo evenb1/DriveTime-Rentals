@@ -50,10 +50,10 @@ const HomeFeatures = () => {
     };
   }, []);
   return (
-    <section className="bg-white py-48 ">
+    <section className="bg-white py-28 ">
       <div className="max-w-7xl mx-auto items-center justify-center px-6">
         <motion.h2
-          className="text-4xl font-extrabold font-montserrat leading-5 text-center text-gray-800 mb-28"
+          className="text-6xl font-md font-montserrat leading-5 text-center text-gray-800 mb-28"
           id="motions-part"
           initial={{ opacity: 0, y: 40 }}
           animate={isVisible ? { opacity: 1, y: 0 }:{}}

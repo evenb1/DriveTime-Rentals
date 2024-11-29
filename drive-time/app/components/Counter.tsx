@@ -35,35 +35,35 @@ const Counter = () => {
   }, []);
 
   return (
+    
     <motion.div
-      className="p-0 flex flex-row bg-charcoal justify-start gap-5 py-36"
+      className="p-0 flex flex-row  justify-start gap-5 py-36"
       id="counter-section" // Unique ID for the section
       initial={{ opacity: 0, x: -80 }}
       animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0 }}
       transition={{ duration: 1.0 }}
     >
       {/* Images Section */}
-      <div className="relative flex gap-2 w-1/2">
-        <div className="relative w-full h-64">
-          <Image src={counter} fill className="object-contain" alt="lady" />
+      <div className=" flex gap-4 w-1/2 px-4">
+        <div className="relative w-full">
+          <Image src={counter} className="object-contain" alt="lady" />
         </div>
-        <div className="relative w-full h-64">
-          <Image src={counter2} fill className="object-contain" alt="car" />
+        <div className="relative w-full ">
+          <Image src={counter2} className="object-contain" alt="car" />
         </div>
       </div>
 
       {/* Content Section */}
       <div className="flex flex-col  gap-20 w-1/2">
-        <div className="justify-start gap-8">
-          <h1 className="text-slate-50 justify-start font-bold font-montserrat text-3xl">
+        <div className="justify-start gap-8 pr-16">
+          <h1 className="text-slate-900 justify-start font-light font-montserrat text-5xl">
             Premium Cars Rental
           </h1>
-          <h3 className="text-blue-400 font-inter font-light">
+          <h3 className="text-blue-400 mt-1 font-inter font-light">
             Only the best
           </h3>
-          <p className="text-slate-300 justify-start text-sm">
-            Praesent elementum facilisis leo vel fringilla est. Vestibulum lectus
-            augue, ultrices eros in cursus turpis eu, ultrices eget urna.
+          <p className="text-slate-900 w-2/3 mt-2 justify-start text-xl font-extralight">
+          Discover unmatched quality with our premium cars. We provide comfort, luxury, and reliability, ensuring every journey is a memorable one.
           </p>
         </div>
 
@@ -75,16 +75,18 @@ const Counter = () => {
           transition={{ duration: 1.0 }}
         >
           {stats.map((item, index) => (
-            <div key={index} className="text-center">
+        
+            <div key={index} className="text-center gap-5">
               <CountUp
                 end={item.num}
                 suffix="+"
                 duration={4}
                 delay={2}
-                className="text-2xl xl:text-5xl text-slate-200 font-extrabold"
+                className="text-3xl xl:text-8xl gap-5 text-slate-900 font-extralight"
               />
-              <p className="mt-2 text-slate-200 text-lg">{item.text}</p>
+              <p className="mt-2 text-slate-900 text-start text-lg">{item.text}</p>
             </div>
+            
           ))}
         </motion.div>
       </div>

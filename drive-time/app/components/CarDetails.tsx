@@ -11,6 +11,7 @@ interface CarsDetailsProps{
    car: carProps; 
 }
 
+
 const CarDetails = ({isOpen, closeModal, car}:CarsDetailsProps) => {
    
   return (

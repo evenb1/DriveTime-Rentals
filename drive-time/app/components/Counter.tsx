@@ -3,6 +3,7 @@ import Image from 'next/image'
 import counter from '@/public/counter.jpg'
 import counter2 from '@/public/counter2.jpg'
 import CountUp from "react-countup";
+import { useState, useEffect } from 'react';
 
 
 const stats = [

@@ -1,18 +1,50 @@
 import { motion } from 'framer-motion'
-import React from 'react'
+import Image from 'next/image'
+import counter from '@/public/counter.jpg'
+import counter2 from '@/public/counter2.jpg'
+import CountUp from "react-countup";
+
+
+const stats = [
+    { num: 15, text: "Years of experience" },
+    { num: 50, text: "Satisfied clients" },
+  ];
 
 const Counter = () => {
+    
   return (
-    <motion.div className='p-0 flex flex-col gap-5'>
-        <div>
+    <motion.div className='p-0 flex flex-row bg-charcoal justify-start gap-5'>
+        <div className='flex flex-row gap-2 justify-start'>
+            <Image src={counter} fill className='object-contain' alt="lady"/>
+            <Image src={counter2} fill className='object-contain' alt="car"/>
 
 
         </div>
-        <div className='flex flex-row'>
-            <div className='flex flex-row'>
-                <h1>Premium Cars Rental</h1>
-                <h3>Only the best</h3>
+        <div className='flex flex-col items-center gap-2'>
+            <div className='flex flex-col text-center'>
+                <h1 className='text-slate-50 font-bold font-montserrat text-3xl'>Premium Cars Rental</h1>
+                <h3 className='text-slate-100 font-inter font-light'>Only the best</h3>
+                <p className='text-slate-100 text-sm'>Praesent elementum facilisis leo vel fringilla est. Vest bulum lectus a urise ultrices eros in cursus turpi uto.</p>
             </div>
+            <motion.div>
+            {stats.map((item, index) => {
+        const suffix = item.num === 300 ? "k+" : "+";
+
+        return (
+          <div key={index} className='text-center'>
+            <CountUp 
+              end={item.num} 
+              suffix={suffix} 
+              duration={4} 
+              delay={2} 
+              className="text-2xl xl:text-5xl text-white font-extrabold" 
+            />
+            <p className="mt-2 text-lg">{item.text}</p>
+          </div>
+        );
+      })}
+
+            </motion.div>
 
         </div>
 

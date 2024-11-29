@@ -35,7 +35,10 @@ const Contact = () => {
           {/* Email Section */}
           <motion.div
             className="flex flex-row items-center gap-3"
-          
+            initial={{ opacity: 0, x: 80 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.9 }}
+            viewport={{ once: true, amount: 0.4 }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

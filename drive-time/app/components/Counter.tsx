@@ -53,15 +53,15 @@ const Counter = () => {
       </div>
 
       {/* Content Section */}
-      <div className="flex flex-col items-center gap-6 w-1/2">
-        <div className="text-center">
-          <h1 className="text-slate-50 font-bold font-montserrat text-3xl">
+      <div className="flex flex-col  gap-20 w-1/2">
+        <div className="justify-start gap-8">
+          <h1 className="text-slate-50 justify-start font-bold font-montserrat text-3xl">
             Premium Cars Rental
           </h1>
-          <h3 className="text-slate-100 font-inter font-light">
+          <h3 className="text-blue-400 font-inter font-light">
             Only the best
           </h3>
-          <p className="text-slate-100 text-sm">
+          <p className="text-slate-300 justify-start text-sm">
             Praesent elementum facilisis leo vel fringilla est. Vestibulum lectus
             augue, ultrices eros in cursus turpis eu, ultrices eget urna.
           </p>
@@ -69,7 +69,7 @@ const Counter = () => {
 
         {/* Stats Section */}
         <motion.div
-          className="flex flex-col gap-4"
+          className="flex flex-row gap-4"
           initial={{ opacity: 0, x: 80 }}
           animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0 }}
           transition={{ duration: 1.0 }}
@@ -81,9 +81,9 @@ const Counter = () => {
                 suffix="+"
                 duration={4}
                 delay={2}
-                className="text-2xl xl:text-5xl text-white font-extrabold"
+                className="text-2xl xl:text-5xl text-slate-200 font-extrabold"
               />
-              <p className="mt-2 text-lg">{item.text}</p>
+              <p className="mt-2 text-slate-200 text-lg">{item.text}</p>
             </div>
           ))}
         </motion.div>

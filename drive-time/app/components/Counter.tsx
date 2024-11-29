@@ -9,6 +9,28 @@ const stats = [
     { num: 15, text: "Years of experience" },
     { num: 50, text: "Satisfied clients" },
   ];
+  const [isVisible, setIsVisible] = useState(false);
+
+  
+  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+    const entry = entries[0];
+    if (entry.isIntersecting) {
+      setIsVisible(true); // Start animation when the section is in view
+    }
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(handleIntersection, {
+      threshold: 0.5, // Trigger when 50% of the section is visible
+    });
+
+    const target = document.getElementById("motion-section");
+    if (target) observer.observe(target);
+
+    return () => {
+      if (target) observer.unobserve(target); // Cleanup observer
+    };
+  }, []);
 
 const Counter = () => {
     

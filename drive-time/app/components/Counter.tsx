@@ -36,7 +36,12 @@ const stats = [
 const Counter = () => {
     
   return (
-    <motion.div className='p-0 flex flex-row bg-charcoal justify-start gap-5'>
+    <motion.div className='p-0 flex flex-row bg-charcoal justify-start gap-5'
+    id="motion-section"
+    initial={{ opacity: 0, y: 0, x:-80 }}
+    animate={isVisible ? { opacity: 1, y: 0 } : {}}
+    transition={{ duration: 1.0 }}
+    >
         <div className='flex flex-row gap-2 justify-start'>
             <Image src={counter} fill className='object-contain' alt="lady"/>
             <Image src={counter2} fill className='object-contain' alt="car"/>

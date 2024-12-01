@@ -1,5 +1,6 @@
 [
   {
+    "id": "1",
     "city_mpg": 19,
     "class": "SUV",
     "combination_mpg": 18,
@@ -21,6 +22,7 @@
     ]
   },
   {
+    "id": "2",
     "city_mpg": 13,
     "class": "SUV",
     "combination_mpg": 12,
@@ -42,6 +44,7 @@
     ]
   },
   {
+    "id": "3",
     "city_mpg": 18,
     "class": "SUV",
     "combination_mpg": 16,
@@ -60,6 +63,7 @@
     ]
   },
   {
+    "id": "4",
     "city_mpg": 15,
     "class": "SUV",
     "combination_mpg": 14,
@@ -79,6 +83,7 @@
     ]
   },
   {
+    "id": "5",
     "city_mpg": 14,
     "class": "SUV",
     "combination_mpg": 12,
@@ -99,6 +104,7 @@
     ]
   },
   {
+    "id": "6",
     "city_mpg": 12,
     "class": "SUV",
     "combination_mpg": 11,
@@ -120,6 +126,7 @@
     ]
   },
   {
+    "id": "7",
     "city_mpg": 20,
     "class": "Sedan",
     "combination_mpg": 18,
@@ -138,8 +145,8 @@
       "/cars/sclass2.png"
     ]
   },
- 
   {
+    "id": "8",
     "city_mpg": 16,
     "class": "Van",
     "combination_mpg": 15,

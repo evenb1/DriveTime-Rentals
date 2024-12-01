@@ -204,7 +204,7 @@
 }
 
 .search-manufacturer__input {
-  @apply w-96 h-[48px] max-sm:w-full pl-12 p-4 rounded-full max-sm:rounded-full bg-slate-100 outline-none cursor-pointer text-sm;
+  @apply w-96 h-[48px] max-sm:w-full pl-12 p-4 rounded-xl max-sm:rounded-full bg-slate-100 outline-none cursor-pointer text-sm;
 }
 
 .search-manufacturer__options {

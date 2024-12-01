@@ -24,7 +24,7 @@ export default async function Home() {
       <div className="mt-12 padding-x  max-width" id="discover">
         <div className="text-start">
           <h1 className="text-6xl mb-10 font-bold text-center" id="fleet"> Our Collection</h1>
-          <p className="font-light text-slate-600">Explore cars you might like</p>
+          <p className=" text-slate-600">Explore cars you might like</p>
         </div>
         <div className="mt-3">
           <SearchBar/>
@@ -34,7 +34,7 @@ export default async function Home() {
       
 
       {!isDataEmpty ? (
-        <section className="px-14 py-10">
+        <section className="px-14  pb-10">
             <div className="home__cars-wrapper">
             {carData.map((car, index) => (
         <CarCard key={index} car={car} />

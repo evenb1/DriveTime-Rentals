@@ -23,10 +23,10 @@ export default async function Home() {
       <Hero />
       <div className="mt-12 padding-x  max-width" id="discover">
         <div className="text-start">
-          <h1 className="text-6xl font-bold" id="fleet"> Our Collection</h1>
-          <p className="font-md">Explore cars you might like</p>
+          <h1 className="text-6xl mb-10 font-bold text-center" id="fleet"> Our Collection</h1>
+          <p className="font-light text-slate-600">Explore cars you might like</p>
         </div>
-        <div className="home__filters">
+        <div className="mt-3">
           <SearchBar/>
         </div>
         

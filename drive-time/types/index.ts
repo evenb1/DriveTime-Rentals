@@ -14,6 +14,7 @@ export interface SearchManufacturerProps{
     setManufacturer: (manufacturer: string)=> void;
 }
 export interface car{
+    id: string;
     city_mpg: number;
 class: string;
 combination_mpg:number;

@@ -1,14 +1,14 @@
 "use client"
-import { carProps } from '@/types';
 import React from 'react'
 import Image from "next/image";
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import CustomButton from './CustomButton';
 
 interface CarsDetailsProps{
     isOpen: boolean;
     closeModal: () => void;
-   car: carProps; 
+   car: BarProp; 
 }
 
 
@@ -86,6 +86,7 @@ const CarDetails = ({isOpen, closeModal, car}:CarsDetailsProps) => {
                     ))}
 
                   </div>
+                  
 
                 </div>
 
@@ -95,6 +96,7 @@ const CarDetails = ({isOpen, closeModal, car}:CarsDetailsProps) => {
         </div>
       </Dialog>
     </Transition>
+    
     </>
   )
 }

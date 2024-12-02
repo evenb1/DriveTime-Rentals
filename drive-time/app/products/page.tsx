@@ -129,7 +129,7 @@ const ProductPage: React.FC<{ car: Car }> = ({ car }) => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleBooking}
-                className="w-full py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+                className="w-full py-5 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
               >
                 Book Now
               </motion.button>

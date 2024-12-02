@@ -103,12 +103,11 @@ interface CarCardProps {
   containerStyles="w-full py-[16px] rounded-full bg-green-500"
   textStyles="text-white text-[14px] leading-[17px] font-bold"
   rightIcon="/right-arrow.svg"
-  handleClick={() => router.push(`/cars/${id}`)} // Navigate to the product page
+  handleClick={() => router.push(`/products?carId=${car.id}`)} // Navigate to the product page
 />
         </div>
         
       </div>
-      <CarDetails isOpen={isOpen} closeModal={() => setIsOpen(false)} car={car} />
     </motion.div>
   );
 };

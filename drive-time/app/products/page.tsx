@@ -7,7 +7,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { motion } from "framer-motion";
 
-
+interface Car {
+  
+  }
 
 const ProductPage: React.FC<{ car: Car }> = ({ car }) => {
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);

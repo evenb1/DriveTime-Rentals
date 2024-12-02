@@ -1,35 +1,69 @@
 "use client";
 
-import React, { useState } from "react";
-import GlassNavbar from "../components/GlassNavbar";
+import React, { useState, useEffect } from "react";
+import GlassNavbar from "../../components/GlassNavbar";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useSearchParams } from "next/navigation"; // To read query params
 import { motion } from "framer-motion";
 
 interface Car {
-    id: string;
-    make: string;
-    model: string;
-    price: number;
-    transmission: string;
-    drive: string;
-    city_mpg: number;
-    images: string[];
-    description: string;
-  }
+  id: string;
+  make: string;
+  model: string;
+  price: number;
+  transmission: string;
+  drive: string;
+  city_mpg: number;
+  images: string[];
+  description: string;
+}
 
-const ProductPage: React.FC<{ car: Car }> = ({ car }) => {
+const ProductPage: React.FC = () => {
+  const searchParams = useSearchParams();
+  const carId = searchParams.get("carId"); // Read the carId from the query params
+
+  const [car, setCar] = useState<Car | null>(null); // Car state to fetch details
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);
   const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+
+  // Fetch car data based on carId
+  useEffect(() => {
+    const fetchCarData = async () => {
+      if (!carId) return;
+      try {
+        const response = await fetch(`/api/cars/${carId}`); // Adjust API endpoint as needed
+        const data = await response.json();
+        setCar(data);
+      } catch (error) {
+        console.error("Error fetching car data:", error);
+      }
+    };
+
+    fetchCarData();
+  }, [carId]);
 
   const handleBooking = () => {
     if (!startDate || !endDate) {
       alert("Please select both start and end dates.");
       return;
     }
-    alert(`Booking confirmed for ${car.make} ${car.model}!`);
+    alert(
+      `Booking confirmed for ${car?.make} ${car?.model} from ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}!`
+    );
   };
+
+  if (!car) {
+    return (
+      <div>
+        <GlassNavbar />
+        <div className="min-h-screen flex justify-center items-center">
+          <p>Loading car details...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

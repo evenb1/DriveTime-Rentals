@@ -10,7 +10,16 @@ import { motion } from "framer-motion";
 
 
 const ProductPage: React.FC<{ car: Car }> = ({ car }) => {
- 
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+
+  const handleBooking = () => {
+    if (!startDate || !endDate) {
+      alert("Please select both start and end dates.");
+      return;
+    }
+    alert(`Booking confirmed for ${car.make} ${car.model}!`);
+  };
 
   return (
     <div>
@@ -76,7 +85,46 @@ const ProductPage: React.FC<{ car: Car }> = ({ car }) => {
               </div>
             </div>
 
-           
+            {/* Booking Section */}
+            <motion.div
+              className="bg-slate-100 p-6 rounded-lg shadow-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                Book Your Ride
+              </h3>
+              <div className="flex gap-4 mb-4">
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date ?? undefined)}
+                  selectsStart
+                  startDate={startDate}
+                  endDate={endDate}
+                  placeholderText="Start Date"
+                  className="w-full px-4 py-2 border rounded-md"
+                />
+                <DatePicker
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date ?? undefined)}
+                  selectsEnd
+                  startDate={startDate}
+                  endDate={endDate}
+                  placeholderText="End Date"
+                  className="w-full px-4 py-2 border rounded-md"
+                />
+              </div>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={handleBooking}
+                className="w-full py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+              >
+                Book Now
+              </motion.button>
+            </motion.div>
+          </motion.div>
         </motion.div>
       </section>
     </div>

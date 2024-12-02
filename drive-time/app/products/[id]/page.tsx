@@ -22,7 +22,7 @@ interface Car {
 
 const ProductPage: React.FC = () => {
   const searchParams = useSearchParams();
-  const carId = searchParams.get("carId"); // Read the carId from the query params
+  const carId = searchParams?.get("carId"); // Add optional chaining to handle null
 
   const [car, setCar] = useState<Car | null>(null); // Car state to fetch details
   const [startDate, setStartDate] = useState<Date | undefined>(undefined);

@@ -5,11 +5,13 @@ import CarDetails from './CarDetails'; // Modal Component
 import CustomButton from './CustomButton'; // Button Component
 import {car} from '@/types/index'
 import { motion } from 'framer-motion';
+import router from 'next/router';
 interface CarCardProps {
     car: car;
   }
   
   const CarCard: React.FC<CarCardProps> = ({ car }) => {  const {
+    id,
     make,
     model,
     price,
@@ -96,13 +98,13 @@ interface CarCardProps {
           </div>
         </div>
         <div className="car-card__btn-container">
-          <CustomButton
-            title="View More"
-            containerStyles="w-full py-[16px] rounded-full bg-primary-blue"
-            textStyles="text-white text-[14px] leading-[17px] font-bold"
-            rightIcon="/right-arrow.svg"
-            handleClick={() => setIsOpen(true)}
-          />
+        <CustomButton
+  title="Book Now"
+  containerStyles="w-full py-[16px] rounded-full bg-green-500"
+  textStyles="text-white text-[14px] leading-[17px] font-bold"
+  rightIcon="/right-arrow.svg"
+  handleClick={() => router.push(`/cars/${id}`)} // Navigate to the product page
+/>
         </div>
         
       </div>

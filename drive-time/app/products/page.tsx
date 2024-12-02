@@ -8,7 +8,15 @@ import "react-datepicker/dist/react-datepicker.css";
 import { motion } from "framer-motion";
 
 interface Car {
-  
+    id: string;
+    make: string;
+    model: string;
+    price: number;
+    transmission: string;
+    drive: string;
+    city_mpg: number;
+    images: string[];
+    description: string;
   }
 
 const ProductPage: React.FC<{ car: Car }> = ({ car }) => {

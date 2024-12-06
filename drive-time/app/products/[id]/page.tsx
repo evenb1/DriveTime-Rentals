@@ -60,19 +60,28 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
                 transition={{ duration: 0.3 }}
               >
                 <Image
+                  src={image[0]}
+                  alt={`Car Image ${index + 1}`}
+                  width={50}
+                  height={50}
+                  objectFit="cover"
+                  className="transition-transform duration-300"
+                />
+                <Image
                   src={image}
                   alt={`Car Image ${index + 1}`}
                   layout="fill"
                   objectFit="cover"
                   className="transition-transform duration-300"
                 />
+                
               </motion.div>
             ))}
           </div>
 
           {/* Right: Car Details */}
           <motion.div
-            className="w-1/2 bg-white p-8 rounded-lg shadow-lg"
+            className="w-1/2 bg-slate-50 p-8 rounded-lg shadow-md"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -104,7 +113,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
             </div>
 
             <motion.div
-              className="bg-slate-100 p-6 rounded-lg shadow-sm"
+              className=" p-6 "
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}

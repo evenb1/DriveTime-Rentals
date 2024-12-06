@@ -81,7 +81,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
 
           {/* Right: Car Details */}
           <motion.div
-            className="w-1/2 bg-slate-50 p-8 rounded-lg shadow-md"
+            className="w-1/2 p-8 rounded-lg "
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}

@@ -43,7 +43,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   return (
     <div>
       <GlassNavbar />
-      <section className="bg-slate-100 min-h-screen px-10 py-20">
+      <section className=" min-h-screen px-10 py-20">
         <motion.div
           className="container mx-auto flex gap-10 items-start"
           initial={{ opacity: 0, y: 50 }}

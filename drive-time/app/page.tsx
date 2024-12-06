@@ -5,7 +5,7 @@ import { fetchCars } from "@/utils";
 import { div } from "framer-motion/client";
 import { CarCard } from "@/app/components";
 import Features from "./components/Features";
-import carData from '@/public/cars/cars.json'
+import carData from '@/data/cars.json'
 import Counter from "./components/Counter";
 import FeaturesTwo from "./components/FeaturesTwo";
 import Contact from "./components/Contact";

@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import Modal from './Modal'; // Adjust the import path as necessary
 import Link from 'next/link';

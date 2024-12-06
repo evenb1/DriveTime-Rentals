@@ -26,21 +26,21 @@ export default function HeroSearch() {
     }, []);
 
     return (
-        <div className="flex flex-col md:flex-row items-center mb-2 font-montserrat justify-between bg-white shadow-xl rounded-xl p-2 md:p-3 max-w-4xl mx-auto">
+        <div className="flex flex-col md:flex-row items-center mb-2 font-montserrat justify-between bg-white shadow-sm rounded-xl p-2 md:p-3 max-w-4xl mx-auto">
             {/* Location Input */}
-            <div className="flex items-center w-full md:w-auto mb-4 md:mb-0">
+            <div className="flex items-center w-full md:w-auto mb-4 md:mb-0 ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 md:w-8 md:h-8 mr-2">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                 </svg>
                 <div className="flex flex-col">
-                    <label className="text-gray-800 font-medium leading-4">Location</label>
+                    <label className="text-gray-800 font-medium leading-4 ml-2">Location</label>
                     <input
                         type="text"
                         placeholder="Search your location"
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
-                        className="rounded-lg px-2 py-1 w-full text-gray-600 focus:outline-none text-sm md:text-base"
+                        className="rounded-lg px-2 w-full text-gray-600 focus:outline-none text-sm md:text-base"
                     />
                 </div>
             </div>
@@ -73,7 +73,7 @@ export default function HeroSearch() {
 
             {/* Search Button */}
             <button
-                className="w-full md:w-auto bg-blue-500 hover:bg-blue-600 text-white font-montserrat font-semibold px-6 py-3 rounded-lg transition-colors duration-300"
+                className="w-full md:w-auto bg-blue-500 hover:bg-blue-600 text-white font-montserrat font-light px-6 py-3 rounded-lg transition-colors duration-300"
                 onClick={() => console.log("Searching...")}
             >
                 Search

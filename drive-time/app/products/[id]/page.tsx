@@ -1,48 +1,34 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import GlassNavbar from "../../components/GlassNavbar";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useSearchParams } from "next/navigation"; // To read query params
 import { motion } from "framer-motion";
+import cars from "@/data/cars.json"; // Import the JSON file
 
-interface Car {
-  id: string;
-  make: string;
-  model: string;
-  price: number;
-  transmission: string;
-  drive: string;
-  city_mpg: number;
-  images: string[];
-  description: string;
-}
+const ProductPage = ({ params }: { params: { id: string } }) => {
+  const { id } = params;
 
-const ProductPage: React.FC = () => {
-  const searchParams = useSearchParams();
-  const carId = searchParams?.get("carId"); // Add optional chaining to handle null
+  // Find the car by ID
+  const car = cars.find((car) => car.id === id);
 
-  const [car, setCar] = useState<Car | null>(null); // Car state to fetch details
-  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
-  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+  // Check if the car exists
+  if (!car) {
+    return (
+      <div>
+        <GlassNavbar />
+        <div className="min-h-screen flex justify-center items-center">
+          <p className="text-lg text-red-500">Car not found.</p>
+        </div>
+      </div>
+    );
+  }
 
-  // Fetch car data based on carId
-  useEffect(() => {
-    const fetchCarData = async () => {
-      if (!carId) return;
-      try {
-        const response = await fetch(`/api/cars/${carId}`); // Adjust API endpoint as needed
-        const data = await response.json();
-        setCar(data);
-      } catch (error) {
-        console.error("Error fetching car data:", error);
-      }
-    };
-
-    fetchCarData();
-  }, [carId]);
+  // State for booking dates
+  const [startDate, setStartDate] = React.useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = React.useState<Date | undefined>(undefined);
 
   const handleBooking = () => {
     if (!startDate || !endDate) {
@@ -50,20 +36,9 @@ const ProductPage: React.FC = () => {
       return;
     }
     alert(
-      `Booking confirmed for ${car?.make} ${car?.model} from ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}!`
+      `Booking confirmed for ${car.make} ${car.model} from ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}!`
     );
   };
-
-  if (!car) {
-    return (
-      <div>
-        <GlassNavbar />
-        <div className="min-h-screen flex justify-center items-center">
-          <p>Loading car details...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div>
@@ -102,14 +77,13 @@ const ProductPage: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {/* Car Title */}
             <h1 className="text-4xl font-bold text-gray-800 mb-4">
               {car.make} {car.model}
             </h1>
-            {/* Car Description */}
-            <p className="text-lg text-gray-600 mb-6">{car.description}</p>
+            {/* <p className="text-lg text-gray-600 mb-6">
+              {car.description || "No description available."}
+            </p> */}
 
-            {/* Car Specs */}
             <div className="grid grid-cols-2 gap-4 text-gray-700 mb-6">
               <div>
                 <h3 className="text-sm font-semibold">Price</h3>
@@ -129,7 +103,6 @@ const ProductPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Booking Section */}
             <motion.div
               className="bg-slate-100 p-6 rounded-lg shadow-sm"
               initial={{ opacity: 0 }}

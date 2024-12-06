@@ -53,7 +53,7 @@ const HomeFeatures = () => {
     <section className="bg-white py-28 ">
       <div className="max-w-7xl mx-auto items-center justify-center px-6">
         <motion.h2
-          className="text-6xl font-md font-montserrat leading-5 text-center text-gray-800 mb-28"
+          className="text-6xl max-sm:text-2xl font-md font-montserrat leading-5 text-center text-gray-800 max-sm:mb-2 mb-28"
           id="motions-part"
           initial={{ opacity: 0, y: 40 }}
           animate={isVisible ? { opacity: 1, y: 0 }:{}}
@@ -63,7 +63,7 @@ const HomeFeatures = () => {
         </motion.h2>
 
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 max-sm:grid-cols-1 lg:grid-cols-4 gap-5 max-sm:gap-0 "
           id="motion-section"
           initial={{ opacity: 0 }}
           animate={isVisible ? { opacity: 2 }:{}}
@@ -72,7 +72,7 @@ const HomeFeatures = () => {
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center text-center"
+              className="bg-white  rounded-lg p-6 flex flex-col items-center text-center"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

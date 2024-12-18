@@ -48,11 +48,11 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
     specialRequest: string;
   }) => {
     if (!session) {
-      toast.success("Please sign in to book a car.");
+      toast.error("Please sign in to book a car.");
       return;
     }
-    toast.error(
-      `Booking confirmed for ${car.make} ${car.model} on ${details.date} at ${details.time} with ${details.passengers} passengers!`
+    toast.success(
+      `Booking confirmed for ${car.make} ${car.model} on ${details.date} at ${details.time}`
     );
     setIsModalOpen(false);
   };
@@ -151,10 +151,12 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
       </section>
 
       <BookingModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSubmit={handleBookingSubmit}
-      />
+  isOpen={isModalOpen}
+  onClose={() => setIsModalOpen(false)}
+  onSubmit={handleBookingSubmit}
+  isAuthenticated={!!session} // Pass user authentication state
+/>
+
       {/* Image Modal */}
       {isImageModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

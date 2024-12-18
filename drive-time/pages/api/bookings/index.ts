@@ -2,70 +2,60 @@ import { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "@/lib/mongodb";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const client = await clientPromise;
-  const db = client.db("DriveTime");
+  try {
+    const client = await clientPromise;
+    const db = client.db("DriveTime");
 
-  if (req.method === "POST") {
-    // Create a new booking
-    const { userId, carId, startDate, endDate, status } = req.body;
+    if (req.method === "POST") {
+      const { userId, carId, startDate, endDate } = req.body;
 
-    if (!userId || !carId || !startDate || !endDate) {
-      return res.status(400).json({ message: "Missing required fields" });
-    }
-
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-
-    if (start >= end) {
-      return res.status(400).json({ message: "Invalid date range" });
-    }
-
-    // Check if the car is available for the selected dates
-    const car = await db.collection("cars").findOne({ id: carId });
-    if (!car) {
-      return res.status(404).json({ message: "Car not found" });
-    }
-
-    const isAvailable = car.availability?.every(
-      (period: { startDate: Date; endDate: Date }) =>
-        start > new Date(period.endDate) || end < new Date(period.startDate)
-    );
-
-    if (!isAvailable) {
-      return res.status(400).json({ message: "Car is not available for the selected dates" });
-    }
-
-    const newBooking = {
-      userId,
-      carId,
-      startDate: start,
-      endDate: end,
-      status: status || "Pending",
-      createdAt: new Date(),
-    };
-
-    const result = await db.collection("bookings").insertOne(newBooking);
-
-    // Update car availability
-    await db.collection("cars").updateOne(
-      { id: carId },
-      {
-        $push: {
-          availability: { startDate: start, endDate: end },
-        },
+      if (!userId || !carId || !startDate || !endDate) {
+        return res.status(400).json({ success: false, message: "Missing required fields" });
       }
-    );
 
-    return res.status(201).json(result);
-  } else if (req.method === "GET") {
-    // Fetch all bookings
-    const { userId } = req.query;
+      const start = new Date(startDate);
+      const end = new Date(endDate);
 
-    const filter = userId ? { userId } : {}; // If userId is provided, filter by user
-    const bookings = await db.collection("bookings").find(filter).toArray();
+      const car = await db.collection("cars").findOne({ id: carId });
+      if (!car) {
+        return res.status(404).json({ success: false, message: "Car not found" });
+      }
 
-    return res.status(200).json(bookings);
-  } else {
-    return res.status(405).json({ message: "Method not allowed" });
+      const isAvailable = car.availability.every(
+        (period: { startDate: Date; endDate: Date }) =>
+          start > period.endDate || end < period.startDate
+      );
+
+      if (!isAvailable) {
+        return res.status(400).json({ success: false, message: "Car is not available for the selected dates" });
+      }
+
+      const newBooking = {
+        userId,
+        carId,
+        startDate: start,
+        endDate: end,
+        status: "Pending",
+        createdAt: new Date(),
+      };
+
+      await db.collection("bookings").insertOne(newBooking);
+
+      await db.collection("cars").updateOne(
+        { id: carId },
+        {
+          $setOnInsert: { availability: [] },
+          $push: { availability: { startDate: start, endDate: end } },
+        },
+        { upsert: true }
+      );
+
+      return res.status(201).json({ success: true, message: "Booking created successfully" });
+    }
+
+    return res.status(405).json({ success: false, message: "Method not allowed" });
+  } catch (error) {
+    console.error("Error handling bookings:", error);
+    return res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 }

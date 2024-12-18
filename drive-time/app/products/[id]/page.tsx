@@ -52,7 +52,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <div>
+    <div className="bg-slate-100 h-full" >
       <GlassNavbar />
       <section className="min-h-screen px-10 py-20">
         <motion.div
@@ -64,7 +64,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
           {/* Left: Image Section */}
           <div className="w-1/2">
             {/* Main Image */}
-            <div className="relative h-96 rounded-lg overflow-hidden shadow-lg mb-4">
+            <div className="relative h-80 overflow-hidden  mb-4">
               <Image
                 src={car.images[0]}
                 alt="Main Car Image"
@@ -78,11 +78,11 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
             </div>
 
             {/* Smaller Images */}
-            <div className="flex flex-row gap-4">
+            <div className="flex flex-row gap-5">
               {car.images.slice(1).map((image, index) => (
                 <div
                   key={index}
-                  className="relative h-24 w-24 rounded-lg overflow-hidden cursor-pointer"
+                  className="relative h-48 w-48 rounded-lg overflow-hidden cursor-pointer"
                   onClick={() => {
                     setSelectedImageIndex(index + 1);
                     setIsImageModalOpen(true);
@@ -92,7 +92,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
                     src={image}
                     alt={`Car Image ${index + 2}`}
                     fill
-                    className="object-cover"
+                    className="object-contain"
                   />
                 </div>
               ))}
@@ -101,12 +101,12 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
 
           {/* Right: Car Details */}
           <motion.div
-            className="w-1/2 bg-white p-8 rounded-lg shadow-lg"
+            className="w-1/2 bg-none px-20 "
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">
+            <h1 className="text-4xl font-bold text-gray-800 mb-7">
               {car.make} {car.model}
             </h1>
             <p className="text-lg text-gray-600 mb-6">
@@ -115,19 +115,19 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
 
             <div className="grid grid-cols-2 gap-4 text-gray-700 mb-6">
               <div>
-                <h3 className="text-sm font-semibold">Price</h3>
+                <h3 className="text-sm font-bold">Price</h3>
                 <p>${car.price}/day</p>
               </div>
               <div>
-                <h3 className="text-sm font-semibold">Transmission</h3>
+                <h3 className="text-sm font-bold">Transmission</h3>
                 <p>{car.transmission === "a" ? "Automatic" : "Manual"}</p>
               </div>
               <div>
-                <h3 className="text-sm font-semibold">Drive</h3>
+                <h3 className="text-sm font-bold">Drive</h3>
                 <p>{car.drive.toUpperCase()}</p>
               </div>
               <div>
-                <h3 className="text-sm font-semibold">City MPG</h3>
+                <h3 className="text-sm font-bold">City MPG</h3>
                 <p>{car.city_mpg}</p>
               </div>
             </div>

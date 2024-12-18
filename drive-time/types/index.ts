@@ -29,4 +29,5 @@ transmission:string;
 year:number;
 price: number;
 images: string[];
+description: string;
 }

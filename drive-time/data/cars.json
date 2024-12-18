@@ -19,7 +19,8 @@
       "/cars/lexus2.png",
       "/cars/lexus3.png",
       "/cars/lexus4.png"
-    ]
+    ],
+    "description": "The Lexus RX 350 is a luxurious and spacious SUV designed for ultimate comfort and style. With its advanced all-wheel drive system and powerful 3.5L V6 engine, it delivers a smooth and confident ride. Perfect for families or business trips, this car combines elegance with top-notch performance."
   },
   {
     "id": "2",
@@ -41,7 +42,8 @@
       "/cars/wagon2.png",
       "/cars/wagon3.png",
       "/cars/wagon1.png"
-    ]
+    ],
+    "description": "The Mercedes-Benz G-Class is a symbol of luxury and ruggedness. Its iconic design is paired with a robust 4.0L V8 engine and advanced all-wheel drive capabilities, making it ideal for off-road adventures and city driving alike. Experience the perfect balance of power and sophistication."
   },
   {
     "id": "3",
@@ -60,7 +62,8 @@
     "price": 320,
     "images": [
       "/cars/cayenne1.png"
-    ]
+    ],
+    "description": "The Porsche Cayenne offers unmatched performance and luxury in the SUV category. Featuring a powerful 4.0L engine, sleek design, and advanced technology, it provides an exhilarating driving experience while maintaining practicality and comfort for daily use."
   },
   {
     "id": "4",
@@ -80,7 +83,8 @@
     "images": [
       "/cars/range1.png",
       "/cars/range2.png"
-    ]
+    ],
+    "description": "The Range Rover Vogue is the epitome of luxury SUVs, combining exceptional craftsmanship with superior off-road capabilities. Its 5.0L V8 engine and advanced AWD system ensure a refined and powerful ride, perfect for both urban and outdoor adventures."
   },
   {
     "id": "5",
@@ -101,7 +105,8 @@
       "/cars/cadillac1.png",
       "/cars/cadillac2.png",
       "/cars/cadillac3.png"
-    ]
+    ],
+    "description": "The Cadillac Escalade sets the standard for full-size luxury SUVs. With its commanding presence, spacious interior, and advanced 6.2L V8 engine, it delivers a smooth and powerful driving experience. Perfect for those who demand both style and performance."
   },
   {
     "id": "6",
@@ -123,7 +128,8 @@
       "/cars/land2.png",
       "/cars/land3.png",
       "/cars/land4.png"
-    ]
+    ],
+    "description": "The Toyota Land Cruiser V8 is built for durability and performance. Its 5.7L V8 engine and advanced AWD system make it perfect for challenging terrains, while the spacious interior and premium features ensure comfort for long journeys."
   },
   {
     "id": "7",
@@ -143,7 +149,8 @@
     "images": [
       "/cars/sclass1.png",
       "/cars/sclass2.png"
-    ]
+    ],
+    "description": "The Mercedes-Benz S-Class is the pinnacle of luxury sedans. It features a refined 3.0L engine, cutting-edge technology, and an elegant design. Perfect for business and leisure, the S-Class offers unparalleled comfort and sophistication."
   },
   {
     "id": "8",
@@ -165,6 +172,7 @@
       "/cars/sprinter2.png",
       "/cars/sprinter3.png",
       "/cars/sprinter4.png"
-    ]
+    ],
+    "description": "The Mercedes-Benz Sprinter is a versatile van ideal for group travels or commercial use. With its efficient 2.0L diesel engine, spacious interior, and modern amenities, it offers reliability and comfort for all your transportation needs."
   }
 ]

@@ -11,7 +11,7 @@ const Counter = () => {
 
   const stats = [
     { num: 15, text: "Years of experience" },
-    { num: 50, text: "Satisfied clients" },
+    { numTwo: 5, text: "Satisfied clients" },
   ];
 
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
@@ -39,7 +39,7 @@ const Counter = () => {
     <motion.div
       className="p-0 flex flex-row  justify-start gap-5 py-36"
       id="counter-section" // Unique ID for the section
-      initial={{ opacity: 0, x: -80 }}
+      initial={{ opacity: 0, y: 50 }}
       animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0 }}
       transition={{ duration: 1.0 }}
     >
@@ -70,24 +70,36 @@ const Counter = () => {
         {/* Stats Section */}
         <motion.div
           className="flex flex-row gap-4"
-          initial={{ opacity: 0, x: 80 }}
+          initial={{ opacity: 0, y: 50 }}
           animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0 }}
           transition={{ duration: 1.0 }}
         >
-          {stats.map((item, index) => (
         
-            <div key={index} className="text-center gap-5">
+            <div className="text-center flex flex-row gap-5">
+              <div className="flex flex-col">
               <CountUp
-                end={item.num}
+                end={15}
                 suffix="+"
-                duration={4}
+                duration={1}
+                delay={2}
+                className="text-3xl flex xl:text-8xl gap-5 text-slate-900 font-extralight"
+              />
+              <p className="mt-2 text-slate-900 text-start text-lg">Years of experience</p>
+
+              </div>
+             <div className="flex flex-col">
+             <CountUp
+                end={5}
+                suffix="k+"
+                duration={2}
                 delay={2}
                 className="text-3xl xl:text-8xl gap-5 text-slate-900 font-extralight"
               />
-              <p className="mt-2 text-slate-900 text-start text-lg">{item.text}</p>
+              <p className="mt-2 text-slate-900 text-start text-lg">Satisfied clients</p>
+             </div>
+              
             </div>
             
-          ))}
         </motion.div>
       </div>
     </motion.div>

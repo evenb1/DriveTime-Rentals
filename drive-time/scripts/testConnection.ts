@@ -1,6 +1,14 @@
 import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
 
-const uri = process.env.MONGODB_URI!; // Ensure MONGODB_URI is set in your environment variables
+// Load environment variables
+dotenv.config();
+
+const uri = process.env.MONGODB_URI;
+
+if (!uri) {
+  throw new Error("MONGODB_URI is not defined in the environment variables.");
+}
 
 const testConnection = async () => {
   try {
@@ -11,9 +19,11 @@ const testConnection = async () => {
 
     const databases = await client.db().admin().listDatabases();
     console.log("Databases:");
-    databases.databases.forEach((db) => console.log(` - ${db.name}`));
+    databases.databases.forEach((db: { name: string }) => {
+      console.log(` - ${db.name}`);
+    });
 
-    await client.close(); // Close the connection
+    await client.close();
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
   }

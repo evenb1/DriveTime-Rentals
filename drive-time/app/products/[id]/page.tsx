@@ -58,7 +58,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <div className="bg-slate-100 h-full" >
+    <div className="bg-slate-50 h-full" >
       <GlassNavbar />
       <section className="min-h-screen px-10 py-20">
         <motion.div
@@ -139,10 +139,9 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
             </div>
 
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              
               onClick={() => setIsModalOpen(true)}
-              className="w-full py-5 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+              className="w-full text-lg py-5 bg-white bo text-blue-500 border-blue-500 border hover:text-white hover:bg-blue-500 transition"
             >
               Book Now
             </motion.button>

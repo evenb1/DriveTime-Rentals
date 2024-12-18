@@ -52,7 +52,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
+      <div className="bg-white p-6  items-center justify-center mx-auto rounded-sm w-full max-w-md relative">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -158,11 +158,12 @@ const BookingModal: React.FC<BookingModalProps> = ({
 
         {/* Book Now Button */}
         <button
-          onClick={handleSubmit}
-          className="relative h-12 w-40 overflow-hidden border border-indigo-600 text-indigo-600 shadow-2xl transition-all duration-200 before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:m-auto before:h-0 before:w-0 before:rounded-sm before:bg-indigo-600 before:duration-300 hover:text-white hover:shadow-indigo-600 hover:before:h-40 hover:before:w-40"
-        >
-          {isSubmitting ? "Booking..." : "Book Now"}
-        </button>
+  onClick={handleSubmit}
+  className="relative h-12 w-40 justify-center overflow-hidden border border-blue-600 text-blue-600 shadow-2xl transition-all duration-200 before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:m-auto before:h-0 before:w-0 before:rounded-sm before:bg-blue-600 before:duration-300 hover:text-white hover:before:h-40 hover:before:w-40"
+>
+  <span className="relative z-10">{isSubmitting ? "Booking..." : "Book Now"}</span>
+</button>
+
       </div>
     </div>
   );

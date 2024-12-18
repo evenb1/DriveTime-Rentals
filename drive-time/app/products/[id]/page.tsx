@@ -7,6 +7,9 @@ import { motion } from "framer-motion";
 import cars from "@/data/cars.json"; // Import the JSON file
 import { useSession } from "next-auth/react"; // For authentication
 import BookingModal from "./BookingModal";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const ProductPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
@@ -45,10 +48,10 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
     specialRequest: string;
   }) => {
     if (!session) {
-      alert("Please sign in to book a car.");
+      toast.success("Please sign in to book a car.");
       return;
     }
-    alert(
+    toast.error(
       `Booking confirmed for ${car.make} ${car.model} on ${details.date} at ${details.time} with ${details.passengers} passengers!`
     );
     setIsModalOpen(false);

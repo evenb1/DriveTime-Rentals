@@ -3,6 +3,7 @@ import { SessionProvider } from "next-auth/react";
 import { Footer } from "@/app/components"; 
 import "./globals.css"; 
 import SessionWrapper from "./SessionWrapper";
+import { ToastContainer } from "react-toastify";
 
 export const metadata: Metadata = {
   title: "DriveTime Rentals",
@@ -18,6 +19,8 @@ export default function RootLayout({
     <html lang="en">
       <body className="relative">
         <SessionWrapper>
+        <ToastContainer />
+
           {children} 
           <Footer />
         </SessionWrapper>

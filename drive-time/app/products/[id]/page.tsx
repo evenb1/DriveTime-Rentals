@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import cars from "@/data/cars.json"; // Import the JSON file
 import { useSession } from "next-auth/react"; // For authentication
+import BookingModal from "./BookingModal";
 
 const ProductPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
@@ -37,18 +38,20 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
     specialRequest: "",
   });
 
-  const handleBooking = () => {
+  const handleBookingSubmit = (details: {
+    date: string;
+    time: string;
+    passengers: number;
+    specialRequest: string;
+  }) => {
     if (!session) {
       alert("Please sign in to book a car.");
       return;
     }
-
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      alert(`Booking confirmed for ${car.make} ${car.model}!`);
-      setIsModalOpen(false);
-    }, 2000);
+    alert(
+      `Booking confirmed for ${car.make} ${car.model} on ${details.date} at ${details.time} with ${details.passengers} passengers!`
+    );
+    setIsModalOpen(false);
   };
 
   return (
@@ -144,88 +147,11 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
         </motion.div>
       </section>
 
-      {/* Booking Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-1/3">
-            <h2 className="text-2xl font-semibold mb-4">Book Your Ride</h2>
-            <div className="mb-4">
-              <label className="block mb-2">Date</label>
-              <input
-                type="date"
-                className="w-full border px-4 py-2 rounded-md"
-                value={bookingDetails.date}
-                onChange={(e) =>
-                  setBookingDetails((prev) => ({
-                    ...prev,
-                    date: e.target.value,
-                  }))
-                }
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block mb-2">Time</label>
-              <input
-                type="time"
-                className="w-full border px-4 py-2 rounded-md"
-                value={bookingDetails.time}
-                onChange={(e) =>
-                  setBookingDetails((prev) => ({
-                    ...prev,
-                    time: e.target.value,
-                  }))
-                }
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block mb-2">Passengers</label>
-              <input
-                type="number"
-                className="w-full border px-4 py-2 rounded-md"
-                min={1}
-                value={bookingDetails.passengers}
-                onChange={(e) =>
-                  setBookingDetails((prev) => ({
-                    ...prev,
-                    passengers: Number(e.target.value),
-                  }))
-                }
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block mb-2">Special Requests</label>
-              <textarea
-                className="w-full border px-4 py-2 rounded-md"
-                rows={3}
-                value={bookingDetails.specialRequest}
-                onChange={(e) =>
-                  setBookingDetails((prev) => ({
-                    ...prev,
-                    specialRequest: e.target.value,
-                  }))
-                }
-              />
-            </div>
-            <div className="flex justify-end">
-              <button
-                onClick={() => setIsModalOpen(false)}
-                className="mr-2 px-4 py-2 bg-gray-300 rounded-md"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleBooking}
-                className={`px-4 py-2 bg-blue-500 text-white rounded-md ${
-                  loading && "opacity-50 cursor-not-allowed"
-                }`}
-              >
-                {loading ? "Processing..." : "Book Now"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
+      <BookingModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleBookingSubmit}
+      />
       {/* Image Modal */}
       {isImageModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

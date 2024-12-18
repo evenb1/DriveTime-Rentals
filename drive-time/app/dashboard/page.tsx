@@ -5,7 +5,9 @@ import { FaSearch, FaCar, FaCalendarAlt, FaClock, FaCheckCircle, FaTimesCircle }
 import { useRouter } from "next/navigation";
 
 const BookingsPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
 
+ 
   const [searchQuery, setSearchQuery] = useState("");
   const [bookings, setBookings] = useState([
     {
@@ -46,6 +48,11 @@ const BookingsPage = () => {
     router.push("/"); // Redirect unauthenticated users to the sign-in page
     return <p>Redirecting...</p>; // Show a loading message while redirecting
   }
+  const handleAction = async () => {
+    setIsLoading(true);
+    await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate API call
+    setIsLoading(false);
+  };
 
 
   return (

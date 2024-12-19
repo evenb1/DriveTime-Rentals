@@ -32,7 +32,13 @@ const OurTeam = () => {
       </div>
        {/* Images Section */}
        <div className="flex justify-end items-end gap-8 w-full px-4">
-
+  {/* Image and Text Container */}
+  {[driver, driver2, driver3].map((image, index) => (
+    <div key={index} className="flex flex-col items-start">
+      
+      </div>
+    </div>
+  ))}
 </div>
 
     </motion.div>

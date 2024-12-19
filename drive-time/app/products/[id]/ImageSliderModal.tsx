@@ -47,6 +47,30 @@ const closeModal = () => {
           <FaTimes className="w-5 h-5" />
         </button>
 
+        {/* Image Display */}
+        <div className="relative flex items-center justify-center">
+          {/* Left Navigation Button */}
+          <button
+            onClick={handlePrev}
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-gray-700 hover:bg-gray-900 text-white p-3 rounded-full z-10 transition duration-300"
+          >
+            <FaChevronLeft className="w-5 h-5 bg" />
+          </button>
+
+          {/* Current Image */}
+          <div className="w-full h-96 relative">
+            <Image
+              src={images[currentIndex]}
+              alt={`Slide ${currentIndex + 1}`}
+              layout="fill"
+              objectFit="contain"
+              className="rounded-lg transition-transform duration-300"
+            />
+          </div>
+
+        
+        </div>
+      </div>
     </div>
   );
 };

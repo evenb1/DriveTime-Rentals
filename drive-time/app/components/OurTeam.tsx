@@ -48,7 +48,13 @@ const OurTeam = () => {
       <p className="mt-2 text-gray-800 font-extralight text-2xl">
           {["Tony Rosato", "Vito Lorenzo", "Michael Corleone"][index]}
         </p>
-    
+      {/* Number with Icon */}
+      <div className="flex items-center justify-start gap-2 mt-1">
+        
+        <FaPhoneAlt className="text-blue-400" />
+        <p className="text-blue-500 font-light text-base">
+          +254 123 4567 23{index}
+        </p>
       </div>
     </div>
   ))}

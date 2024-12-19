@@ -35,7 +35,20 @@ const OurTeam = () => {
   {/* Image and Text Container */}
   {[driver, driver2, driver3].map((image, index) => (
     <div key={index} className="flex flex-col items-start">
-      
+      {/* Image */}
+      <div className="relative w-64 h-96 overflow-hidden ">
+        <Image
+          src={image}
+          alt={`Driver ${index + 1}`}
+          layout="fill"
+          objectFit="cover"
+          className=""
+        />
+      </div>
+      <p className="mt-2 text-gray-800 font-extralight text-2xl">
+          {["Tony Rosato", "Vito Lorenzo", "Michael Corleone"][index]}
+        </p>
+    
       </div>
     </div>
   ))}

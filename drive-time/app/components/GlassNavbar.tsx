@@ -41,9 +41,9 @@ const GlassNavbar: React.FC = () => {
                 {/* Right Section (Sign In Button for larger devices) */}
                 {session ? (
                     
-                 <div className="hidden md:flex flex-1 items-center justify-end space-x-4">
+                 <div className="hidden md:flex flex-1 items-center  justify-end space-x-4">
                     <Link href="/dashboard" className='py-2 font-medium'> Dashboard</Link>
-                        <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-300">
+                        <div className="w-10 h-10 rounded-lg overflow-hidden border border-gray-300">
                         <Image
                             src={session.user.image || "/default-avatar.png"}
                             alt="User Avatar"

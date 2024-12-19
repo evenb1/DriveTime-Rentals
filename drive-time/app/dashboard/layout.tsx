@@ -9,7 +9,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <Sidebar />
       <div className="flex-1">
         <TopNav />
-        <main className="p-8 bg-gray-100 max-h-screen">{children}</main>
+        <main className="p-8  max-h-screen">{children}</main>
       </div>
     </div>
   );

@@ -55,7 +55,7 @@ const BookingsPage = () => {
       <hr className="my-4 border-t border-gray-300" />
 
       {/* Search Bar */}
-      <div className="flex items-center mb-6 bg-gray-50 p-4 rounded-lg shadow-md">
+      <div className="flex items-center mb-6  p-4 rounded-lg shadow-md">
         <FaSearch className="text-gray-400 text-lg mr-2" />
         <input
           type="text"

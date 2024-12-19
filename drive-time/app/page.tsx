@@ -10,6 +10,7 @@ import Counter from "./components/Counter";
 import FeaturesTwo from "./components/FeaturesTwo";
 import Contact from "./components/Contact";
 import Logos from "./components/Logos";
+import OurTeam from "./components/OurTeam";
 
 
 export default async function Home() {
@@ -62,7 +63,7 @@ export default async function Home() {
       <section id="contact" className="bg-features bg-cover">
         <Contact/>
       </section>
-     
+     <OurTeam/>
     </main>
   );
 }

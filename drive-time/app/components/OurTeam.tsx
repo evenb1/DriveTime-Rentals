@@ -28,6 +28,11 @@ const OurTeam = () => {
 </div>
 
 
+      
+      </div>
+       {/* Images Section */}
+       <div className="flex justify-end items-end gap-8 w-full px-4">
+
 </div>
 
     </motion.div>

@@ -68,7 +68,13 @@ const closeModal = () => {
             />
           </div>
 
-        
+          {/* Right Navigation Button */}
+          <button
+            onClick={handleNext}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-gray-700 hover:bg-gray-900 text-white p-3 rounded-full z-10 transition duration-300"
+          >
+            <FaChevronRight className="w-5 h-5" />
+          </button>
         </div>
       </div>
     </div>

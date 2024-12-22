@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import Modal from './Modal'; // Adjust the import path as necessary
+import Modal from './Modal'; 
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
@@ -26,7 +26,6 @@ const GlassNavbar: React.FC = () => {
         
         <>
             <nav className="flex items-center justify-between max-sm:rounded-none px-4 md:px-10 py-3 mx-4 md:mx-9 my-5 bg-white bg-opacity-90 backdrop-blur-md  shadow-xl relative">
-                {/* Left Section (Navigation Links for larger devices) */}
                 <div className="hidden md:flex flex-1 justify-start gap-5 space-x-8">
                     <a href="#fleet" className="text-gray-600 hover:text-gray-400">Fleet</a>
                     <a href="#" className="text-gray-600 hover:text-gray-400">History</a>
@@ -42,10 +41,9 @@ const GlassNavbar: React.FC = () => {
                     </a>
                 </div>
 
-                {/* Right Section (Sign In Button for larger devices) */}
                 {session ? (
                     
-                 <div className="hidden md:flex flex-1 items-center  justify-end space-x-4">
+                 <div className="hidden md:flex flex-1 items-center gap-2 justify-end space-x-4">
                     
                <Link href="/dashboard/messages" className='py-1 w-5 h-5 font-medium'> <TiMessages /></Link>
 
@@ -84,7 +82,6 @@ const GlassNavbar: React.FC = () => {
                 )}
                
 
-                {/* Mobile Menu Toggle Button */}
                 <div className="md:hidden flex items-center">
                     <button className="text-gray-600 focus:outline-none" onClick={toggleMenu}>
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -93,7 +90,6 @@ const GlassNavbar: React.FC = () => {
                     </button>
                 </div>
 
-                {/* Mobile Menu (visible on small devices) */}
                 {isMenuOpen && (
                     <div className="absolute top-12 left-0 w-full bg-charcoal bg-opacity-100 backdrop-blur-md shadow-lg md:hidden">
                         <div className="flex flex-col items-start px-4 py-2 space-y-2">

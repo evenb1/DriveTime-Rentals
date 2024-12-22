@@ -11,7 +11,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 const OurTeam = () => {
   return (
     <motion.div
-      className="p-0 flex flex-col px-36 gap-5 py-32"
+      className="p-0 flex flex-col px-36 gap-5 py-14"
 
     >
       {/* Content Section */}
@@ -49,7 +49,7 @@ const OurTeam = () => {
       {/* Number with Icon */}
       <div className="flex items-center justify-start gap-2 mt-1">
         
-        <FaPhoneAlt className="text-blue-400" />
+        <FaPhoneAlt className="text-slate-500" />
         <p className="text-blue-500 font-light text-base">
           +254 123 4567 23{index}
         </p>

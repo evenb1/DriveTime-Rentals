@@ -4,6 +4,10 @@ import Modal from './Modal'; // Adjust the import path as necessary
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { FaBookmark } from "react-icons/fa";
+import { TiMessages } from "react-icons/ti";
+import { IoSettings } from "react-icons/io5";
+
 const GlassNavbar: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -42,18 +46,27 @@ const GlassNavbar: React.FC = () => {
                 {session ? (
                     
                  <div className="hidden md:flex flex-1 items-center  justify-end space-x-4">
-                    <Link href="/dashboard" className='py-2 font-medium'> Dashboard</Link>
+                    
+                    <TiMessages />
+
+                    <Link href="/dashboard" className='py-2 font-medium'> <FaBookmark /></Link>
+                    <Link href="/dashboard" className='py-2 font-medium'> <IoSettings /></Link>
+
+                    
+
                         <div className="w-10 h-10 rounded-lg overflow-hidden border border-gray-300">
                         <Image
                             src={session.user.image || "/default-avatar.png"}
                             alt="User Avatar"
-                            width={40}
-                            height={40}
+                            width={30}
+                            height={30}
                             className="object-cover"
                         />
+
                         </div>
                  
              </div>
+
 
                 ):(
                     <div className="hidden md:flex flex-1 items-center justify-end space-x-4">

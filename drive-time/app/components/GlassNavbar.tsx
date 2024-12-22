@@ -47,14 +47,14 @@ const GlassNavbar: React.FC = () => {
                     
                  <div className="hidden md:flex flex-1 items-center  justify-end space-x-4">
                     
-                    <TiMessages />
+\                    <Link href="/dashboard/messages" className='py-2 font-medium'> <TiMessages /></Link>
 
                     <Link href="/dashboard" className='py-2 font-medium'> <FaBookmark /></Link>
-                    <Link href="/dashboard" className='py-2 font-medium'> <IoSettings /></Link>
+                    <Link href="/dashboard/settings" className='py-2 font-medium'> <IoSettings /></Link>
 
                     
 
-                        <div className="w-10 h-10 rounded-lg overflow-hidden border border-gray-300">
+                        <div className="w-8 h-8 rounded-lg overflow-hidden border border-gray-300">
                         <Image
                             src={session.user.image || "/default-avatar.png"}
                             alt="User Avatar"

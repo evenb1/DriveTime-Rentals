@@ -53,7 +53,7 @@ const GlassNavbar: React.FC = () => {
         {/* Right Section: Session-dependent content */}
         <div className="flex flex-1 items-center justify-end">
           {session ? (
-            <div className="flex flex-row items-center gap-4">
+            <div className="flex flex-row items-center gap-2">
               {/* Menu button for all devices */}
               <IoMdMenu
                 className="text-3xl cursor-pointer"

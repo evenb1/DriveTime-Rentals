@@ -1,15 +1,13 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 import Modal from './Modal'; 
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { FaBookmark, FaRegBookmark, FaRegUser } from "react-icons/fa";
-import { TiMessages } from "react-icons/ti";
-import { IoSettings, IoSettingsOutline } from "react-icons/io5";
-import { CiBookmark } from 'react-icons/ci';
-import { MdOutlineSettings } from 'react-icons/md';
-import { LuMessageSquare } from 'react-icons/lu';
+import { FaBookmark, FaRegUser } from "react-icons/fa";
+import { IoSettingsOutline } from "react-icons/io5";
+import { LuMessageSquare } from "react-icons/lu";
+import { IoMdMenu } from 'react-icons/io';
 
 const GlassNavbar: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,114 +20,106 @@ const GlassNavbar: React.FC = () => {
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
-   
+
     const { data: session } = useSession();
 
     return (
-        
         <>
-            <nav className="flex items-center justify-between max-sm:rounded-none px-4 md:px-10 py-3 mx-4 md:mx-9 my-5 bg-white bg-opacity-90 backdrop-blur-md  shadow-xl relative">
-                <div className="hidden md:flex flex-1 justify-start gap-5 space-x-8">
-                    <a href="#fleet" className="text-gray-600 hover:text-gray-400">Fleet</a>
-                    <a href="#" className="text-gray-600 hover:text-gray-400">History</a>
-                    <a href="#" className="text-gray-600 hover:text-gray-400">Contact</a>
-                    
-                  
-                </div>
+            <nav className="flex items-center justify-between px-4 py-3 mx-4 md:mx-9 my-5 bg-white bg-opacity-90 backdrop-blur-md shadow-xl relative">
+                {/* Left Section: Fleet, History, Contact */}
+                    <div className="hidden md:flex flex-1 justify-start gap-8">
+                        <a href="#fleet" className="text-gray-600 hover:text-gray-400">Fleet</a>
+                        <a href="#history" className="text-gray-600 hover:text-gray-400">History</a>
+                        <a href="#contact" className="text-gray-600 hover:text-gray-400">Contact</a>
+                    </div>
 
                 {/* Logo Section */}
                 <div className="flex-shrink-0 flex-1 md:flex justify-center">
-                    <a href="/" className="text-white text-lg font-bold">
+                    <a href="/" className="text-lg font-bold">
                         <img src="/logo1new.png" className="w-32 md:w-40" alt="Logo" />
                     </a>
                 </div>
 
-                {session ? (
-                    
-                 <div className="hidden md:flex flex-1 items-center gap-2 justify-end space-x-4">
-                                        <Link href="/dashboard" className='py-1 text-xl font-medium'> Bookings</Link>
-
-               <Link href="/dashboard/messages" className='py-1 text-xl font-medium'> Messages</Link>
-               <Link href="/dashboard/profile" className='py-1  text-2xl font-medium'> Profile</Link>
-
-                    <Link href="/dashboard/settings" className='py-1  text-2xl font-medium'> Settings</Link>
-
-                    
-
-                        <div className="w-8 h-8 rounded-lg overflow-hidden border border-gray-300">
-                        <Image
-                            src={session.user.image || "/default-avatar.png"}
-                            alt="User Avatar"
-                            width={30}
-                            height={30}
-                            className="object-cover"
-                        />
-
+                {/* Right Section: Session-dependent content */}
+                <div className="flex flex-1 items-center justify-end">
+                    {session ? (
+                        <div className="flex flex-row items-center gap-4">
+                            <IoMdMenu className="text-3xl cursor-pointer" onClick={toggleMenu} />
+                            <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-300">
+                                <Image
+                                    src={session.user.image || "/default-avatar.png"}
+                                    alt="User Avatar"
+                                    width={30}
+                                    height={30}
+                                    className="object-cover"
+                                />
+                            </div>
                         </div>
-                 
-             </div>
-
-
-                ):(
-                    <div className="hidden md:flex flex-1 items-center justify-end space-x-4">
-                    <button
-                        className="flex items-center space-x-2 bg-none font-montserrat font-light text-sm text-charcoal py-2 px-4 rounded-full hover:bg-black hover:text-white"
-                        onClick={toggleModal}
-                    >
-                        Sign In
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="ml-1 size-5">
-                            <path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
-                        </svg>
-                    </button>
+                    ) : (
+                        <button
+                            className="hidden md:flex items-center space-x-2 font-montserrat font-light text-sm text-charcoal py-2 px-4 rounded-full hover:bg-black hover:text-white"
+                            onClick={toggleModal}
+                        >
+                            Sign In
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="ml-1 size-5">
+                                <path d="M10 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM3.465 14.493a1.23 1.23 0 0 0 .41 1.412A9.957 9.957 0 0 0 10 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 0 0-13.074.003Z" />
+                            </svg>
+                        </button>
+                    )}
                 </div>
 
-                )}
-               
-
+                {/* Mobile Menu Button */}
                 <div className="md:hidden flex items-center">
                     <button className="text-gray-600 focus:outline-none" onClick={toggleMenu}>
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
-                        <div className="w-8 h-8 rounded-lg overflow-hidden border border-gray-300">
-                        <Image
-                            src={session.user.image || "/default-avatar.png"}
-                            alt="User Avatar"
-                            width={30}
-                            height={30}
-                            className="object-cover"
-                        />
-
-                        </div>
                     </button>
                 </div>
 
-                {isMenuOpen && (
-                    <div className="absolute top-12 left-0 w-full bg-charcoal bg-opacity-100 backdrop-blur-md shadow-lg md:hidden">
-                        <div className="flex flex-col items-start px-4 py-2 space-y-2">
-                            <a href="#fleet" className="text-gray-200 hover:text-gray-400 w-full text-left">Fleet</a>
-                            <a href="#" className="text-gray-200 hover:text-gray-400 w-full text-left">History</a>
-                            <a href="#" className="text-gray-200 hover:text-gray-400 w-full text-left">Contact</a>
-                            {session ? (
-                                <>
-                                      <hr className="my-4 w-full border-t border-gray-500" />
+                {/* Dropdown Menu */}
+               {/* Dropdown Menu */}
+{isMenuOpen && (
+    <div className="absolute top-12 right-0 bg-white rounded-b-lg shadow-lg w-64">
+        {session ? (
+            <div className="p-4 flex flex-col gap-4">
+                <a href="#fleet" className="text-gray-700 hover:text-gray-900 max-xl:hidden w-full text-left">Fleet</a>
+                <a href="#" className="text-gray-700 hover:text-gray-900 w-full text-left">History</a>
+                <a href="#" className="text-gray-700 hover:text-gray-900 w-full text-left">Contact</a>
+                <Link href="/dashboard" className="flex items-center gap-2 text-gray-700 hover:text-gray-900">
+                    <FaBookmark />
+                    Bookings
+                </Link>
+                <Link href="/dashboard/profile" className="flex items-center gap-2 text-gray-700 hover:text-gray-900">
+                    <FaRegUser />
+                    Profile
+                </Link>
+                <Link href="/dashboard/messages" className="flex items-center gap-2 text-gray-700 hover:text-gray-900">
+                    <LuMessageSquare />
+                    Messages
+                </Link>
+                <Link href="/dashboard/settings" className="flex items-center gap-2 text-gray-700 hover:text-gray-900">
+                    <IoSettingsOutline />
+                    Settings
+                </Link>
+                <hr className="border-gray-300" />
+                <button
+                    onClick={() => console.log('Logout clicked')}
+                    className="w-full text-left text-red-600 hover:text-red-800"
+                >
+                    Logout
+                </button>
+            </div>
+        ) : (
+            <div className="p-4 flex flex-col gap-4">
+                <a href="#fleet" className="text-gray-700 hover:text-gray-900 w-full text-left">Fleet</a>
+                <a href="#" className="text-gray-700 hover:text-gray-900 w-full text-left">History</a>
+                <a href="#" className="text-gray-700 hover:text-gray-900 w-full text-left">Contact</a>
+            </div>
+        )}
+    </div>
+)}
 
-                                <Link href="/dashboard" className='text-gray-200 hover:text-gray-400  flex flex-row gap-1  w-full text-left'><FaRegBookmark className='mt-1'/>
-                                Bookings</Link>
-                                <Link href="/dashboard/profile" className='text-gray-200 hover:text-gray-400  flex flex-row gap-1 justify-start  w-full text-left'><FaRegUser className='mt-1' />
-                                Profile</Link>
-                                <Link href="/dashboard/messages" className='text-gray-200 hover:text-gray-400  flex flex-row gap-1 justify-start  w-full text-left'><LuMessageSquare className='mt-1' />
-                                Messages</Link>
-                                <Link href="/dashboard/settings" className='text-gray-200 hover:text-gray-400 flex flex-row gap-1 justify-start w-full text-left'><IoSettingsOutline  className='mt-1'/>
-                                Settings</Link>
-                                </>
-                            ):(
-                                <a href="#" onClick={toggleModal} className="text-gray-200 hover:text-gray-400 w-full text-left">Sign In</a>
-                            )}
-
-                        </div>
-                    </div>
-                )}
             </nav>
 
             {/* Modal Component */}

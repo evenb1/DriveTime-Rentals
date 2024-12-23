@@ -4,11 +4,12 @@ import Modal from './Modal';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { FaBookmark, FaRegBookmark } from "react-icons/fa";
+import { FaBookmark, FaRegBookmark, FaRegUser } from "react-icons/fa";
 import { TiMessages } from "react-icons/ti";
 import { IoSettings, IoSettingsOutline } from "react-icons/io5";
 import { CiBookmark } from 'react-icons/ci';
 import { MdOutlineSettings } from 'react-icons/md';
+import { LuMessageSquare } from 'react-icons/lu';
 
 const GlassNavbar: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,7 +47,7 @@ const GlassNavbar: React.FC = () => {
                 {session ? (
                     
                  <div className="hidden md:flex flex-1 items-center gap-2 justify-end space-x-4">
-                                        <Link href="/dashboard" className='py-1 text-xl font-medium'> <FaRegBookmark /></Link>
+                                        <Link href="/dashboard" className='py-1 text-xl font-medium'> Bookings</Link>
 
                <Link href="/dashboard/messages" className='py-1 text-xl font-medium'> Messages</Link>
                <Link href="/dashboard/profile" className='py-1  text-2xl font-medium'> Profile</Link>
@@ -90,6 +91,16 @@ const GlassNavbar: React.FC = () => {
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                         </svg>
+                        <div className="w-8 h-8 rounded-lg overflow-hidden border border-gray-300">
+                        <Image
+                            src={session.user.image || "/default-avatar.png"}
+                            alt="User Avatar"
+                            width={30}
+                            height={30}
+                            className="object-cover"
+                        />
+
+                        </div>
                     </button>
                 </div>
 
@@ -100,8 +111,18 @@ const GlassNavbar: React.FC = () => {
                             <a href="#" className="text-gray-200 hover:text-gray-400 w-full text-left">History</a>
                             <a href="#" className="text-gray-200 hover:text-gray-400 w-full text-left">Contact</a>
                             {session ? (
-                            <a href="/dashboard" className="text-gray-200 hover:text-gray-400 w-full text-left">Dashboard</a>
+                                <>
+                                      <hr className="my-4 w-full border-t border-gray-500" />
 
+                                <Link href="/dashboard" className='text-gray-200 hover:text-gray-400  flex flex-row gap-1  w-full text-left'><FaRegBookmark className='mt-1'/>
+                                Bookings</Link>
+                                <Link href="/dashboard/profile" className='text-gray-200 hover:text-gray-400  flex flex-row gap-1 justify-start  w-full text-left'><FaRegUser className='mt-1' />
+                                Profile</Link>
+                                <Link href="/dashboard/messages" className='text-gray-200 hover:text-gray-400  flex flex-row gap-1 justify-start  w-full text-left'><LuMessageSquare className='mt-1' />
+                                Messages</Link>
+                                <Link href="/dashboard/settings" className='text-gray-200 hover:text-gray-400 flex flex-row gap-1 justify-start w-full text-left'><IoSettingsOutline  className='mt-1'/>
+                                Settings</Link>
+                                </>
                             ):(
                                 <a href="#" onClick={toggleModal} className="text-gray-200 hover:text-gray-400 w-full text-left">Sign In</a>
                             )}

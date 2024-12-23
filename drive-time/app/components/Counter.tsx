@@ -80,8 +80,8 @@ const Counter = () => {
               <CountUp
                 end={15}
                 suffix="+"
-                duration={1}
-                delay={2}
+                duration={2}
+                delay={3}
                 className="text-3xl flex xl:text-8xl gap-5 text-slate-900 font-extralight"
               />
               <p className="mt-2 text-slate-900 text-start text-lg">Years of experience</p>
@@ -92,7 +92,7 @@ const Counter = () => {
                 end={5}
                 suffix="k+"
                 duration={2}
-                delay={2}
+                delay={3}
                 className="text-3xl xl:text-8xl gap-5 text-slate-900 font-extralight"
               />
               <p className="mt-2 text-slate-900 text-start text-lg">Satisfied clients</p>

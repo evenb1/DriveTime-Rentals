@@ -4,9 +4,11 @@ import Modal from './Modal';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { FaBookmark } from "react-icons/fa";
+import { FaBookmark, FaRegBookmark } from "react-icons/fa";
 import { TiMessages } from "react-icons/ti";
-import { IoSettings } from "react-icons/io5";
+import { IoSettings, IoSettingsOutline } from "react-icons/io5";
+import { CiBookmark } from 'react-icons/ci';
+import { MdOutlineSettings } from 'react-icons/md';
 
 const GlassNavbar: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,11 +46,12 @@ const GlassNavbar: React.FC = () => {
                 {session ? (
                     
                  <div className="hidden md:flex flex-1 items-center gap-2 justify-end space-x-4">
-                    
-               <Link href="/dashboard/messages" className='py-1 w-5 h-5 font-medium'> <TiMessages /></Link>
+                                        <Link href="/dashboard" className='py-1 text-xl font-medium'> <FaRegBookmark /></Link>
 
-                    <Link href="/dashboard" className='py-1 w-5 h-5 font-medium'> <FaBookmark /></Link>
-                    <Link href="/dashboard/settings" className='py-1 w-5 h-5 font-medium'> <IoSettings /></Link>
+               <Link href="/dashboard/messages" className='py-1 text-xl font-medium'> Messages</Link>
+               <Link href="/dashboard/profile" className='py-1  text-2xl font-medium'> Profile</Link>
+
+                    <Link href="/dashboard/settings" className='py-1  text-2xl font-medium'> Settings</Link>
 
                     
 

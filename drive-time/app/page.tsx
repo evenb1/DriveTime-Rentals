@@ -11,6 +11,7 @@ import FeaturesTwo from "./components/FeaturesTwo";
 import Contact from "./components/Contact";
 import Logos from "./components/Logos";
 import OurTeam from "./components/OurTeam";
+import AddressMap from "./components/AddressMap";
 
 
 export default async function Home() {
@@ -64,6 +65,7 @@ export default async function Home() {
         <Contact/>
       </section>
      <OurTeam/>
+     <AddressMap/>
     </main>
   );
 }

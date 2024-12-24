@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Modal from "./Modal";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -12,14 +12,33 @@ import { IoMdMenu } from "react-icons/io";
 const GlassNavbar: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null); // Reference for dropdown menu
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen((prev) => !prev);
   };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
+
+  // Close menu on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        closeMenu();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const { data: session } = useSession();
 
@@ -52,7 +71,7 @@ const GlassNavbar: React.FC = () => {
             <div className="flex items-center gap-4">
               {/* Menu for Large Devices */}
               <div className="hidden hover:shadow-2xl md:flex rounded-full px-2 flex-row items-center hover:shadow-black gap-3">
-              <IoMdMenu
+                <IoMdMenu
                   className="text-3xl cursor-pointer"
                   onClick={toggleMenu}
                 />
@@ -65,7 +84,6 @@ const GlassNavbar: React.FC = () => {
                     className="object-cover"
                   />
                 </div>
-                
               </div>
               {/* Mobile Menu Toggle */}
               <IoMdMenu
@@ -102,7 +120,10 @@ const GlassNavbar: React.FC = () => {
 
         {/* Dropdown Menu */}
         {isMenuOpen && (
-          <div className="absolute top-12 right-0 bg-white rounded-b-lg shadow-lg w-64">
+          <div
+            ref={menuRef} // Attach ref to the dropdown
+            className="absolute top-[54px] right-0 bg-white  rounded-b-lg shadow-lg w-64"
+          >
             <div className="p-4 flex flex-col gap-4">
               {/* Common Links for Small Devices */}
               <a

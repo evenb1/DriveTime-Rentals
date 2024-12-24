@@ -42,33 +42,35 @@ const GlassNavbar: React.FC = () => {
         {/* Logo Section */}
         <div className="flex-shrink-0 flex-1 md:flex justify-center">
           <a href="/" className="text-lg font-bold">
-            <img
-              src="/logo1new.png"
-              className="w-32 md:w-40"
-              alt="Logo"
-            />
+            <img src="/logo1new.png" className="w-32 md:w-40" alt="Logo" />
           </a>
         </div>
 
         {/* Right Section: Session-dependent content */}
         <div className="flex flex-1 items-center justify-end">
           {session ? (
-            <div className="flex flex-row items-center gap-4">
-              {/* Menu button for all devices */}
+            <div className="flex items-center gap-4">
+              {/* Menu for Large Devices */}
+              <div className="hidden md:flex flex-row items-center gap-3">
+                <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-300">
+                  <Image
+                    src={session.user.image || "/default-avatar.png"}
+                    alt="User Avatar"
+                    width={30}
+                    height={30}
+                    className="object-cover"
+                  />
+                </div>
+                <IoMdMenu
+                  className="text-3xl cursor-pointer"
+                  onClick={toggleMenu}
+                />
+              </div>
+              {/* Mobile Menu Toggle */}
               <IoMdMenu
                 className="text-3xl cursor-pointer md:hidden"
                 onClick={toggleMenu}
               />
-              {/* Profile Image (visible on larger devices) */}
-              <div className="hidden md:block w-8 h-8 rounded-full overflow-hidden border border-gray-300">
-                <Image
-                  src={session.user.image || "/default-avatar.png"}
-                  alt="User Avatar"
-                  width={30}
-                  height={30}
-                  className="object-cover"
-                />
-              </div>
             </div>
           ) : (
             <button
@@ -88,16 +90,11 @@ const GlassNavbar: React.FC = () => {
           )}
         </div>
 
-        {/* Mobile Menu Button */}
-        <button className="md:hidden text-gray-600 focus:outline-none" onClick={toggleMenu}>
-          <IoMdMenu className="text-3xl" />
-        </button>
-
         {/* Dropdown Menu */}
         {isMenuOpen && (
           <div className="absolute top-12 right-0 bg-white rounded-b-lg shadow-lg w-64">
             <div className="p-4 flex flex-col gap-4">
-              {/* Nav Links */}
+              {/* Common Links for Small Devices */}
               <a
                 href="#fleet"
                 className="text-gray-700 hover:text-gray-900 w-full text-left"

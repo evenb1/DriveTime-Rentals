@@ -10,6 +10,7 @@ import BookingModal from "./BookingModal";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ImageSliderModal from "./ImageSliderModal";
+import AddressMap from "@/app/components/AddressMap";
 
 
 const ProductPage = ({ params }: { params: { id: string } }) => {
@@ -259,6 +260,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
     />
   </div>
 </section>
+<AddressMap/>
 
     </div>
   );

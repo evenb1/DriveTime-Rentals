@@ -54,6 +54,8 @@ const CarCard: React.FC<CarCardProps> = ({ car }) => {
       initial={{ opacity: 0, y: 80 }}
       animate={isVisible ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 1.0 }}
+      onClick={() => router.push(`/products/${id}`)} 
+
     >
       <div className="car-card__content">
         <h2 className="car-card__content-title">

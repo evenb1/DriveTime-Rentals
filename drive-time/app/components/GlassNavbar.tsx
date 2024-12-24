@@ -51,7 +51,11 @@ const GlassNavbar: React.FC = () => {
           {session ? (
             <div className="flex items-center gap-4">
               {/* Menu for Large Devices */}
-              <div className="hidden md:flex flex-row items-center gap-3">
+              <div className="hidden hover:shadow-2xl md:flex rounded-full px-2 flex-row items-center hover:shadow-black gap-3">
+              <IoMdMenu
+                  className="text-3xl cursor-pointer"
+                  onClick={toggleMenu}
+                />
                 <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-300">
                   <Image
                     src={session.user.image || "/default-avatar.png"}
@@ -61,10 +65,7 @@ const GlassNavbar: React.FC = () => {
                     className="object-cover"
                   />
                 </div>
-                <IoMdMenu
-                  className="text-3xl cursor-pointer"
-                  onClick={toggleMenu}
-                />
+                
               </div>
               {/* Mobile Menu Toggle */}
               <IoMdMenu

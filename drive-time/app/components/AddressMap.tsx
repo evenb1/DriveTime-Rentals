@@ -39,7 +39,7 @@ const AddressSection: React.FC = () => {
                 <h2 className="text-slate-900">Email: drivetime@gmail.com</h2>
 
             </div>
-            <FaClock className="justify-center ml-20 text-6xl"/>
+            <FaClock className="justify-center ml-20 text-5xl"/>
 
             <div className="flex flex-col font-extralight px-5 text-xl">
                 <h2 className="text-slate-900">Mon-Sat 09:00-23:00</h2>

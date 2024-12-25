@@ -1,11 +1,13 @@
+import { FaHeadphones, FaLocationDot } from "react-icons/fa6";
+
 const AddressSection: React.FC = () => {
     return (
-      <section className="py-10 px-4 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+      <section className="py-10 pb-20 px-4 bg-gray-50">
+        <div className="max-w-6xl mx-auto pb-20">
+          <h2 className="text-2xl justify-center text-center font-semibold text-gray-800 mb-4">
             Find Us Here
           </h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-600 text-center mb-6">
             Visit us at our location or contact us for more details.
           </p>
           <div className="w-full h-80 rounded-lg overflow-hidden shadow-lg">
@@ -20,6 +22,27 @@ const AddressSection: React.FC = () => {
               className="border-0"
             ></iframe>
           </div>
+        </div>
+        <div className="flex flex-row gap-10 ">
+        <FaLocationDot />
+
+            <div className="flex flex-col">
+                <h2 className="text-slate-900">11 Rue de la Mutualité,</h2>
+                <h2 className="text-slate-900">Nairobi, Kenya</h2>
+
+            </div>
+            <FaHeadphones />
+
+            <div className="flex flex-col">
+                <h2 className="text-slate-900">Phone: 345 6789 0123</h2>
+                <h2 className="text-slate-900">Email: drivetime@gmail.com</h2>
+
+            </div>
+            <div className="flex flex-col">
+                <h2 className="text-slate-900">Mon-Sat 09:00-23:00</h2>
+                <h2 className="text-slate-900">Sunday is closed.</h2>
+
+            </div>
         </div>
       </section>
     );

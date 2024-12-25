@@ -1,4 +1,5 @@
-import { FaHeadphones, FaLocationDot } from "react-icons/fa6";
+import { FaClock, FaHeadphones, FaLocationDot } from "react-icons/fa6";
+import { IoMdClock } from "react-icons/io";
 
 const AddressSection: React.FC = () => {
     return (
@@ -23,22 +24,24 @@ const AddressSection: React.FC = () => {
             ></iframe>
           </div>
         </div>
-        <div className="flex flex-row gap-10 ">
-        <FaLocationDot />
+        <div className="flex flex-row justify-center">
+        <FaLocationDot className="justify-center ml-20 text-5xl" />
 
-            <div className="flex flex-col">
-                <h2 className="text-slate-900">11 Rue de la Mutualité,</h2>
+            <div className="flex flex-col font-extralight px-5 text-xl">
+                <h2 className="text-slate-900">Ole Dume Road</h2>
                 <h2 className="text-slate-900">Nairobi, Kenya</h2>
 
             </div>
-            <FaHeadphones />
+            <FaHeadphones className="justify-center ml-20 text-5xl" />
 
-            <div className="flex flex-col">
+            <div className="flex flex-col font-extralight px-5 text-xl">
                 <h2 className="text-slate-900">Phone: 345 6789 0123</h2>
                 <h2 className="text-slate-900">Email: drivetime@gmail.com</h2>
 
             </div>
-            <div className="flex flex-col">
+            <FaClock className="justify-center ml-20 text-6xl"/>
+
+            <div className="flex flex-col font-extralight px-5 text-xl">
                 <h2 className="text-slate-900">Mon-Sat 09:00-23:00</h2>
                 <h2 className="text-slate-900">Sunday is closed.</h2>
 

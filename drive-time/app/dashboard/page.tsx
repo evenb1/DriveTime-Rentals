@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useSession } from "next-auth/react"; // Import useSession from NextAuth
-import { useRouter } from "next/navigation";
-import { supabase } from "../../lib/supabase"; // Ensure Supabase is set up correctly
+import { useSession } from "next-auth/react"; // To handle user sessions
+import { useRouter } from "next/navigation"; // To redirect users
+import { supabase } from "../../lib/supabase"; // Supabase client
 import {
   FaSearch,
   FaCar,
@@ -13,17 +13,28 @@ import {
   FaTimesCircle,
 } from "react-icons/fa";
 
-const BookingsPage = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [bookings, setBookings] = useState([]);
-  const [loading, setLoading] = useState(true); // Track loading state
-  const { data: session, status } = useSession(); // Get session data
-  const router = useRouter(); // Router for redirecting
+// Define the Booking type
+type Booking = {
+  id: string;
+  user_id: string;
+  car_id: string;
+  car_name: string;
+  start_date: string;
+  end_date: string;
+  status: string;
+};
 
-  // Redirect to login page if the user is not authenticated
+const BookingsPage = () => {
+  const [searchQuery, setSearchQuery] = useState(""); // Search input
+  const [bookings, setBookings] = useState<Booking[]>([]); // List of bookings
+  const [loading, setLoading] = useState(true); // Loading state
+  const { data: session, status } = useSession(); // Authentication status
+  const router = useRouter();
+
+  // Redirect unauthenticated users to the home page
   useEffect(() => {
     if (status === "unauthenticated") {
-      router.push("/"); // Redirect unauthenticated users to the sign-in page
+      router.push("/"); // Redirect
     }
   }, [status, router]);
 
@@ -31,16 +42,11 @@ const BookingsPage = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await fetch(`/api/bookings`);
-        const data = await response.json();
-
-        if (response.ok) {
-          setBookings(data);
-        } else {
-          console.error("Error fetching bookings:", data.error);
-        }
+        const { data, error } = await supabase.from("bookings").select("*");
+        if (error) throw error;
+        setBookings(data || []); // Set fetched bookings
       } catch (err) {
-        console.error("Error:", err);
+        console.error("Error fetching bookings:", err);
       } finally {
         setLoading(false);
       }
@@ -48,43 +54,49 @@ const BookingsPage = () => {
 
     fetchBookings();
 
-    // Real-time subscription to bookings table
-    const subscription = supabase
-      .from("bookings")
-      .on("*", (payload) => {
-        console.log("Real-time update received:", payload);
+    // Subscribe to real-time updates for the bookings table
+    const channel = supabase
+      .channel("bookings")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "bookings" },
+        (payload) => {
+          console.log("Real-time update received:", payload);
 
-        if (payload.eventType === "INSERT") {
-          setBookings((prev) => [...prev, payload.new]);
-        } else if (payload.eventType === "UPDATE") {
-          setBookings((prev) =>
-            prev.map((booking) =>
-              booking.id === payload.new.id ? payload.new : booking
-            )
-          );
-        } else if (payload.eventType === "DELETE") {
-          setBookings((prev) =>
-            prev.filter((booking) => booking.id !== payload.old.id)
-          );
+          if (payload.eventType === "INSERT") {
+            setBookings((prev) => [...prev, payload.new as Booking]);
+          } else if (payload.eventType === "UPDATE") {
+            setBookings((prev) =>
+              prev.map((booking) =>
+                booking.id === (payload.new as Booking).id
+                  ? (payload.new as Booking)
+                  : booking
+              )
+            );
+          } else if (payload.eventType === "DELETE") {
+            setBookings((prev) =>
+              prev.filter(
+                (booking) => booking.id !== (payload.old as Booking).id
+              )
+            );
+          }
         }
-      })
+      )
       .subscribe();
 
     // Cleanup on unmount
     return () => {
-      supabase.removeSubscription(subscription);
+      supabase.removeChannel(channel);
     };
   }, []);
 
   // Filter bookings based on the search query
   const filteredBookings = bookings.filter((booking) =>
-    booking.car_name?.toLowerCase().includes(searchQuery.toLowerCase())
+    booking.car_name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // Show loading state
-  if (loading) {
-    return <p>Loading bookings...</p>;
-  }
+  if (loading) return <p>Loading bookings...</p>;
 
   return (
     <div className="max-w-7xl mx-auto p-12 rounded-lg">

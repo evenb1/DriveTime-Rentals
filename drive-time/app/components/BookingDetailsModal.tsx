@@ -1,12 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaCheckCircle, FaClock, FaTimesCircle } from "react-icons/fa";
+import { supabase } from "../../lib/supabase";
 
 interface BookingDetailsModalProps {
   isOpen: boolean;
   onClose: () => void;
   booking: {
+    id: string;
+    car_id: string;
     car_name: string;
     car_image: string;
     start_date: string;
@@ -14,7 +17,7 @@ interface BookingDetailsModalProps {
     status: string;
     price: string;
     passengers: number;
-  } | null; // Booking can be null initially
+  } | null;
 }
 
 const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({
@@ -22,12 +25,33 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({
   onClose,
   booking,
 }) => {
+  const [carDetails, setCarDetails] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchCarDetails = async () => {
+      if (!booking?.car_id) return;
+      try {
+        const { data, error } = await supabase
+          .from("cars")
+          .select("*")
+          .eq("id", booking.car_id)
+          .single();
+
+        if (error) throw error;
+        setCarDetails(data);
+      } catch (err) {
+        console.error("Error fetching car details:", err);
+      }
+    };
+
+    fetchCarDetails();
+  }, [booking?.car_id]);
+
   if (!isOpen || !booking) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white w-full max-w-lg rounded-lg shadow-lg p-6 relative">
-        {/* Close Button */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
@@ -35,16 +59,12 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({
           ✕
         </button>
 
-        {/* Modal Content */}
         <div className="text-center">
-          {/* Car Image */}
           <img
             src={booking.car_image}
             alt={booking.car_name}
             className="w-full h-48 object-cover rounded-md mb-4"
           />
-
-          {/* Booking Details */}
           <h2 className="text-2xl font-semibold text-gray-800 mb-2">
             {booking.car_name}
           </h2>
@@ -58,14 +78,15 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({
             </p>
           </div>
 
-          <div className="mb-4">
-            <p className="text-gray-700">
-              <span className="font-semibold">Passengers:</span>{" "}
-              {booking.passengers}
-            </p>
-          </div>
+          {carDetails && (
+            <div className="mb-4">
+              <p className="text-gray-700">
+                <span className="font-semibold">Car Features:</span>{" "}
+                {carDetails.features.join(", ")}
+              </p>
+            </div>
+          )}
 
-          {/* Status */}
           <div className="mb-4">
             {booking.status === "confirmed" ? (
               <span className="flex justify-center items-center gap-2 text-green-600">

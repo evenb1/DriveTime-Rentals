@@ -47,21 +47,49 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
     specialRequest: "",
   });
 
-  const handleBookingSubmit = (details: {
+  const handleBookingSubmit = async (details: {
     date: string;
     time: string;
     passengers: number;
     specialRequest: string;
-  }) => {
-    if (!session) {
+  }): Promise<void> => {
+    if (!session || !session.user) {
       toast.error("Please sign in to book a car.");
       return;
     }
-    toast.success(
-      `Booking confirmed for ${car.make} ${car.model} on ${details.date} at ${details.time}`
-    );
-    setIsModalOpen(false);
+  
+    try {
+      setLoading(true); // Use the global or local loader
+      const response = await fetch("/api/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: session.user.id, // Ensure session includes user ID
+          car_id: id, // Use the car ID from params
+          start_date: details.date,
+          end_date: details.time, // Include start & end dates
+          passengers: details.passengers,
+          special_request: details.specialRequest,
+          status: "pending", // Set default booking status
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to book the car. Please try again.");
+      }
+  
+      const data = await response.json();
+      toast.success(`Booking confirmed for ${car.make} ${car.model}!`);
+      setIsModalOpen(false);
+    } catch (error: any) {
+      toast.error(error.message || "An error occurred while booking.");
+    } finally {
+      setLoading(false); // End the loading state
+    }
   };
+  
 
   return (
     <div className="bg-slate-50 h-full" >
@@ -178,12 +206,14 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
             </div>
 
             <motion.button
-              
-              onClick={() => setIsModalOpen(true)}
-              className="w-full text-lg py-5 bg-white bo text-blue-500 border-blue-500 border hover:text-white hover:bg-blue-500 transition"
-            >
-              Book Now
-            </motion.button>
+  onClick={() => setIsModalOpen(true)}
+  className={`w-full text-lg py-5 bg-white border text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500 transition ${
+    !session ? "cursor-not-allowed opacity-50" : ""
+  }`}
+>
+  {loading ? "Loading..." : "Book Now"}
+</motion.button>
+
           </motion.div>
         </motion.div>
       </section>
@@ -191,9 +221,10 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
       <BookingModal
   isOpen={isModalOpen}
   onClose={() => setIsModalOpen(false)}
-  onSubmit={handleBookingSubmit}
-  isAuthenticated={!!session} // Pass user authentication state
+  onSubmit={handleBookingSubmit} // Pass the updated async function
+  isAuthenticated={!!session}
 />
+
 
       {/* Image Modal */}
      {isImageModalOpen && (

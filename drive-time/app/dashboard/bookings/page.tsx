@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react"; // To handle user sessions
 import { useRouter } from "next/navigation"; // To redirect users
-import { supabase } from "../../lib/supabase"; // Supabase client
+import { supabase } from "../../../lib/supabase"; // Supabase client
 import {
   FaSearch,
   FaCar,
@@ -42,13 +42,17 @@ const BookingsPage = () => {
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const { data, error } = await supabase.from("bookings").select("*");
+        setLoading(true); // Set loading state
+        const { data, error } = await supabase
+          .from("bookings")
+          .select("*")
+          .eq("user_id", session?.user.id); // Fetch bookings for the logged-in user
         if (error) throw error;
         setBookings(data || []); // Set fetched bookings
       } catch (err) {
         console.error("Error fetching bookings:", err);
       } finally {
-        setLoading(false);
+        setLoading(false); // Remove loading state
       }
     };
 
@@ -88,7 +92,7 @@ const BookingsPage = () => {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, []);
+  }, [session?.user.id]);
 
   // Filter bookings based on the search query
   const filteredBookings = bookings.filter((booking) =>
@@ -96,7 +100,7 @@ const BookingsPage = () => {
   );
 
   // Show loading state
-  if (loading) return <p>Loading bookings...</p>;
+  if (loading) return <p className="text-center text-gray-600">Loading bookings...</p>;
 
   return (
     <div className="max-w-7xl mx-auto p-12 rounded-lg">

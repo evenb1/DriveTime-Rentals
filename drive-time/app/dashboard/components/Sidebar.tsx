@@ -9,16 +9,14 @@ import { signOut } from "next-auth/react";
 const Sidebar = () => {
   const pathname = usePathname();
 
-  // Sidebar items with updated paths
   const sidebarItems = [
-    { href: '/dashboard', label: 'Bookings', icon: 'bookmark' }, // Updated to point to root
+    { href: '/dashboard/bookings', label: 'Bookings', icon: 'bookmark' }, 
     { href: '/dashboard/messages', label: 'Messages', icon: 'envelope' },
     { href: '/dashboard/profile', label: 'Profile', icon: 'user' },
     { href: '/dashboard/payments', label: 'Payments', icon: 'credit-card' },
     { href: '/dashboard/settings', label: 'Settings', icon: 'settings' },
   ];
 
-  // Animation for sidebar items
   const itemVariants = {
     hidden: { opacity: 0, x: -20 },
     visible: { opacity: 1, x: 0 },
@@ -27,7 +25,6 @@ const Sidebar = () => {
   return (
     <nav className="bg-gray-900 font-inter text-white h-screen w-[250px] p-8 shadow-lg flex flex-col justify-between">
       <div>
-        {/* Logo */}
         <motion.h2
           className="text-2xl font-bold mb-6"
           initial={{ opacity: 0, y: -20 }}
@@ -40,7 +37,6 @@ const Sidebar = () => {
         </motion.h2>
         <hr className="my-4 border-t border-gray-600" />
 
-        {/* Sidebar links */}
         <ul className="space-y-4">
           {sidebarItems.map((item, index) => (
             <motion.li

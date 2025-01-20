@@ -1,61 +1,62 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "@/lib/mongodb";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { supabase } from '../../../lib/supabase';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    const client = await clientPromise;
-    const db = client.db("DriveTime");
+  if (req.method === 'POST') {
+    // Create a new booking
+    const { user_id, car_id, start_date, end_date, status } = req.body;
 
-    if (req.method === "POST") {
-      const { userId, carId, startDate, endDate } = req.body;
-
-      if (!userId || !carId || !startDate || !endDate) {
-        return res.status(400).json({ success: false, message: "Missing required fields" });
-      }
-
-      const start = new Date(startDate);
-      const end = new Date(endDate);
-
-      const car = await db.collection("cars").findOne({ id: carId });
-      if (!car) {
-        return res.status(404).json({ success: false, message: "Car not found" });
-      }
-
-      const isAvailable = car.availability.every(
-        (period: { startDate: Date; endDate: Date }) =>
-          start > period.endDate || end < period.startDate
-      );
-
-      if (!isAvailable) {
-        return res.status(400).json({ success: false, message: "Car is not available for the selected dates" });
-      }
-
-      const newBooking = {
-        userId,
-        carId,
-        startDate: start,
-        endDate: end,
-        status: "Pending",
-        createdAt: new Date(),
-      };
-
-      await db.collection("bookings").insertOne(newBooking);
-
-      await db.collection("cars").updateOne(
-        { id: carId },
-        {
-          $setOnInsert: { availability: [] },
-          $push: { availability: { startDate: start, endDate: end } },
-        },
-        { upsert: true }
-      );
-
-      return res.status(201).json({ success: true, message: "Booking created successfully" });
+    if (!user_id || !car_id || !start_date || !end_date) {
+      return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    return res.status(405).json({ success: false, message: "Method not allowed" });
-  } catch (error) {
-    console.error("Error handling bookings:", error);
-    return res.status(500).json({ success: false, message: "Internal Server Error" });
+    // Check for booking conflicts
+    const { data: existingBookings, error: conflictError } = await supabase
+      .from('bookings')
+      .select('*')
+      .or(
+        `start_date.lte.${end_date},end_date.gte.${start_date},car_id.eq.${car_id}`
+      );
+
+    if (conflictError) {
+      return res.status(500).json({ error: conflictError.message });
+    }
+
+    if (existingBookings && existingBookings.length > 0) {
+      return res.status(409).json({ error: 'Car is already booked for the selected dates' });
+    }
+
+    // Insert new booking
+    const { data, error } = await supabase
+      .from('bookings')
+      .insert([{ user_id, car_id, start_date, end_date, status: status || 'pending' }]);
+
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
+    return res.status(201).json(data);
   }
+
+  if (req.method === 'GET') {
+    // Get all bookings (or filter by user_id)
+    const { user_id } = req.query;
+
+    const query = supabase.from('bookings').select('*').order('created_at', { ascending: false });
+
+    if (user_id) {
+      query.eq('user_id', user_id);
+    }
+
+    const { data, error } = await query;
+
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
+    return res.status(200).json(data);
+  }
+
+  res.setHeader('Allow', ['POST', 'GET']);
+  res.status(405).end(`Method ${req.method} Not Allowed`);
 }

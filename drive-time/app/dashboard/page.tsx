@@ -1,52 +1,90 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react"; // Import useSession from NextAuth
-import { FaSearch, FaCar, FaCalendarAlt, FaClock, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { supabase } from "../../lib/supabase"; // Ensure Supabase is set up correctly
+import {
+  FaSearch,
+  FaCar,
+  FaCalendarAlt,
+  FaClock,
+  FaCheckCircle,
+  FaTimesCircle,
+} from "react-icons/fa";
 
 const BookingsPage = () => {
-
   const [searchQuery, setSearchQuery] = useState("");
-  const [bookings, setBookings] = useState([
-    {
-      id: 1,
-      car: "Lexus RX 350",
-      date: "Nov 12 - Nov 15",
-      time: "10:00 AM - 6:00 PM",
-      status: "Confirmed",
-    },
-    {
-      id: 2,
-      car: "Mercedes S-Class",
-      date: "Nov 18 - Nov 20",
-      time: "9:00 AM - 5:00 PM",
-      status: "Pending",
-    },
-    {
-      id: 3,
-      car: "Range Rover Sport",
-      date: "Nov 25 - Nov 28",
-      time: "8:00 AM - 4:00 PM",
-      status: "Cancelled",
-    },
-  ]);
-
-  const filteredBookings = bookings.filter((booking) =>
-    booking.car.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const [bookings, setBookings] = useState([]);
+  const [loading, setLoading] = useState(true); // Track loading state
   const { data: session, status } = useSession(); // Get session data
   const router = useRouter(); // Router for redirecting
 
   // Redirect to login page if the user is not authenticated
-  if (status === "loading") {
-    return <p>Loading...</p>; // While the session is loading
-  }
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/"); // Redirect unauthenticated users to the sign-in page
+    }
+  }, [status, router]);
 
-  if (!session) {
-    router.push("/"); // Redirect unauthenticated users to the sign-in page
-    return <p>Redirecting...</p>; // Show a loading message while redirecting
-  }
+  // Fetch bookings and set up real-time updates
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const response = await fetch(`/api/bookings`);
+        const data = await response.json();
 
+        if (response.ok) {
+          setBookings(data);
+        } else {
+          console.error("Error fetching bookings:", data.error);
+        }
+      } catch (err) {
+        console.error("Error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBookings();
+
+    // Real-time subscription to bookings table
+    const subscription = supabase
+      .from("bookings")
+      .on("*", (payload) => {
+        console.log("Real-time update received:", payload);
+
+        if (payload.eventType === "INSERT") {
+          setBookings((prev) => [...prev, payload.new]);
+        } else if (payload.eventType === "UPDATE") {
+          setBookings((prev) =>
+            prev.map((booking) =>
+              booking.id === payload.new.id ? payload.new : booking
+            )
+          );
+        } else if (payload.eventType === "DELETE") {
+          setBookings((prev) =>
+            prev.filter((booking) => booking.id !== payload.old.id)
+          );
+        }
+      })
+      .subscribe();
+
+    // Cleanup on unmount
+    return () => {
+      supabase.removeSubscription(subscription);
+    };
+  }, []);
+
+  // Filter bookings based on the search query
+  const filteredBookings = bookings.filter((booking) =>
+    booking.car_name?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Show loading state
+  if (loading) {
+    return <p>Loading bookings...</p>;
+  }
 
   return (
     <div className="max-w-7xl mx-auto p-12 rounded-lg">
@@ -55,7 +93,7 @@ const BookingsPage = () => {
       <hr className="my-4 border-t border-gray-300" />
 
       {/* Search Bar */}
-      <div className="flex items-center mb-6  p-4 rounded-lg shadow-md">
+      <div className="flex items-center mb-6 p-4 rounded-lg shadow-md">
         <FaSearch className="text-gray-400 text-lg mr-2" />
         <input
           type="text"
@@ -84,28 +122,30 @@ const BookingsPage = () => {
                 <tr key={booking.id} className="hover:bg-gray-50">
                   <td className="p-4 flex items-center gap-2 text-gray-700">
                     <FaCar className="text-blue-500" />
-                    {booking.car}
+                    {booking.car_name}
                   </td>
                   <td className="p-4 text-gray-600">
                     <FaCalendarAlt className="inline mr-1 text-gray-400" />
-                    {booking.date}
+                    {new Date(booking.start_date).toLocaleDateString()} -{" "}
+                    {new Date(booking.end_date).toLocaleDateString()}
                   </td>
                   <td className="p-4 text-gray-600">
                     <FaClock className="inline mr-1 text-gray-400" />
-                    {booking.time}
+                    {new Date(booking.start_date).toLocaleTimeString()} -{" "}
+                    {new Date(booking.end_date).toLocaleTimeString()}
                   </td>
                   <td className="p-4">
-                    {booking.status === "Confirmed" && (
+                    {booking.status === "confirmed" && (
                       <span className="flex items-center gap-1 text-green-600">
                         <FaCheckCircle className="text-green-500" /> Confirmed
                       </span>
                     )}
-                    {booking.status === "Pending" && (
+                    {booking.status === "pending" && (
                       <span className="flex items-center gap-1 text-yellow-600">
                         <FaClock className="text-yellow-500" /> Pending
                       </span>
                     )}
-                    {booking.status === "Cancelled" && (
+                    {booking.status === "cancelled" && (
                       <span className="flex items-center gap-1 text-red-600">
                         <FaTimesCircle className="text-red-500" /> Cancelled
                       </span>
@@ -130,13 +170,6 @@ const BookingsPage = () => {
             )}
           </tbody>
         </table>
-      </div>
-
-      {/* CTA Button */}
-      <div className="mt-6 text-right">
-        <button className="bg-blue-500 text-white px-6 py-3 rounded-lg shadow hover:bg-blue-600 transition">
-          Create New Booking
-        </button>
       </div>
     </div>
   );

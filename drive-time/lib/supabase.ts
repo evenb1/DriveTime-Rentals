@@ -1,6 +1,18 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey = process.env.SUPABASE_KEY!;
-export const supabase = createClient(supabaseUrl, supabaseKey);
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY!;
+
+type Booking = {
+  id: string;
+  user_id: string;
+  car_id: string;
+  car_name: string;
+  start_date: string;
+  end_date: string;
+  status: string;
+};
+
+export const supabase = createClient<{
+  bookings: Booking;
+}>(supabaseUrl, supabaseKey);

@@ -14,15 +14,15 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
     const result = await signIn('credentials', {
       email,
       password,
-      ...(isSignUp && { name }), // Pass name if it's sign-up
-      redirect: false, // Prevent auto redirection
+      ...(isSignUp && { name }), 
+      redirect: false, 
     });
 
     if (result?.error) {
-      alert(result.error); // Show error to the user
+      alert(result.error);
     } else {
       alert(isSignUp ? 'Account created successfully!' : 'Login successful!');
-      onClose(); // Close modal
+      onClose(); 
     }
   };
   const handleLogin = async (e: React.FormEvent) => {
@@ -36,7 +36,7 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
     if (result?.error) {
       alert("Login failed. Check your email or password.");
     } else {
-      window.location.href = "/dashboard"; // Or use router.push("/dashboard") for Next.js routing
+      window.location.href = "/dashboard"; 
     }
   };
   

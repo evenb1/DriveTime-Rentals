@@ -5,20 +5,15 @@ import React, { useState } from "react";
 interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (details: {
-    date: string;
-    time: string;
-    passengers: number;
-    specialRequest: string;
-  }) => void;
-  isAuthenticated: boolean; // Pass user auth state
+  carId: string; // Pass the car ID
+  userId: string | null; // Pass the authenticated user's ID or null if unauthenticated
 }
 
 const BookingModal: React.FC<BookingModalProps> = ({
   isOpen,
   onClose,
-  onSubmit,
-  isAuthenticated,
+  carId,
+  userId,
 }) => {
   const [details, setDetails] = useState({
     date: "",
@@ -28,31 +23,62 @@ const BookingModal: React.FC<BookingModalProps> = ({
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async () => {
-    if (!isAuthenticated) {
-      alert("Please log in to book a car.");
+    setError(null); // Clear previous errors
+
+    if (!userId) {
+      setError("Please log in to book a car.");
       return;
     }
 
     if (!details.date || !details.time) {
-      alert("Please fill in all required fields.");
+      setError("Please fill in all required fields.");
       return;
     }
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    // Combine date and time into ISO format
+    const startDate = new Date(`${details.date}T${details.time}`).toISOString();
+
+    try {
+      const response = await fetch("/api/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user_id: userId,
+          car_id: carId,
+          start_date: startDate,
+          passengers: details.passengers,
+          special_request: details.specialRequest,
+          status: "pending",
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to book the car.");
+      }
+
+      alert("Booking successful!");
+      onClose(); // Close the modal
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
       setIsSubmitting(false);
-      onSubmit(details);
-    }, 2000); // Simulate API delay
+    }
   };
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-6  items-center justify-center mx-auto rounded-sm w-full max-w-md relative">
+      <div className="bg-white p-6 mx-auto rounded-sm w-full max-w-md relative">
         {/* Close Button */}
         <button
           onClick={onClose}
@@ -64,23 +90,17 @@ const BookingModal: React.FC<BookingModalProps> = ({
         {/* Modal Title */}
         <h2 className="text-2xl font-semibold mb-4">Book Your Ride</h2>
 
+        {/* Error Message */}
+        {error && <p className="text-red-500 mb-4">{error}</p>}
+
         {/* Date Picker */}
         <div className="relative max-w-sm mb-4">
-          <div className="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-            <svg
-              className="w-4 h-4 text-gray-500 dark:text-gray-400"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path d="M20 4a2 2 0 0 0-2-2h-2V1a1..." />
-            </svg>
-          </div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Select Date
+          </label>
           <input
-            type="text"
-            placeholder="Select date"
-            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5"
+            type="date"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
             value={details.date}
             onChange={(e) =>
               setDetails((prev) => ({ ...prev, date: e.target.value }))
@@ -104,7 +124,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
         </div>
 
         {/* Passenger Counter */}
-        <form className="max-w-xs mx-auto mb-4">
+        <div className="max-w-xs mx-auto mb-4">
           <label
             htmlFor="quantity-input"
             className="block mb-2 text-sm font-medium text-gray-900"
@@ -143,7 +163,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
               +
             </button>
           </div>
-        </form>
+        </div>
 
         {/* Special Requests */}
         <textarea
@@ -158,12 +178,12 @@ const BookingModal: React.FC<BookingModalProps> = ({
 
         {/* Book Now Button */}
         <button
-  onClick={handleSubmit}
-  className="relative h-12 w-40 justify-center overflow-hidden border border-blue-600 text-blue-600 shadow-2xl transition-all duration-200 before:absolute before:bottom-0 before:left-0 before:right-0 before:top-0 before:m-auto before:h-0 before:w-0 before:rounded-sm before:bg-blue-600 before:duration-300 hover:text-white hover:before:h-40 hover:before:w-40"
->
-  <span className="relative z-10">{isSubmitting ? "Booking..." : "Book Now"}</span>
-</button>
-
+          onClick={handleSubmit}
+          className="relative h-12 w-40 justify-center overflow-hidden border border-blue-600 text-blue-600 shadow-2xl transition-all duration-200 hover:bg-blue-600 hover:text-white"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Booking..." : "Book Now"}
+        </button>
       </div>
     </div>
   );

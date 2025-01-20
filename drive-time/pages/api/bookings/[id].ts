@@ -1,49 +1,40 @@
-import { ObjectId } from "mongodb";
-import { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "@/lib/mongodb";
+import { NextApiRequest, NextApiResponse } from 'next';
+import { supabase } from '../../../lib/supabase';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  try {
-    const client = await clientPromise;
-    const db = client.db("DriveTime");
+  const { id } = req.query;
 
-    const { id } = req.query;
-
-    if (!id || !ObjectId.isValid(id as string)) {
-      return res.status(400).json({ success: false, message: "Invalid booking ID" });
-    }
-
-    if (req.method === "PUT") {
-      const { status } = req.body;
-
-      const result = await db.collection("bookings").updateOne(
-        { _id: new ObjectId(id as string) },
-        { $set: { status } }
-      );
-
-      return res.status(200).json({ success: true, message: "Booking updated successfully", result });
-    }
-
-    if (req.method === "DELETE") {
-      const { carId, startDate, endDate } = req.body;
-
-      await db.collection("bookings").deleteOne({ _id: new ObjectId(id as string) });
-
-      await db.collection("cars").updateOne(
-        { id: carId },
-        {
-          $pull: {
-            availability: { startDate: new Date(startDate), endDate: new Date(endDate) },
-          },
-        }
-      );
-
-      return res.status(200).json({ success: true, message: "Booking deleted successfully" });
-    }
-
-    return res.status(405).json({ success: false, message: "Method not allowed" });
-  } catch (error) {
-    console.error("Error handling bookings:", error);
-    return res.status(500).json({ success: false, message: "Internal Server Error" });
+  if (!id || typeof id !== 'string') {
+    return res.status(400).json({ error: 'Booking ID is required' });
   }
+
+  if (req.method === 'PUT') {
+    // Update a booking
+    const { status, start_date, end_date } = req.body;
+
+    const { data, error } = await supabase
+      .from('bookings')
+      .update({ status, start_date, end_date })
+      .eq('id', id);
+
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
+    return res.status(200).json(data);
+  }
+
+  if (req.method === 'DELETE') {
+    // Delete a booking
+    const { data, error } = await supabase.from('bookings').delete().eq('id', id);
+
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
+    return res.status(200).json({ message: 'Booking deleted successfully', data });
+  }
+
+  res.setHeader('Allow', ['PUT', 'DELETE']);
+  res.status(405).end(`Method ${req.method} Not Allowed`);
 }

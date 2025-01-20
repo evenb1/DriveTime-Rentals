@@ -20,12 +20,9 @@ const Hero = () => {
 
     return (
         <>
-            {/* Hero Section */}
             <div className="relative w-full h-screen bg-hero-bg bg-cover bg-center">
-                {/* Transparent Overlay */}
                 <div className="absolute inset-0 bg-black bg-opacity-20 z-5"></div>
 
-                {/* Hero Content with Navbar */}
                 <div className="relative z-20 flex flex-col h-full">
                     <div className="">
                         <GlassNavbar />
@@ -48,14 +45,12 @@ const Hero = () => {
                         </a>
                     </div>
 
-                    {/* Render HeroSearch within Hero on larger screens only */}
                     <div className="pb-4 hidden sm:block">
                         <HeroSearch />
                     </div>
                 </div>
             </div>
 
-            {/* Render HeroSearch as a separate section on smaller screens */}
             <div className="block sm:hidden mt-6 px-4 ">
                 <HeroSearch />
             </div>

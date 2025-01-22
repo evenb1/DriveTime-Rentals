@@ -1,16 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-// import { useLoading } from "../../../context/LoadingContext";
 
 interface BookingModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (details: {
-    date: string;
-    time: string;
-    passengers: number;
-    specialRequest: string;
     start_date: string;
     end_date: string;
   }) => Promise<void>;
@@ -23,30 +18,28 @@ const BookingModal: React.FC<BookingModalProps> = ({
   onSubmit,
   isAuthenticated,
 }) => {
-  // const { setLoading } = useLoading();
   const [details, setDetails] = useState({
     date: "",
     time: "",
-    passengers: 1,
-    specialRequest: "",
   });
+
   const handleSubmit = async () => {
     if (!isAuthenticated) {
       alert("Please log in to book a car.");
       return;
     }
-  
+
     if (!details.date || !details.time) {
       alert("Please fill in all required fields.");
       return;
     }
-  
+
     const startDateTime = `${details.date}T${details.time}:00`;
     const endDateTime = `${details.date}T${details.time}:00`; // Adjust as needed
-  
+
     try {
-      await onSubmit({ ...details, start_date: startDateTime, end_date: endDateTime }); // Call parent function to handle booking creation
-      setDetails({ date: "", time: "", passengers: 1, specialRequest: "" }); // Reset form
+      await onSubmit({ start_date: startDateTime, end_date: endDateTime }); // Send only required fields
+      setDetails({ date: "", time: "" }); // Reset form
       onClose(); // Close modal
     } catch (error) {
       console.error("Error submitting booking:", error);
@@ -81,43 +74,6 @@ const BookingModal: React.FC<BookingModalProps> = ({
             setDetails((prev) => ({ ...prev, time: e.target.value }))
           }
         />
-        <div className="flex items-center justify-between mb-4">
-          <span>Passengers:</span>
-          <div className="flex items-center">
-            <button
-              onClick={() =>
-                setDetails((prev) => ({
-                  ...prev,
-                  passengers: Math.max(1, prev.passengers - 1),
-                }))
-              }
-              className="px-3 py-1 bg-gray-300 rounded-md"
-            >
-              -
-            </button>
-            <span className="px-4">{details.passengers}</span>
-            <button
-              onClick={() =>
-                setDetails((prev) => ({
-                  ...prev,
-                  passengers: prev.passengers + 1,
-                }))
-              }
-              className="px-3 py-1 bg-gray-300 rounded-md"
-            >
-              +
-            </button>
-          </div>
-        </div>
-        <textarea
-          className="block w-full p-2 border rounded-md mb-4"
-          rows={3}
-          placeholder="Special Requests (optional)"
-          value={details.specialRequest}
-          onChange={(e) =>
-            setDetails((prev) => ({ ...prev, specialRequest: e.target.value }))
-          }
-        ></textarea>
         <button
           onClick={handleSubmit}
           className={`w-full p-2 rounded-md ${
@@ -127,7 +83,6 @@ const BookingModal: React.FC<BookingModalProps> = ({
           }`}
           disabled={!isAuthenticated}
         >
-          
           {isAuthenticated ? "Book Now" : "Please Sign In"}
         </button>
       </div>

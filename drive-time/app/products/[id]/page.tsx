@@ -48,10 +48,6 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   });
 
   const handleBookingSubmit = async (details: {
-    date: string;
-    time: string;
-    passengers: number;
-    specialRequest: string;
     start_date: string;
     end_date: string;
   }): Promise<void> => {
@@ -72,8 +68,6 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
           car_id: id,
           start_date: details.start_date,
           end_date: details.end_date,
-          passengers: details.passengers,
-          special_request: details.specialRequest,
           status: "pending",
         }),
       });
@@ -87,10 +81,12 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
       setIsModalOpen(false);
     } catch (error) {
       toast.error((error as Error).message || "An error occurred while booking.");
+      console.error("Booking error:", error);
     } finally {
       setLoading(false);
     }
   };
+  
   
 
   return (
@@ -223,9 +219,10 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
       <BookingModal
   isOpen={isModalOpen}
   onClose={() => setIsModalOpen(false)}
-  onSubmit={handleBookingSubmit} // Pass the updated async function
+  onSubmit={handleBookingSubmit}
   isAuthenticated={!!session}
 />
+
 
 
       {/* Image Modal */}

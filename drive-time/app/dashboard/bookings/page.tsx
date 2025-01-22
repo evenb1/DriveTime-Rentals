@@ -1,24 +1,15 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useSession } from "next-auth/react"; // To handle user sessions
-import { useRouter } from "next/navigation"; // To redirect users
-import { supabase } from "../../../lib/supabase"; // Supabase client
-import {
-  FaSearch,
-  FaCar,
-  FaCalendarAlt,
-  FaClock,
-  FaCheckCircle,
-  FaTimesCircle,
-} from "react-icons/fa";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { supabase } from "../../../lib/supabase";
+import { FaSearch, FaCar, FaCalendarAlt, FaClock, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
-// Define the Booking type
 type Booking = {
   id: string;
   user_id: string;
   car_id: string;
-  car_name: string;
   start_date: string;
   end_date: string;
   status: string;
@@ -31,75 +22,34 @@ const BookingsPage = () => {
   const { data: session, status } = useSession(); // Authentication status
   const router = useRouter();
 
-  // Redirect unauthenticated users to the home page
   useEffect(() => {
     if (status === "unauthenticated") {
-      router.push("/"); // Redirect
+      router.push("/");
     }
   }, [status, router]);
 
-  // Fetch bookings and set up real-time updates
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        setLoading(true); // Set loading state
+        setLoading(true);
         const { data, error } = await supabase
           .from("bookings")
           .select("*")
-          .eq("user_id", session?.user.id); // Fetch bookings for the logged-in user
+          .eq("user_id", session?.user.id);
+
         if (error) throw error;
-        setBookings(data || []); // Set fetched bookings
+
+        setBookings(data || []);
       } catch (err) {
         console.error("Error fetching bookings:", err);
       } finally {
-        setLoading(false); // Remove loading state
+        setLoading(false);
       }
     };
 
     fetchBookings();
-
-    // Subscribe to real-time updates for the bookings table
-    const channel = supabase
-      .channel("bookings")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "bookings" },
-        (payload) => {
-          console.log("Real-time update received:", payload);
-
-          if (payload.eventType === "INSERT") {
-            setBookings((prev) => [...prev, payload.new as Booking]);
-          } else if (payload.eventType === "UPDATE") {
-            setBookings((prev) =>
-              prev.map((booking) =>
-                booking.id === (payload.new as Booking).id
-                  ? (payload.new as Booking)
-                  : booking
-              )
-            );
-          } else if (payload.eventType === "DELETE") {
-            setBookings((prev) =>
-              prev.filter(
-                (booking) => booking.id !== (payload.old as Booking).id
-              )
-            );
-          }
-        }
-      )
-      .subscribe();
-
-    // Cleanup on unmount
-    return () => {
-      supabase.removeChannel(channel);
-    };
   }, [session?.user.id]);
 
-  // Filter bookings based on the search query
-  const filteredBookings = bookings.filter((booking) =>
-    booking.car_name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  // Show loading state
   if (loading) return <p className="text-center text-gray-600">Loading bookings...</p>;
 
   return (
@@ -133,12 +83,12 @@ const BookingsPage = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredBookings.length > 0 ? (
-              filteredBookings.map((booking) => (
+            {bookings.length > 0 ? (
+              bookings.map((booking) => (
                 <tr key={booking.id} className="hover:bg-gray-50">
                   <td className="p-4 flex items-center gap-2 text-gray-700">
                     <FaCar className="text-blue-500" />
-                    {booking.car_name}
+                    {booking.car_id} {/* Replace with car_name if available */}
                   </td>
                   <td className="p-4 text-gray-600">
                     <FaCalendarAlt className="inline mr-1 text-gray-400" />
@@ -176,10 +126,7 @@ const BookingsPage = () => {
               ))
             ) : (
               <tr>
-                <td
-                  colSpan={5}
-                  className="p-4 text-center text-gray-500 italic"
-                >
+                <td colSpan={5} className="p-4 text-center text-gray-500 italic">
                   No bookings found.
                 </td>
               </tr>

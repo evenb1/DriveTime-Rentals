@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(200).json({ success: true, data: data[0] });
     } catch (err) {
       console.error('Error fetching booking:', err);
-      res.status(500).json({ error: 'Failed to fetch booking.' });
+      res.status(500).json({ error: 'Failed to fetch booking.', details: (err as Error).message });
     }
   } else if (req.method === 'PUT') {
     const { start_date, end_date, status } = req.body;
@@ -40,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(200).json({ success: true, data });
     } catch (err) {
       console.error('Error updating booking:', err);
-      res.status(500).json({ error: 'Failed to update booking.' });
+      res.status(500).json({ error: 'Failed to update booking.', details: (err as Error).message });
     }
   } else if (req.method === 'DELETE') {
     try {
@@ -51,7 +51,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(204).end(); // No content on successful delete
     } catch (err) {
       console.error('Error deleting booking:', err);
-      res.status(500).json({ error: 'Failed to delete booking.' });
+      res.status(500).json({ error: 'Failed to delete booking.', details: (err as Error).messagen });
     }
   } else {
     res.setHeader('Allow', ['GET', 'PUT', 'DELETE']);

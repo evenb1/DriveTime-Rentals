@@ -59,20 +59,20 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
     }
   
     try {
-      setLoading(true); // Use the global or local loader
+      setLoading(true);
       const response = await fetch("/api/bookings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user_id: session.user.id, // Ensure session includes user ID
-          car_id: id, // Use the car ID from params
+          user_id: session.user.id,
+          car_id: id,
           start_date: details.date,
-          end_date: details.time, // Include start & end dates
+          end_date: details.time,
           passengers: details.passengers,
           special_request: details.specialRequest,
-          status: "pending", // Set default booking status
+          status: "pending",
         }),
       });
   
@@ -86,7 +86,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
     } catch (error: any) {
       toast.error(error.message || "An error occurred while booking.");
     } finally {
-      setLoading(false); // End the loading state
+      setLoading(false);
     }
   };
   

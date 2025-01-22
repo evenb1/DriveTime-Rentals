@@ -28,27 +28,26 @@ const BookingModal: React.FC<BookingModalProps> = ({
     passengers: 1,
     specialRequest: "",
   });
-
   const handleSubmit = async () => {
     if (!isAuthenticated) {
       alert("Please log in to book a car.");
       return;
     }
-
+  
     if (!details.date || !details.time) {
       alert("Please fill in all required fields.");
       return;
     }
-
-    // setLoading(true); // Show global loader
+  
+    const startDateTime = `${details.date}T${details.time}:00`;
+    const endDateTime = `${details.date}T${details.time}:00`; // Adjust as needed
+  
     try {
-      await onSubmit(details); // Call parent function
+      await onSubmit({ ...details, start_date: startDateTime, end_date: endDateTime }); // Call parent function to handle booking creation
       setDetails({ date: "", time: "", passengers: 1, specialRequest: "" }); // Reset form
       onClose(); // Close modal
     } catch (error) {
       console.error("Error submitting booking:", error);
-    } finally {
-      // setLoading(false); // Hide global loader
     }
   };
 

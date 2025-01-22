@@ -8,6 +8,7 @@ interface BookingModalProps {
   onSubmit: (details: {
     start_date: string;
     end_date: string;
+    special_request: string;
   }) => Promise<void>;
   isAuthenticated: boolean;
 }
@@ -19,8 +20,9 @@ const BookingModal: React.FC<BookingModalProps> = ({
   isAuthenticated,
 }) => {
   const [details, setDetails] = useState({
-    date: "",
-    time: "",
+    start_date: "",
+    end_date: "",
+    special_request: "",
   });
 
   const handleSubmit = async () => {
@@ -29,17 +31,14 @@ const BookingModal: React.FC<BookingModalProps> = ({
       return;
     }
 
-    if (!details.date || !details.time) {
+    if (!details.start_date || !details.end_date) {
       alert("Please fill in all required fields.");
       return;
     }
 
-    const startDateTime = `${details.date}T${details.time}:00`;
-    const endDateTime = `${details.date}T${details.time}:00`; // Adjust as needed
-
     try {
-      await onSubmit({ start_date: startDateTime, end_date: endDateTime }); // Send only required fields
-      setDetails({ date: "", time: "" }); // Reset form
+      await onSubmit(details); // Call parent function to handle booking creation
+      setDetails({ start_date: "", end_date: "", special_request: "" }); // Reset form
       onClose(); // Close modal
     } catch (error) {
       console.error("Error submitting booking:", error);
@@ -58,22 +57,42 @@ const BookingModal: React.FC<BookingModalProps> = ({
           ✕
         </button>
         <h2 className="text-xl font-semibold text-gray-800 mb-4">Book Your Ride</h2>
+        
+        {/* Start Date Input */}
+        <label className="block mb-2 text-gray-600">Start Date:</label>
         <input
           type="date"
           className="block w-full mb-4 p-2 border rounded-md"
-          value={details.date}
+          value={details.start_date}
           onChange={(e) =>
-            setDetails((prev) => ({ ...prev, date: e.target.value }))
+            setDetails((prev) => ({ ...prev, start_date: e.target.value }))
           }
         />
+
+        {/* End Date Input */}
+        <label className="block mb-2 text-gray-600">End Date:</label>
         <input
-          type="time"
+          type="date"
           className="block w-full mb-4 p-2 border rounded-md"
-          value={details.time}
+          value={details.end_date}
           onChange={(e) =>
-            setDetails((prev) => ({ ...prev, time: e.target.value }))
+            setDetails((prev) => ({ ...prev, end_date: e.target.value }))
           }
         />
+
+        {/* Special Request Input */}
+        <label className="block mb-2 text-gray-600">Special Requests:</label>
+        <textarea
+          className="block w-full p-2 border rounded-md mb-4"
+          rows={3}
+          placeholder="Special Requests (optional)"
+          value={details.special_request}
+          onChange={(e) =>
+            setDetails((prev) => ({ ...prev, special_request: e.target.value }))
+          }
+        ></textarea>
+
+        {/* Submit Button */}
         <button
           onClick={handleSubmit}
           className={`w-full p-2 rounded-md ${

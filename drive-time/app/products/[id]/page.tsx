@@ -47,11 +47,13 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   });
 
   const handleBookingSubmit = async (details: {
+    
     start_date: string;
     end_date: string;
   }): Promise<void> => {
     if (!session || !session.user) {
       toast.error("Please sign in to book a car.");
+      
       return;
     }
   

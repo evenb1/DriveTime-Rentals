@@ -29,6 +29,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } else if (req.method === 'PUT') {
     const { start_date, end_date, status } = req.body;
 
+    if (!start_date || !end_date || !status) {
+      return res.status(400).json({ error: 'Missing required fields.' });
+    }
+
     try {
       const { data, error } = await supabase
         .from('bookings')
@@ -36,6 +40,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         .eq('id', id);
 
       if (error) throw error;
+
+      if (!data || data.length === 0) {
+        return res.status(404).json({ error: 'Booking not found or not updated.' });
+      }
 
       res.status(200).json({ success: true, data });
     } catch (err) {
@@ -55,6 +63,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
   } else {
     res.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
-    res.status(405).json({ error: `Method ${req.method} not allowed` });
+    res.status(405).json({ error: `Method ${req.method} not allowed.` });
   }
 }

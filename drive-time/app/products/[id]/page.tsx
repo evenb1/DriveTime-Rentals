@@ -46,14 +46,9 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
    
   });
 
-  const handleBookingSubmit = async (details: {
-    
-    start_date: string;
-    end_date: string;
-  }): Promise<void> => {
+  const handleBookingSubmit = async (details: { start_date: string; end_date: string; special_request: string }): Promise<void> => {
     if (!session || !session.user) {
       toast.error("Please sign in to book a car.");
-      
       return;
     }
   
@@ -69,6 +64,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
           car_id: id,
           start_date: details.start_date,
           end_date: details.end_date,
+          special_request: details.special_request,
           status: "pending",
         }),
       });
@@ -82,12 +78,10 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
       setIsModalOpen(false);
     } catch (error) {
       toast.error((error as Error).message || "An error occurred while booking.");
-      console.error("Booking error:", error);
     } finally {
       setLoading(false);
     }
   };
-  
   
 
   return (

@@ -43,8 +43,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   const [bookingDetails, setBookingDetails] = useState({
     date: "",
     time: "",
-    passengers: 1,
-    specialRequest: "",
+   
   });
 
   const handleBookingSubmit = async (details: {

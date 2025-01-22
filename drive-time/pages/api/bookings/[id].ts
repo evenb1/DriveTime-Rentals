@@ -51,7 +51,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(204).end(); // No content on successful delete
     } catch (err) {
       console.error('Error deleting booking:', err);
-      res.status(500).json({ error: 'Failed to delete booking.', details: (err as Error).messagen });
+      res.status(500).json({ error: 'Failed to delete booking.', details: (err as Error).message });
     }
   } else {
     res.setHeader('Allow', ['GET', 'PUT', 'DELETE']);

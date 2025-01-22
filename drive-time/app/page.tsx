@@ -1,4 +1,4 @@
-import { Hero, SearchBar, CustomFilter } from "@/app/components";
+import { Hero} from "@/app/components";
 import Image from "next/image";
 import GlassNavbar from "@/app/components/GlassNavbar";
 import { fetchCars } from "@/utils";
@@ -29,7 +29,6 @@ export default async function Home() {
           <p className=" text-slate-600 text-center">Explore cars you might like</p>
         </div>
         <div className="mt-3 items-center justify-center">
-          <SearchBar/>
         </div>
         
       </div>

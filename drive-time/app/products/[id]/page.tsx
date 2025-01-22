@@ -20,10 +20,8 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
     setIsImageModalOpen(false);
   };
   
-  // Find the car by ID
   const car = cars.find((car) => car.id === id);
 
-  // Check if the car exists
   if (!car) {
     return (
       <div>

@@ -52,6 +52,8 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
     time: string;
     passengers: number;
     specialRequest: string;
+    start_date: string;
+    end_date: string;
   }): Promise<void> => {
     if (!session || !session.user) {
       toast.error("Please sign in to book a car.");
@@ -68,8 +70,8 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
         body: JSON.stringify({
           user_id: session.user.id,
           car_id: id,
-          start_date: details.date,
-          end_date: details.time,
+          start_date: details.start_date,
+          end_date: details.end_date,
           passengers: details.passengers,
           special_request: details.specialRequest,
           status: "pending",
@@ -83,8 +85,8 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
       const data = await response.json();
       toast.success(`Booking confirmed for ${car.make} ${car.model}!`);
       setIsModalOpen(false);
-    } catch (error: any) {
-      toast.error(error.message || "An error occurred while booking.");
+    } catch (error) {
+      toast.error((error as Error).message || "An error occurred while booking.");
     } finally {
       setLoading(false);
     }

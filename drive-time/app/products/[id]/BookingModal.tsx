@@ -11,6 +11,8 @@ interface BookingModalProps {
     time: string;
     passengers: number;
     specialRequest: string;
+    start_date: string;
+    end_date: string;
   }) => Promise<void>;
   isAuthenticated: boolean;
 }

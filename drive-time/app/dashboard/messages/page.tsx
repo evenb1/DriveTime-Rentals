@@ -1,10 +1,19 @@
 "use client";
+
 import React, { useState } from "react";
 import { FaSearch, FaPaperPlane, FaUserCircle } from "react-icons/fa";
 
+// Define the message type
+type Message = {
+  id: number;
+  sender: string;
+  message: string;
+  time: string;
+};
+
 const MessagesPage = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [messages, setMessages] = useState([
+  const [searchQuery, setSearchQuery] = useState(""); // For search input
+  const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
       sender: "John Doe",
@@ -24,20 +33,22 @@ const MessagesPage = () => {
       time: "10:45 AM",
     },
   ]);
-  const [selectedMessage, setSelectedMessage] = useState(null);
+  const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
 
+  // Filter messages based on the search query
   const filteredMessages = messages.filter((msg) =>
-    msg.sender.toLowerCase().includes(searchQuery.toLowerCase())
+    msg.sender?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleSelectMessage = (message: React.SetStateAction<null>) => {
+  // Handle message selection
+  const handleSelectMessage = (message: Message) => {
     setSelectedMessage(message);
   };
 
   return (
     <div className="flex p-14 bg-gray-100">
       {/* Sidebar - List of Messages */}
-      <div className="w-1/3 bg-white  p-3">
+      <div className="w-1/3 bg-white p-3">
         {/* Search Bar */}
         <div className="flex items-center mb-4 bg-gray-50 p-3 rounded-lg shadow-sm">
           <FaSearch className="text-gray-400 text-lg mr-2" />
@@ -66,7 +77,9 @@ const MessagesPage = () => {
                 <FaUserCircle className="text-gray-400 text-3xl" />
                 <div className="flex-1">
                   <h4 className="text-gray-800 font-semibold">{msg.sender}</h4>
-                  <p className="text-gray-600 text-sm truncate">{msg.message}</p>
+                  <p className="text-gray-600 text-sm truncate">
+                    {msg.message}
+                  </p>
                   <span className="text-gray-500 text-xs">{msg.time}</span>
                 </div>
               </li>
@@ -82,7 +95,6 @@ const MessagesPage = () => {
 
       {/* Message Content */}
       <div className="flex-1 bg-white rounded-r-lg p-6 flex flex-col">
-        
         {selectedMessage ? (
           <>
             {/* Header */}
@@ -90,7 +102,9 @@ const MessagesPage = () => {
               <h2 className="text-2xl font-bold text-gray-800">
                 {selectedMessage.sender}
               </h2>
-              <span className="text-gray-500 text-sm">{selectedMessage.time}</span>
+              <span className="text-gray-500 text-sm">
+                {selectedMessage.time}
+              </span>
             </div>
 
             {/* Message Body */}

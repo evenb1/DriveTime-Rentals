@@ -1,7 +1,6 @@
 import { Hero} from "@/app/components";
 import Image from "next/image";
 import GlassNavbar from "@/app/components/GlassNavbar";
-import { fetchCars } from "@/utils";
 import { div } from "framer-motion/client";
 import { CarCard } from "@/app/components";
 import Features from "./components/Features";
@@ -16,10 +15,10 @@ import AddressMap from "./components/AddressMap";
 
 export default async function Home() {
 
-  const allcars = await fetchCars();
-  const isDataEmpty = !Array.isArray(allcars) || allcars.length < 1 || !allcars;
+  // const allcars = await fetchCars();
+  // const isDataEmpty = !Array.isArray(allcars) || allcars.length < 1 || !allcars;
 
-  console.log(allcars)
+  // console.log(allcars)
   return (
     <main className="overflow-hidden ">
       <Hero />
@@ -34,21 +33,14 @@ export default async function Home() {
       </div>
       
 
-      {!isDataEmpty ? (
         <section className="px-14  pb-10">
-            <div className="home__cars-wrapper">
-            {carData.map((car, index) => (
-        <CarCard key={index} car={car} />
-      ))}
-            </div>
-        </section>
-      ) : (
-        <div className="home__error-container">
-          <h2 className="text-black font-bold">Oops, no Reuslts</h2>
-          <p>{allcars?.message}</p>
+        <div className="home__cars-wrapper">
+        {carData.map((car, index) => (
+          <CarCard key={index} car={car} />
+        ))}
         </div>
-        
-      )}   
+        </section>
+  
 
       <section className="bg-white h-screen">
       <Counter/>

@@ -160,7 +160,7 @@
 }
 
 .footer__links-container {
-  @apply flex max-md:flex-col flex-wrap justify-between gap-5 sm:px-16 px-6 py-10;
+  @apply flex max-md:flex-col  flex-wrap justify-between gap-5 sm:px-16 px-6 py-10;
 }
 
 .footer__rights {

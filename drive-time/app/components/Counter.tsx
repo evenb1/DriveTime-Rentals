@@ -9,11 +9,6 @@ import { useState, useEffect } from "react";
 const Counter = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const stats = [
-    { num: 15, text: "Years of experience" },
-    { numTwo: 5, text: "Satisfied clients" },
-  ];
-
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
     const entry = entries[0];
     if (entry.isIntersecting) {
@@ -35,71 +30,66 @@ const Counter = () => {
   }, []);
 
   return (
-    
     <motion.div
-      className="p-0 flex flex-row  justify-start gap-5 py-36"
-      id="counter-section" // Unique ID for the section
+      className="p-6 flex flex-col md:flex-row justify-start items-center gap-8 py-20"
+      id="counter-section"
       initial={{ opacity: 0, y: 50 }}
       animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0 }}
       transition={{ duration: 1.0 }}
     >
       {/* Images Section */}
-      <div className=" flex gap-4 w-1/2 px-4">
-        <div className="relative w-full">
-          <Image src={counter} className="object-contain" alt="lady" />
+      <div className="flex gap-4 w-full md:w-1/2">
+        <div className="relative w-1/2">
+          <Image src={counter} className="object-contain rounded-lg" alt="lady" />
         </div>
-        <div className="relative w-full ">
-          <Image src={counter2} className="object-contain" alt="car" />
+        <div className="relative w-1/2">
+          <Image src={counter2} className="object-contain rounded-lg" alt="car" />
         </div>
       </div>
 
       {/* Content Section */}
-      <div className="flex flex-col  gap-20 w-1/2">
-        <div className="justify-start gap-8 pr-16">
-          <h1 className="text-slate-900 justify-start font-light font-montserrat text-5xl">
+      <div className="flex flex-col gap-10 w-full md:w-1/2 text-center md:text-left">
+        <div>
+          <h1 className="text-slate-900 font-light font-montserrat text-4xl md:text-5xl">
             Premium Cars Rental
           </h1>
-          <h3 className="text-blue-400 mt-1 font-inter font-light">
+          <h3 className="text-blue-400 mt-2 font-inter font-light text-xl">
             Only the best
           </h3>
-          <p className="text-slate-900 w-2/3 mt-2 justify-start text-xl font-extralight">
-          Discover unmatched quality with our premium cars. We provide comfort, luxury, and reliability, ensuring every journey is a memorable one.
+          <p className="text-slate-900 mt-4 text-lg md:text-xl font-extralight">
+            Discover unmatched quality with our premium cars. We provide
+            comfort, luxury, and reliability, ensuring every journey is a
+            memorable one.
           </p>
         </div>
 
         {/* Stats Section */}
         <motion.div
-          className="flex flex-row gap-4"
+          className="flex flex-wrap justify-center md:justify-start gap-8"
           initial={{ opacity: 0, y: 50 }}
           animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0 }}
           transition={{ duration: 1.0 }}
         >
-        
-            <div className="text-center flex flex-row gap-5">
-              <div className="flex flex-col">
-              <CountUp
-                end={15}
-                suffix="+"
-                duration={2}
-                delay={3}
-                className="text-3xl flex xl:text-8xl gap-5 text-slate-900 font-extralight"
-              />
-              <p className="mt-2 text-slate-900 text-start text-lg">Years of experience</p>
-
-              </div>
-             <div className="flex flex-col">
-             <CountUp
-                end={5}
-                suffix="k+"
-                duration={2}
-                delay={3}
-                className="text-3xl xl:text-8xl gap-5 text-slate-900 font-extralight"
-              />
-              <p className="mt-2 text-slate-900 text-start text-lg">Satisfied clients</p>
-             </div>
-              
-            </div>
-            
+          <div className="flex flex-col items-center">
+            <CountUp
+              end={15}
+              suffix="+"
+              duration={2}
+              delay={3}
+              className="text-4xl md:text-6xl xl:text-8xl text-slate-900 font-extralight"
+            />
+            <p className="mt-2 text-slate-900 text-lg">Years of experience</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <CountUp
+              end={5}
+              suffix="k+"
+              duration={2}
+              delay={3}
+              className="text-4xl md:text-6xl xl:text-8xl text-slate-900 font-extralight"
+            />
+            <p className="mt-2 text-slate-900 text-lg">Satisfied clients</p>
+          </div>
         </motion.div>
       </div>
     </motion.div>

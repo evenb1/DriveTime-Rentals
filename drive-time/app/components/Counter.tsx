@@ -76,7 +76,7 @@ const Counter = () => {
               suffix="+"
               duration={2}
               delay={3}
-              className="text-4xl md:text-6xl xl:text-8xl text-slate-900 font-extralight"
+              className="text-5xl  md:text-6xl xl:text-8xl text-slate-900 font-extralight"
             />
             <p className="mt-2 text-slate-900 text-lg">Years of experience</p>
           </div>
@@ -86,7 +86,7 @@ const Counter = () => {
               suffix="k+"
               duration={2}
               delay={3}
-              className="text-4xl md:text-6xl xl:text-8xl text-slate-900 font-extralight"
+              className="text-5xl md:text-6xl xl:text-8xl text-slate-900 font-extralight"
             />
             <p className="mt-2 text-slate-900 text-lg">Satisfied clients</p>
           </div>

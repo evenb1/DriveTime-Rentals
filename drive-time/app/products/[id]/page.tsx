@@ -198,7 +198,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
         />
       )}
 
-      <section className="flex flex-col justify-center pt-16 px-6 lg:px-48 pb-20 bg-gray-50">
+      <section className="flex flex-col justify-center text-center pt-16 px-6 lg:px-48 pb-20 bg-gray-50">
         <h1 className="text-3xl lg:text-5xl font-light mb-6">{car.make} {car.model} Overview</h1>
         <hr className="my-4 border-t border-gray-300" />
 
@@ -206,7 +206,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
           Discover the features and services offered in this vehicle. We ensure safety, luxury, and satisfaction with our premium car rental options.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {[
             "Luxury Car Selection",
             "High Safety Standards",

@@ -4,7 +4,7 @@ import React from "react";
 
 const Contact = () => {
   return (
-    <div className="flex flex-col items-start px-6 md:px-16 py-24 md:py-44 gap-6 bg-gray-800">
+    <div className="flex flex-col items-start px-6 md:px-16 py-24 md:py-44 gap-6 bg-none">
       {/* Header Section */}
       <h1 className="font-extralight text-4xl md:text-5xl text-start text-slate-100">
         Get The Best Deals

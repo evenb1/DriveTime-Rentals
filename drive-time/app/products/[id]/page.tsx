@@ -174,7 +174,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
             <motion.button
               onClick={() => setIsModalOpen(true)}
               className={`w-full text-lg py-4 bg-white border text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500 transition ${
-                !session ? "cursor-not-allowed opacity-50" : ""
+                !session ? "cursor-not-allowed " : ""
               }`}
             >
               {loading ? "Loading..." : "Book Now"}

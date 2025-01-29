@@ -1,45 +1,48 @@
 import React, { useState } from 'react';
-import { signIn } from 'next-auth/react';
+import { supabase } from '@/lib/supabase';
 
 const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
   const [isSignUp, setIsSignUp] = useState(false); // Toggle between Login and Sign-Up
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [loading, setLoading] = useState(false);
 
   if (!isOpen) return null;
 
-  const handleCredentialsAuth = async (e: React.FormEvent) => {
+  const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = await signIn('credentials', {
-      email,
-      password,
-      ...(isSignUp && { name }), 
-      redirect: false, 
-    });
+    setLoading(true);
 
-    if (result?.error) {
-      alert(result.error);
-    } else {
-      alert(isSignUp ? 'Account created successfully!' : 'Login successful!');
-      onClose(); 
+    try {
+      if (isSignUp) {
+        // Sign-up logic
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: { data: { name } },
+        });
+
+        if (error) throw error;
+        alert('Account created! Check your email for verification.');
+      } else {
+        // Login logic
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) throw error;
+        alert('Login successful!');
+        onClose();
+        window.location.href = '/dashboard'; // Redirect after login
+      }
+    } catch (error: any) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
     }
   };
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false, // Prevent auto-redirect
-    });
-  
-    if (result?.error) {
-      alert("Login failed. Check your email or password.");
-    } else {
-      window.location.href = "/dashboard"; 
-    }
-  };
-  
 
   return (
     <div
@@ -81,7 +84,7 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
             {/* OAuth Login Buttons */}
             <div className="mt-7 flex flex-col gap-2">
               <button
-                onClick={() => signIn('google')}
+                onClick={() => supabase.auth.signInWithOAuth({ provider: 'google' })}
                 className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1"
               >
                 <img
@@ -91,19 +94,6 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
                 />
                 Continue with Google
               </button>
-              {/* <button
-                onClick={() => signIn('apple')}
-                className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-[18px] w-[18px]"
-                  viewBox="0 0 128 128"
-                >
-                  <path d="M97.905 67.885c.174 18.8 16.494 25.057 16.674 25.137-.138.44-2.607 8.916-8.597 17.669-5.178 7.568-10.553 15.108-19.018 15.266-8.318.152-10.993-4.934-20.504-4.934-9.508 0-12.479 4.776-20.354 5.086-8.172.31-14.395-8.185-19.616-15.724C15.822 94.961 7.669 66.8 18.616 47.791c5.438-9.44 15.158-15.417 25.707-15.571 8.024-.153 15.598 5.398 20.503 5.398 4.902 0 14.106-6.676 23.782-5.696 4.051.169 15.421 1.636 22.722 12.324-.587.365-13.566 7.921-13.425 23.639M82.272 21.719c4.338-5.251 7.258-12.563 6.462-19.836-6.254.251-13.816 4.167-18.301 9.416-4.02 4.647-7.54 12.087-6.591 19.216 6.971.54 14.091-3.542 18.43-8.796" />
-                </svg>
-                Continue with Apple
-              </button> */}
             </div>
 
             <div className="flex w-full items-center gap-2 py-6 text-sm text-slate-600">
@@ -113,7 +103,7 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
             </div>
 
             {/* Email/Password Form */}
-            <form className="w-full" onSubmit={handleCredentialsAuth}>
+            <form className="w-full" onSubmit={handleAuth}>
               {isSignUp && (
                 <>
                   <label htmlFor="name" className="sr-only">
@@ -157,8 +147,9 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
               <button
                 type="submit"
                 className="inline-flex w-full items-center justify-center rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400 mt-3"
+                disabled={loading}
               >
-                {isSignUp ? 'Sign Up' : 'Login'}
+                {loading ? 'Processing...' : isSignUp ? 'Sign Up' : 'Login'}
               </button>
               <p className="mb-3 mt-2 text-sm text-gray-500">
                 {isSignUp ? (

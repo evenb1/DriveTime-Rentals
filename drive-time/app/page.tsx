@@ -46,7 +46,7 @@ export default async function Home() {
       <Counter/>
 
       </section>
-      <section className="pb-24">
+      <section className="max-lg:pb-24">
         <Logos/>
       </section>
       <FeaturesTwo/>

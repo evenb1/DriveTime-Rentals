@@ -9,29 +9,26 @@ import { useState, useEffect } from "react";
 const Counter = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-    const entry = entries[0];
-    if (entry.isIntersecting) {
-      setIsVisible(true); // Start animation when the section is in view
-    }
-  };
-
   useEffect(() => {
-    const observer = new IntersectionObserver(handleIntersection, {
-      threshold: 0.5, // Trigger when 50% of the section is visible
-    });
-
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) setIsVisible(true);
+      },
+      { threshold: 0.5 }
+    );
+  
     const target = document.getElementById("counter-section");
     if (target) observer.observe(target);
-
+  
     return () => {
-      if (target) observer.unobserve(target); // Cleanup observer
+      if (target) observer.unobserve(target);
     };
   }, []);
+  
 
   return (
     <motion.div
-      className="p-6 flex flex-col md:flex-row justify-start items-center gap-8 py-20"
+      className="p-6 flex flex-col md:flex-row justify-start items-center gap-8 pt-20 pb-2"
       id="counter-section"
       initial={{ opacity: 0, y: 50 }}
       animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0 }}
@@ -70,7 +67,7 @@ const Counter = () => {
           animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0 }}
           transition={{ duration: 1.0 }}
         >
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col max-sm:hidden items-center">
             <CountUp
               end={15}
               suffix="+"

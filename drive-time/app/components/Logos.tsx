@@ -10,31 +10,28 @@ import rover from "@/public/rover.svg";
 
 const Logos = () => {
   return (
-    <div className="overflow-hidden py-8 ">
-      {/* Motion wrapper for scrolling effect */}
+    <div className="overflow-hidden py-6">
       <motion.div
-        className="flex gap-14 items-center justify-start"
-        animate={{
-          x: ["0%", "-100%"], // Scroll from full position to completely off the screen
-        }}
+        className="flex gap-10 items-center whitespace-nowrap"
+        animate={{ x: ["0%", "-100%"] }}
         transition={{
-          duration: 20, // Adjust duration for scrolling speed
+          duration: 35, // Slower scrolling speed
           ease: "linear",
-          repeat: Infinity, // Loop the animation infinitely
+          repeat: Infinity,
         }}
       >
-        {/* Duplicate the logos to create a seamless loop */}
+        {/* Duplicate the logos to ensure infinite scrolling */}
         {[...Array(2)].map((_, index) => (
           <React.Fragment key={index}>
-            <Image src={lexus} alt="lexus" className="w-28" />
-            <span className="hidden md:inline-block w-px h-32 bg-gray-200" />
-            <Image src={porsche} alt="porsche" className="w-28" />
-            <span className="hidden md:inline-block w-px h-32 bg-gray-200" />
-            <Image src={mercedes} alt="mercedes" className="w-28" />
-            <span className="hidden md:inline-block w-px h-32 bg-gray-200" />
-            <Image src={rover} alt="rover" className="w-28" />
-            <span className="hidden md:inline-block w-px h-32 bg-gray-200" />
-            <Image src={caddy} alt="cadillac" className="w-28 mr-7" />
+            <Image src={lexus} alt="Lexus" className="w-20 sm:w-28" />
+            <span className="hidden md:inline-block w-px h-24 bg-gray-300" />
+            <Image src={porsche} alt="Porsche" className="w-20 sm:w-28" />
+            <span className="hidden md:inline-block w-px h-24 bg-gray-300" />
+            <Image src={mercedes} alt="Mercedes" className="w-20 sm:w-28" />
+            <span className="hidden md:inline-block w-px h-24 bg-gray-300" />
+            <Image src={rover} alt="Range Rover" className="w-20 sm:w-28" />
+            <span className="hidden md:inline-block w-px h-24 bg-gray-300" />
+            <Image src={caddy} alt="Cadillac" className="w-20 sm:w-28 mr-7" />
           </React.Fragment>
         ))}
       </motion.div>

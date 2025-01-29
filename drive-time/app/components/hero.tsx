@@ -38,7 +38,7 @@ const Hero = () => {
                             bg-blue-500 rounded-full text-white shadow-2xl transition-all 
                             before:absolute before:h-0 before:w-0 before:rounded-full before:bg-charcoal 
                             before:duration-500 before:ease-out hover:shadow-charcoal-600 
-                            hover:before:h-56 hover:before:w-56 max-sm:mb-24  z-10 leading-10 font-montserrat"
+                            hover:before:h-56 hover:before:w-56 max-sm:mb-16  z-10 leading-10 font-montserrat"
                         >
                         Get Started
                         </button>

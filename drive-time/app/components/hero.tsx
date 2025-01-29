@@ -24,7 +24,7 @@ const Hero = () => {
                     <div className="flex-1 flex flex-col justify-center lg:pb-36 md:pb-36 items-center text-center px-5 
                         mt-6 sm:mt-0 max-sm:gap-28">
                         <motion.h1
-                            className="hero__title font-montserrat  text-white max-sm:pb-44 text-extrabold leading-none text-opacity-90"
+                            className="hero__title font-montserrat  text-white max-sm:pb-36 text-extrabold leading-none text-opacity-90"
                             variants={titleVariants}
                             initial="hidden"
                             animate="visible"

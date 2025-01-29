@@ -1,61 +1,28 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { FaCheckCircle, FaClock, FaTimesCircle, FaUsers, FaCalendarAlt, FaDollarSign } from "react-icons/fa";
 import Image from "next/image";
-import { supabase } from "@/lib/supabase";
-import {
-  FaCheckCircle,
-  FaClock,
-  FaTimesCircle,
-  FaUsers,
-  FaCar,
-  FaDollarSign,
-  FaCalendarAlt,
-} from "react-icons/fa";
+
+interface Booking {
+  id: string;
+  car_id: string;
+  car_name: string;
+  car_image: string;
+  start_date: string;
+  end_date: string;
+  status: string;
+  price: number;
+  passengers: number;
+}
 
 interface BookingDetailsModalProps {
   isOpen: boolean;
   onClose: () => void;
-  booking: {
-    id: string;
-    car_id: string;
-    car_name: string;
-    car_image: string;
-    start_date: string;
-    end_date: string;
-    status: string;
-    price: string;
-    passengers: number;
-  } | null;
+  booking: Booking | null;
 }
 
-const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({
-  isOpen,
-  onClose,
-  booking,
-}) => {
-  const [carDetails, setCarDetails] = useState<any>(null);
-
-  useEffect(() => {
-    const fetchCarDetails = async () => {
-      if (!booking?.car_id) return;
-      try {
-        const { data, error } = await supabase
-          .from("cars")
-          .select("*")
-          .eq("id", booking.car_id)
-          .single();
-
-        if (error) throw error;
-        setCarDetails(data);
-      } catch (err) {
-        console.error("Error fetching car details:", err);
-      }
-    };
-
-    fetchCarDetails();
-  }, [booking?.car_id]);
-
+const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({ isOpen, onClose, booking }) => {
   if (!isOpen || !booking) return null;
 
   return (
@@ -64,75 +31,69 @@ const BookingDetailsModal: React.FC<BookingDetailsModalProps> = ({
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl"
         >
           ✕
         </button>
 
         {/* Car Image */}
-        <div className="w-full flex justify-center">
+        <div className="text-center">
           <Image
             src={booking.car_image}
             alt={booking.car_name}
             width={400}
             height={250}
-            className="w-full h-48 object-cover rounded-md"
+            className="w-full h-48 object-cover rounded-md mb-4"
           />
         </div>
 
-        {/* Car Details */}
-        <div className="text-center mt-4">
-          <h2 className="text-2xl font-semibold text-gray-800">
-            {booking.car_name}
-          </h2>
-          <p className="text-gray-600 font-semibold text-lg">{booking.price}</p>
+        {/* Car Name & Price */}
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">{booking.car_name}</h2>
+          <p className="text-gray-600 text-lg font-semibold flex items-center justify-center">
+            <FaDollarSign className="mr-2 text-green-500" />
+            {booking.price} / day
+          </p>
         </div>
 
         {/* Rental Period */}
-        <div className="mt-4 flex items-center justify-between bg-gray-100 p-3 rounded-md">
-          <div className="flex items-center gap-2">
-            <FaCalendarAlt className="text-gray-500" />
-            <p className="text-gray-700">
-              {new Date(booking.start_date).toLocaleDateString()} -{" "}
-              {new Date(booking.end_date).toLocaleDateString()}
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <FaUsers className="text-gray-500" />
-            <p className="text-gray-700">{booking.passengers} Passengers</p>
-          </div>
+        <div className="mt-4">
+          <p className="text-gray-700 flex items-center">
+            <FaCalendarAlt className="mr-2 text-gray-500" />
+            <span className="font-semibold">Rental Period:</span> {new Date(booking.start_date).toLocaleDateString()} - {new Date(booking.end_date).toLocaleDateString()}
+          </p>
         </div>
 
-        {/* Car Features (if available) */}
-        {carDetails && (
-          <div className="mt-4 bg-gray-50 p-3 rounded-md">
-            <h3 className="text-gray-800 font-semibold mb-2">Car Features</h3>
-            <p className="text-gray-700">{carDetails.features?.join(", ")}</p>
-          </div>
-        )}
+        {/* Passengers */}
+        <div className="mt-2">
+          <p className="text-gray-700 flex items-center">
+            <FaUsers className="mr-2 text-gray-500" />
+            <span className="font-semibold">Passengers:</span> {booking.passengers}
+          </p>
+        </div>
 
         {/* Booking Status */}
-        <div className="mt-4 flex items-center justify-center">
+        <div className="mt-4">
           {booking.status === "confirmed" ? (
-            <span className="flex items-center gap-2 text-green-600">
+            <span className="flex items-center justify-center gap-2 text-green-600 text-lg">
               <FaCheckCircle className="text-green-500" /> Confirmed
             </span>
           ) : booking.status === "pending" ? (
-            <span className="flex items-center gap-2 text-yellow-600">
+            <span className="flex items-center justify-center gap-2 text-yellow-600 text-lg">
               <FaClock className="text-yellow-500" /> Pending
             </span>
           ) : (
-            <span className="flex items-center gap-2 text-red-600">
+            <span className="flex items-center justify-center gap-2 text-red-600 text-lg">
               <FaTimesCircle className="text-red-500" /> Cancelled
             </span>
           )}
         </div>
 
         {/* Close Button */}
-        <div className="mt-6 flex justify-center">
+        <div className="mt-6 text-center">
           <button
             onClick={onClose}
-            className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700"
+            className="bg-gray-600 text-white px-6 py-2 rounded-md hover:bg-gray-700 transition"
           >
             Close
           </button>

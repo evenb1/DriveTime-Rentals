@@ -6,16 +6,13 @@ import { supabase } from "../../../lib/supabase";
 import BookingDetailsModal from "../../dashboard/components/BookingDetailsModal";
 import {
   FaSearch,
-  FaCar,
   FaCalendarAlt,
   FaClock,
   FaCheckCircle,
   FaTimesCircle,
 } from "react-icons/fa";
 import Image from "next/image";
-
-// Local cars data (assuming it's imported)
-import carsData from "../../../data/cars.json"; // Update path if needed
+import carsData from "../../../data/cars.json"; // Import local cars.json file
 
 type Booking = {
   id: string;
@@ -24,6 +21,10 @@ type Booking = {
   start_date: string;
   end_date: string;
   status: string;
+  car_name?: string;
+  car_image?: string;
+  price?: number;
+  passengers?: number;
 };
 
 const BookingsPage = () => {
@@ -38,9 +39,9 @@ const BookingsPage = () => {
   useEffect(() => {
     const getUser = async () => {
       const { data, error } = await supabase.auth.getUser();
-      if (error) {
+      if (error || !data?.user) {
         console.error("Error fetching user:", error);
-        router.push("/"); // Redirect to homepage if not authenticated
+        router.push("/"); // Redirect if not authenticated
         return;
       }
       setUser(data.user);
@@ -48,7 +49,7 @@ const BookingsPage = () => {
     getUser();
   }, [router]);
 
-  // Fetch bookings for the authenticated user
+  // Fetch bookings and match car details
   useEffect(() => {
     const fetchBookings = async () => {
       try {
@@ -62,7 +63,19 @@ const BookingsPage = () => {
 
         if (error) throw error;
 
-        setBookings(bookingsData || []);
+        // Match bookings with car details from cars.json
+        const enhancedBookings = bookingsData.map((b) => {
+          const car = carsData.find((c) => c.id === b.car_id);
+          return {
+            ...b,
+            car_name: car ? `${car.make} ${car.model}` : "Unknown Car",
+            car_image: car?.images?.[0] || "/default-car.jpg",
+            price: car?.price || 0,
+            passengers: car?.cylinders || "N/A",
+          };
+        });
+
+        setBookings(enhancedBookings);
       } catch (err) {
         console.error("Error fetching bookings:", err);
       } finally {
@@ -72,24 +85,6 @@ const BookingsPage = () => {
 
     if (user) fetchBookings();
   }, [user]);
-
-  // Get car details from local data
-  const getCarDetails = (car_id: string) => {
-    const car = carsData.find((c) => c.id === car_id);
-    return car
-      ? {
-          car_name: `${car.make} ${car.model}`,
-          car_image: car.images?.[0] || "/default-car.jpg",
-          price: `$${car.price}/day`,
-          passengers: car.cylinders,
-        }
-      : {
-          car_name: "Unknown Car",
-          car_image: "/default-car.jpg",
-          price: "N/A",
-          passengers: "N/A",
-        };
-  };
 
   if (loading) return <p className="text-center text-gray-600">Loading bookings...</p>;
 
@@ -114,64 +109,54 @@ const BookingsPage = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {bookings.length > 0 ? (
           bookings
-            .filter((b) => getCarDetails(b.car_id).car_name.toLowerCase().includes(searchQuery.toLowerCase()))
-            .map((booking) => {
-              const carDetails = getCarDetails(booking.car_id);
-              return (
-                <div key={booking.id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col">
-                  {/* Car Image */}
-                  <Image
-                    src={carDetails.car_image}
-                    alt={carDetails.car_name}
-                    width={300}
-                    height={200}
-                    className="w-full h-40 object-cover rounded-md"
-                  />
+            .filter((b) => b.car_name?.toLowerCase().includes(searchQuery.toLowerCase()))
+            .map((booking) => (
+              <div key={booking.id} className="bg-white shadow-lg rounded-lg p-4 flex flex-col">
+                {/* Car Image */}
+                <Image
+                  src={booking.car_image!}
+                  alt={booking.car_name!}
+                  width={300}
+                  height={200}
+                  className="w-full h-40 object-cover rounded-md"
+                />
 
-                  {/* Car Name */}
-                  <h2 className="text-lg font-semibold mt-3">{carDetails.car_name}</h2>
+                {/* Car Name */}
+                <h2 className="text-lg font-semibold mt-3">{booking.car_name}</h2>
 
-                  {/* Rental Period */}
-                  <p className="text-sm text-gray-600 mt-1 flex items-center">
-                    <FaCalendarAlt className="mr-2 text-gray-500" />
-                    {new Date(booking.start_date).toLocaleDateString()} -{" "}
-                    {new Date(booking.end_date).toLocaleDateString()}
-                  </p>
+                {/* Rental Period */}
+                <p className="text-sm text-gray-600 mt-1 flex items-center">
+                  <FaCalendarAlt className="mr-2 text-gray-500" />
+                  {new Date(booking.start_date).toLocaleDateString()} -{" "}
+                  {new Date(booking.end_date).toLocaleDateString()}
+                </p>
 
-                  {/* Time */}
-                  <p className="text-sm text-gray-600 flex items-center">
-                    <FaClock className="mr-2 text-gray-500" />
-                    {new Date(booking.start_date).toLocaleTimeString()} -{" "}
-                    {new Date(booking.end_date).toLocaleTimeString()}
-                  </p>
+                {/* Booking Status */}
+                <p className="mt-2 text-sm flex items-center">
+                  {booking.status === "confirmed" ? (
+                    <span className="text-green-600 flex items-center gap-1">
+                      <FaCheckCircle className="text-green-500" /> Confirmed
+                    </span>
+                  ) : booking.status === "pending" ? (
+                    <span className="text-yellow-600 flex items-center gap-1">
+                      <FaClock className="text-yellow-500" /> Pending
+                    </span>
+                  ) : (
+                    <span className="text-red-600 flex items-center gap-1">
+                      <FaTimesCircle className="text-red-500" /> Cancelled
+                    </span>
+                  )}
+                </p>
 
-                  {/* Booking Status */}
-                  <p className="mt-2 text-sm flex items-center">
-                    {booking.status === "confirmed" ? (
-                      <span className="text-green-600 flex items-center gap-1">
-                        <FaCheckCircle className="text-green-500" /> Confirmed
-                      </span>
-                    ) : booking.status === "pending" ? (
-                      <span className="text-yellow-600 flex items-center gap-1">
-                        <FaClock className="text-yellow-500" /> Pending
-                      </span>
-                    ) : (
-                      <span className="text-red-600 flex items-center gap-1">
-                        <FaTimesCircle className="text-red-500" /> Cancelled
-                      </span>
-                    )}
-                  </p>
-
-                  {/* Action Button */}
-                  <button
-                    className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
-                    onClick={() => setSelectedBooking({ ...booking, ...carDetails })}
-                  >
-                    View Details
-                  </button>
-                </div>
-              );
-            })
+                {/* View Details Button */}
+                <button
+                  className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
+                  onClick={() => setSelectedBooking(booking)}
+                >
+                  View Details
+                </button>
+              </div>
+            ))
         ) : (
           <p className="text-center text-gray-500 col-span-full">No bookings found.</p>
         )}

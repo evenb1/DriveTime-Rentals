@@ -1,23 +1,44 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GlassNavbar from "../../components/GlassNavbar";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import cars from "@/data/cars.json";
-import { useSession } from "next-auth/react";
 import BookingModal from "./BookingModal";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ImageSliderModal from "./ImageSliderModal";
 import AddressMap from "@/app/components/AddressMap";
+import { supabase } from "@/lib/supabase"; // ✅ Use Supabase Auth
+import { useRouter } from "next/navigation";
 
 const ProductPage = ({ params }: { params: { id: string } }) => {
   const { id } = params;
+  const router = useRouter();
+  const [user, setUser] = useState<any>(null); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
 
-  const closeModal = () => {
-    setIsImageModalOpen(false);
-  };
+  useEffect(() => {
+    const fetchUser = async () => {
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+
+      if (error || !user) {
+        console.error("Error fetching user:", error);
+        setUser(null); 
+      } else {
+        setUser(user); 
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   const car = cars.find((car) => car.id === id);
 
@@ -32,44 +53,33 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
     );
   }
 
-  const { data: session } = useSession();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  const [loading, setLoading] = useState(false);
-
   const handleBookingSubmit = async (details: {
     start_date: string;
     end_date: string;
     special_request: string;
   }): Promise<void> => {
-    if (!session || !session.user) {
+    if (!user) {
       toast.error("Please sign in to book a car.");
       return;
     }
 
     try {
       setLoading(true);
-      const response = await fetch("/api/bookings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user_id: session.user.id,
+      const response = await supabase.from("bookings").insert([
+        {
+          user_id: user.id,
           car_id: id,
           start_date: details.start_date,
           end_date: details.end_date,
           special_request: details.special_request,
           status: "pending",
-        }),
-      });
+        },
+      ]);
 
-      if (!response.ok) {
+      if (response.error) {
         throw new Error("Failed to book the car. Please try again.");
       }
 
-      const data = await response.json();
       toast.success(`Booking confirmed for ${car.make} ${car.model}!`);
       setIsModalOpen(false);
     } catch (error) {
@@ -124,7 +134,6 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
             </div>
           </div>
 
-          {/* Right: Car Details */}
           <motion.div
             className="lg:w-1/2 w-full bg-none px-4 lg:px-10"
             initial={{ opacity: 0, x: 50 }}
@@ -171,14 +180,15 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
               ))}
             </div>
 
-            <motion.button
+             <motion.button
               onClick={() => setIsModalOpen(true)}
               className={`w-full text-lg py-4 bg-white border text-blue-500 border-blue-500 hover:text-white hover:bg-blue-500 transition ${
-                !session ? "cursor-not-allowed " : ""
+                !user ? "cursor-not-allowed " : ""
               }`}
             >
               {loading ? "Loading..." : "Book Now"}
             </motion.button>
+
           </motion.div>
         </motion.div>
       </section>
@@ -187,18 +197,17 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSubmit={handleBookingSubmit}
-        isAuthenticated={!!session}
+        isAuthenticated={!!user} 
       />
 
       {isImageModalOpen && (
         <ImageSliderModal
           images={car.images}
           initialIndex={selectedImageIndex}
-          onClose={closeModal}
+          onClose={() => setIsImageModalOpen(false)}
         />
       )}
-
-      <section className="flex flex-col justify-center text-center pt-16 px-6 lg:px-48 pb-20 bg-gray-50">
+<section className="flex flex-col justify-center text-center pt-16 px-6 lg:px-48 pb-20 bg-gray-50">
         <h1 className="text-3xl lg:text-5xl font-light mb-6">{car.make} {car.model} Overview</h1>
         <hr className="my-4 border-t border-gray-300" />
 
@@ -222,7 +231,6 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
           ))}
         </div>
       </section>
-
       <AddressMap />
     </div>
   );

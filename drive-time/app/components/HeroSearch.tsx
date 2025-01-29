@@ -26,7 +26,7 @@ export default function HeroSearch() {
     }, []);
 
     return (
-        <div className="flex flex-col md:flex-row items-center mb-2 font-montserrat justify-between bg-white shadow-sm rounded-xl p-2 md:p-3 max-w-4xl mx-auto">
+        <div className="flex flex-col md:flex-row items-center mb-2 font-montserrat justify-between bg-white max-sm:gap-3 rounded-xl p-2 md:p-3 max-w-4xl mx-auto">
             {/* Location Input */}
             <div className="flex items-center w-full md:w-auto mb-4 md:mb-0 ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 md:w-8 md:h-8 mr-2">

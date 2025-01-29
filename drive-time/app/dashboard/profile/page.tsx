@@ -1,87 +1,125 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { FaUser, FaEnvelope, FaPhone, FaHome } from "react-icons/fa";
+import { FaUser, FaPhone, FaCamera } from "react-icons/fa";
+import { supabase } from "@/lib/supabase"; // Ensure the correct import
+import { toast } from "react-toastify";
 
 const Profile = () => {
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [avatar, setAvatar] = useState<string | null>(null);
   const [profileData, setProfileData] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    email: "johndoe@example.com",
-    phone: "+123456789",
-    address: "1234 Street Name, City, Country",
+    first_name: "",
+    last_name: "",
+    phone: "",
   });
 
-  const [avatar, setAvatar] = useState<string | null>(null);
-
-  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setAvatar(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    key: string
-  ) => {
+  // Fetch user data from Supabase
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("users")
+          .select("id, first_name, last_name, avatar_url")
+          .eq("email", user?.email)
+          .single(); // Ensure only one user is returned
+  
+        if (error) {
+          throw error;
+        }
+  
+        setUser(data);
+      } catch (err) {
+        console.error("Error fetching user details:", err);
+      }
+    };
+  
+    fetchUser();
+  }, [user?.email]);
+  
+  // Handle input change
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
     setProfileData({ ...profileData, [key]: e.target.value });
   };
 
-  const handleSave = () => {
-    // Logic to save the profile data, e.g., send it to a server.
-    console.log("Profile saved:", profileData);
-    alert("Profile updated successfully!");
+  // Handle avatar upload
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const fileExt = file.name.split(".").pop();
+    const fileName = `${user.id}.${fileExt}`;
+    const filePath = `avatars/${fileName}`;
+
+    const { data, error } = await supabase.storage.from("avatars").upload(filePath, file, {
+      upsert: true,
+    });
+
+    if (error) {
+      console.error("Error uploading avatar:", error.message);
+      return;
+    }
+
+    const { data: publicURL } = supabase.storage.from("avatars").getPublicUrl(filePath);
+    setAvatar(publicURL.publicUrl);
+
+    await supabase
+      .from("users")
+      .update({ avatar_url: publicURL.publicUrl })
+      .eq("email", user.email);
   };
 
+  // Save changes
+  const handleSave = async () => {
+    if (!user) return;
+
+    const { error } = await supabase
+      .from("users")
+      .update({
+        first_name: profileData.first_name,
+        last_name: profileData.last_name,
+        phone: profileData.phone,
+        avatar_url: avatar,
+      })
+      .eq("email", user.email);
+
+    if (error) {
+      console.error("Error updating profile:", error.message);
+      return;
+    }
+
+    toast.success("Profile updated successfully!");
+  };
+
+  if (loading) return <p className="text-center text-gray-600">Loading profile...</p>;
+
   return (
-    <div className="max-w-5xl mx-auto p-8">
-      {/* Header Section */}
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-3xl font-extrabold text-gray-800">Profile</h1>
-      </div>
+    <div className="max-w-5xl mx-auto p-6">
+      {/* Header */}
+      <h1 className="text-3xl font-extrabold text-gray-800 mb-6 text-center md:text-left">
+        Profile
+      </h1>
       <hr className="my-4 border-t border-gray-300" />
 
-      {/* Avatar and Details */}
-      <div className="flex flex-col md:flex-row p-6 items-center gap-8">
-        {/* Avatar Section */}
+      {/* Profile Content */}
+      <div className="flex flex-col md:flex-row items-center md:items-start p-6 gap-6">
+        {/* Avatar Upload */}
         <div className="relative">
-          {avatar ? (
-            <Image
-              src={avatar}
-              alt="Profile Picture"
-              width={150}
-              height={150}
-              className="rounded-full object-cover border border-gray-300"
-            />
-          ) : (
-            <div className="w-36 h-36 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 text-lg border border-gray-300">
-              <FaUser size={50} />
-            </div>
-          )}
+        <Image
+  src={user?.avatar_url || "/default-avatar.png"}
+  alt="User Avatar"
+  width={40}
+  height={40}
+  className="object-cover"
+/>
+
           <label
             htmlFor="avatarUpload"
             className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 cursor-pointer"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M16.862 3.487a2.25 2.25 0 0 1 3.182 0l.469.469a2.25 2.25 0 0 1 0 3.182L9.748 18.835a4.5 4.5 0 1 1-3.182-3.182L16.862 3.487z"
-              />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 7.5l6 6" />
-            </svg>
+            <FaCamera />
           </label>
           <input
             id="avatarUpload"
@@ -92,68 +130,46 @@ const Profile = () => {
           />
         </div>
 
-        {/* Profile Info */}
-        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Profile Form */}
+        <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
           <div>
-            <label className="block text-gray-600 font-medium mb-1  items-center gap-2">
-              <FaUser className="text-blue-500" /> First Name
+            <label className="block text-gray-600 font-medium mb-1">
+              <FaUser className="inline text-blue-500 mr-1" /> First Name
             </label>
             <input
               type="text"
-              value={profileData.firstName}
-              onChange={(e) => handleInputChange(e, "firstName")}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              value={profileData.first_name}
+              onChange={(e) => handleInputChange(e, "first_name")}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400"
             />
           </div>
           <div>
-            <label className="block text-gray-600 font-medium mb-1  items-center gap-2">
-              <FaUser className="text-blue-500" /> Last Name
+            <label className="block text-gray-600 font-medium mb-1">
+              <FaUser className="inline text-blue-500 mr-1" /> Last Name
             </label>
             <input
               type="text"
-              value={profileData.lastName}
-              onChange={(e) => handleInputChange(e, "lastName")}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              value={profileData.last_name}
+              onChange={(e) => handleInputChange(e, "last_name")}
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400"
             />
           </div>
           <div>
-            <label className="block text-gray-600 font-medium mb-1  items-center gap-2">
-              <FaEnvelope className="text-blue-500" /> Email
-            </label>
-            <input
-              type="email"
-              value={profileData.email}
-              onChange={(e) => handleInputChange(e, "email")}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div>
-            <label className="block text-gray-600 font-medium mb-1  items-center gap-2">
-              <FaPhone className="text-blue-500" /> Phone
+            <label className="block text-gray-600 font-medium mb-1">
+              <FaPhone className="inline text-blue-500 mr-1" /> Phone
             </label>
             <input
               type="text"
               value={profileData.phone}
               onChange={(e) => handleInputChange(e, "phone")}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            />
-          </div>
-          <div className="col-span-1 md:col-span-2">
-            <label className="block text-gray-600 font-medium mb-1  items-center gap-2">
-              <FaHome className="text-blue-500" /> Address
-            </label>
-            <input
-              type="text"
-              value={profileData.address}
-              onChange={(e) => handleInputChange(e, "address")}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400"
             />
           </div>
         </div>
       </div>
 
       {/* Save Button */}
-      <div className="text-right mt-8">
+      <div className="text-center md:text-right mt-8">
         <button
           onClick={handleSave}
           className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition"

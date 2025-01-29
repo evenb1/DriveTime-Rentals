@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { supabase, insertUserIntoDB } from "@/lib/supabase";
 
 const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onClose }) => {
   const [isSignUp, setIsSignUp] = useState(false); // Toggle between Login and Sign-Up
@@ -13,7 +13,11 @@ const Modal: React.FC<{ isOpen: boolean; onClose: () => void }> = ({ isOpen, onC
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === "SIGNED_IN" && session?.user) {
+        await insertUserIntoDB(session.user); // Insert user into database
+      }
+    });
     try {
       if (isSignUp) {
         // Sign-up logic

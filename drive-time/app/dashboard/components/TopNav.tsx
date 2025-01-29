@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaHome } from "react-icons/fa";
-import { supabase } from "@/lib/supabase"; // Ensure the correct path
+import { supabase } from "@/lib/supabase"; // Ensure correct path
 
 const TopNav = () => {
   const [user, setUser] = useState<any>(null);
@@ -14,7 +14,25 @@ const TopNav = () => {
       if (error) {
         console.error("Error fetching user:", error.message);
       } else {
-        setUser(data.user);
+        if (data?.user?.email) {
+          // Fetch user details from the users table
+          const { data: userData, error: userError } = await supabase
+            .from("users")
+            .select("first_name, last_name, avatar_url")
+            .eq("email", data.user.email)
+            .single(); // Ensure only one row is returned
+
+          if (userError) {
+            console.error("Error fetching user details:", userError.message);
+          } else {
+            setUser({
+              email: data.user.email,
+              first_name: userData?.first_name || "Guest",
+              last_name: userData?.last_name || "",
+              avatar_url: userData?.avatar_url || "/default-avatar.png",
+            });
+          }
+        }
       }
     };
 
@@ -37,12 +55,12 @@ const TopNav = () => {
 
       <div className="flex items-center gap-3">
         <span className="text-white font-montserrat font-medium text-lg">
-          {user.email || "Guest"}
+          {user.first_name} {user.last_name}
         </span>
 
         <div className="w-10 h-10 rounded-full overflow-hidden border border-gray-300">
           <Image
-            src={user.user_metadata?.avatar_url || "/default-avatar.png"}
+            src={user.avatar_url || "/default-avatar.png"}
             alt="User Avatar"
             width={40}
             height={40}

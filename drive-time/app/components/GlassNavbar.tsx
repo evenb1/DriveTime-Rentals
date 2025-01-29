@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Modal from "./Modal";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { supabase } from "@/lib/supabase"; // Import Supabase client
 import Image from "next/image";
 import { FaBookmark, FaRegUser } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -12,7 +12,25 @@ import { IoMdMenu } from "react-icons/io";
 const GlassNavbar: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user, setUser] = useState<any>(null); // Store authenticated user
   const menuRef = useRef<HTMLDivElement>(null); // Reference for dropdown menu
+
+  // Fetch the authenticated user from Supabase
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (data?.user) setUser(data.user);
+    };
+
+    fetchUser();
+
+    // Listen for auth state changes
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+    });
+
+    return () => listener?.subscription.unsubscribe();
+  }, []);
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
@@ -40,7 +58,12 @@ const GlassNavbar: React.FC = () => {
     };
   }, []);
 
-  const { data: session } = useSession();
+  // Logout function
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setUser(null);
+    window.location.href = "/"; // Redirect after logout
+  };
 
   return (
     <>
@@ -67,7 +90,7 @@ const GlassNavbar: React.FC = () => {
 
         {/* Right Section: Session-dependent content */}
         <div className="flex flex-1 items-center justify-end">
-          {session ? (
+          {user ? (
             <div className="flex items-center gap-4">
               {/* Menu for Large Devices */}
               <div className="hidden hover:shadow-2xl md:flex rounded-full px-2 flex-row items-center hover:shadow-black gap-3">
@@ -77,7 +100,7 @@ const GlassNavbar: React.FC = () => {
                 />
                 <div className="w-8 h-8 rounded-full overflow-hidden border border-gray-300">
                   <Image
-                    src={session.user.image || "/default-avatar.png"}
+                    src={user.user_metadata?.avatar_url || "/default-avatar.png"}
                     alt="User Avatar"
                     width={30}
                     height={30}
@@ -122,72 +145,45 @@ const GlassNavbar: React.FC = () => {
         {isMenuOpen && (
           <div
             ref={menuRef} // Attach ref to the dropdown
-            className="absolute top-[54px] right-0 bg-white  rounded-b-lg shadow-lg w-64"
+            className="absolute top-[54px] right-0 bg-white rounded-b-lg shadow-lg w-64"
           >
             <div className="p-4 flex flex-col gap-4">
               {/* Common Links for Small Devices */}
-              <a
-                href="#fleet"
-                className="text-gray-700 hover:text-gray-900 w-full text-left"
-              >
+              <a href="#fleet" className="text-gray-700 hover:text-gray-900 w-full text-left">
                 Fleet
               </a>
-              <a
-                href="#history"
-                className="text-gray-700 hover:text-gray-900 w-full text-left"
-              >
+              <a href="#history" className="text-gray-700 hover:text-gray-900 w-full text-left">
                 History
               </a>
-              <a
-                href="#contact"
-                className="text-gray-700 hover:text-gray-900 w-full text-left"
-              >
+              <a href="#contact" className="text-gray-700 hover:text-gray-900 w-full text-left">
                 Contact
               </a>
               <hr className="border-gray-300" />
-              {session ? (
+              {user ? (
                 <>
-                  <Link
-                    href="/dashboard/profile"
-                    className="flex items-center gap-2 text-gray-700 hover:text-gray-900"
-                  >
+                  <Link href="/dashboard/profile" className="flex items-center gap-2 text-gray-700 hover:text-gray-900">
                     <FaRegUser />
                     Profile
                   </Link>
-                  <Link
-                    href="/dashboard/messages"
-                    className="flex items-center gap-2 text-gray-700 hover:text-gray-900"
-                  >
+                  <Link href="/dashboard/messages" className="flex items-center gap-2 text-gray-700 hover:text-gray-900">
                     <LuMessageSquare />
                     Messages
                   </Link>
-                  <Link
-                    href="/dashboard/settings"
-                    className="flex items-center gap-2 text-gray-700 hover:text-gray-900"
-                  >
+                  <Link href="/dashboard/settings" className="flex items-center gap-2 text-gray-700 hover:text-gray-900">
                     <IoSettingsOutline />
                     Settings
                   </Link>
-                  <Link
-                    href="/dashboard/bookings"
-                    className="flex items-center gap-2 text-gray-700 hover:text-gray-900"
-                  >
+                  <Link href="/dashboard/bookings" className="flex items-center gap-2 text-gray-700 hover:text-gray-900">
                     <FaBookmark />
                     Bookings
                   </Link>
                   <hr className="border-gray-300" />
-                  <button
-                    onClick={() => console.log("Logout clicked")}
-                    className="w-full text-left text-red-600 hover:text-red-800"
-                  >
+                  <button onClick={handleLogout} className="w-full text-left text-red-600 hover:text-red-800">
                     Logout
                   </button>
                 </>
               ) : (
-                <button
-                  onClick={toggleModal}
-                  className="w-full text-left text-gray-700 hover:text-gray-900"
-                >
+                <button onClick={toggleModal} className="w-full text-left text-gray-700 hover:text-gray-900">
                   Sign In
                 </button>
               )}

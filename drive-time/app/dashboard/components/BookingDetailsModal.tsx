@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { FaCheckCircle, FaClock, FaTimesCircle } from "react-icons/fa";
-import { supabase } from "../../lib/supabase";
+import { supabase } from "../../../lib/supabase";
 
 interface BookingDetailsModalProps {
   isOpen: boolean;

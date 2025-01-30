@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { FaUser, FaPhone, FaCamera } from "react-icons/fa";
-import { supabase } from "@/lib/supabase"; // Ensure the correct import
+import { supabase } from "@/lib/supabase";
 import { toast } from "react-toastify";
 
 const Profile = () => {
@@ -16,81 +16,110 @@ const Profile = () => {
     phone: "",
   });
 
-  // Fetch user data from Supabase
+  // ✅ Fetch user from Supabase Auth and Profile Data
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const { data, error } = await supabase
-          .from("users")
-          .select("id, first_name, last_name, avatar_url")
-          .eq("email", user?.email)
-          .single(); // Ensure only one user is returned
-  
-        if (error) {
-          throw error;
+        // Get authenticated user
+        const { data: authData, error: authError } = await supabase.auth.getUser();
+        if (authError) throw authError;
+        const authUser = authData?.user;
+
+        if (!authUser) {
+          console.error("No authenticated user found.");
+          return;
         }
-  
-        setUser(data);
+
+        // Fetch user profile from 'users' table
+        const { data: userData, error: userError } = await supabase
+          .from("users")
+          .select("id, first_name, last_name, phone, avatar_url")
+          .eq("id", authUser.id)
+          .single();
+
+        if (userError) throw userError;
+
+        setUser(userData);
+        setProfileData({
+          first_name: userData.first_name || "",
+          last_name: userData.last_name || "",
+          phone: userData.phone || "",
+        });
+        setAvatar(userData.avatar_url || "/default-avatar.png");
+
       } catch (err) {
         console.error("Error fetching user details:", err);
+      } finally {
+        setLoading(false);
       }
     };
-  
+
     fetchUser();
-  }, [user?.email]);
-  
-  // Handle input change
+  }, []);
+
+  // ✅ Handle input change for profile update
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
     setProfileData({ ...profileData, [key]: e.target.value });
   };
 
-  // Handle avatar upload
+  // ✅ Handle avatar upload
   const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!user) return;
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const fileExt = file.name.split(".").pop();
-    const fileName = `${user.id}.${fileExt}`;
-    const filePath = `avatars/${fileName}`;
+    try {
+      const fileExt = file.name.split(".").pop();
+      const fileName = `${user.id}.${fileExt}`;
+      const filePath = `avatars/${fileName}`;
 
-    const { data, error } = await supabase.storage.from("avatars").upload(filePath, file, {
-      upsert: true,
-    });
+      // Upload image
+      const { data, error } = await supabase.storage.from("avatars").upload(filePath, file, { upsert: true });
 
-    if (error) {
-      console.error("Error uploading avatar:", error.message);
-      return;
+      if (error) throw error;
+
+      // Get the public URL
+      const { data: publicURL } = supabase.storage.from("avatars").getPublicUrl(filePath);
+
+      setAvatar(publicURL.publicUrl);
+
+      // Update in users table
+      const { error: updateError } = await supabase
+        .from("users")
+        .update({ avatar_url: publicURL.publicUrl })
+        .eq("id", user.id);
+
+      if (updateError) throw updateError;
+
+      toast.success("Profile picture updated!");
+    } catch (error) {
+      console.error("Error uploading avatar:", error);
+      toast.error("Failed to upload avatar.");
     }
-
-    const { data: publicURL } = supabase.storage.from("avatars").getPublicUrl(filePath);
-    setAvatar(publicURL.publicUrl);
-
-    await supabase
-      .from("users")
-      .update({ avatar_url: publicURL.publicUrl })
-      .eq("email", user.email);
   };
 
-  // Save changes
+  // ✅ Save profile changes
   const handleSave = async () => {
     if (!user) return;
 
-    const { error } = await supabase
-      .from("users")
-      .update({
-        first_name: profileData.first_name,
-        last_name: profileData.last_name,
-        phone: profileData.phone,
-        avatar_url: avatar,
-      })
-      .eq("email", user.email);
+    try {
+      const { error } = await supabase
+        .from("users")
+        .update({
+          first_name: profileData.first_name,
+          last_name: profileData.last_name,
+          phone: profileData.phone,
+          avatar_url: avatar,
+        })
+        .eq("id", user.id);
 
-    if (error) {
-      console.error("Error updating profile:", error.message);
-      return;
+      if (error) throw error;
+
+      toast.success("Profile updated successfully!");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      toast.error("Failed to update profile.");
     }
-
-    toast.success("Profile updated successfully!");
   };
 
   if (loading) return <p className="text-center text-gray-600">Loading profile...</p>;
@@ -107,14 +136,13 @@ const Profile = () => {
       <div className="flex flex-col md:flex-row items-center md:items-start p-6 gap-6">
         {/* Avatar Upload */}
         <div className="relative">
-        <Image
-  src={user?.avatar_url || "/default-avatar.png"}
-  alt="User Avatar"
-  width={40}
-  height={40}
-  className="object-cover"
-/>
-
+          <Image
+            src={avatar || "/default-avatar.png"}
+            alt="User Avatar"
+            width={150}
+            height={150}
+            className="rounded-full object-cover border border-gray-300"
+          />
           <label
             htmlFor="avatarUpload"
             className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 cursor-pointer"

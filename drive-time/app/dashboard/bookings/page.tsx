@@ -93,7 +93,18 @@ const BookingsPage = () => {
       {/* Page Title */}
       <h1 className="text-3xl font-bold text-gray-800 mb-6">My Bookings</h1>
 
- 
+      {/* Search Bar */}
+      <div className="flex items-center bg-white shadow-md p-3 rounded-lg mb-6">
+        <FaSearch className="text-gray-400 text-lg mr-2" />
+        <input
+          type="text"
+          placeholder="Search bookings..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full bg-transparent focus:outline-none text-gray-700 placeholder-gray-400"
+        />
+      </div>
+
       {/* Bookings List */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {bookings.length > 0 ? (

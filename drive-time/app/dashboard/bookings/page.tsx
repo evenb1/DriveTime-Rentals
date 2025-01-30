@@ -162,7 +162,12 @@ const BookingsPage = () => {
         )}
       </div>
 
-     
+      {/* Booking Details Modal */}
+      <BookingDetailsModal
+        isOpen={!!selectedBooking}
+        onClose={() => setSelectedBooking(null)}
+        booking={selectedBooking}
+      />
     </div>
   );
 };

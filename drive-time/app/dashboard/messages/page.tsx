@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { FaSearch, FaPaperPlane, FaUserCircle } from "react-icons/fa";
+import { FaSearch, FaPaperPlane, FaUserCircle, FaBars } from "react-icons/fa";
 
 // Define the message type
 type Message = {
@@ -13,7 +13,7 @@ type Message = {
 
 const MessagesPage = () => {
   const [searchQuery, setSearchQuery] = useState(""); // For search input
-  const [messages, setMessages] = useState<Message[]>([
+  const [messages] = useState<Message[]>([
     {
       id: 1,
       sender: "John Doe",
@@ -34,21 +34,40 @@ const MessagesPage = () => {
     },
   ]);
   const [selectedMessage, setSelectedMessage] = useState<Message | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Filter messages based on the search query
   const filteredMessages = messages.filter((msg) =>
-    msg.sender?.toLowerCase().includes(searchQuery.toLowerCase())
+    msg.sender.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Handle message selection
-  const handleSelectMessage = (message: Message) => {
-    setSelectedMessage(message);
-  };
-
   return (
-    <div className="flex p-14 bg-gray-100">
+    <div className="flex flex-col md:flex-row h-screen bg-gray-100">
+      {/* Sidebar Toggle (Mobile) */}
+      <button
+        className="md:hidden bg-gray-900 text-white p-3 fixed top-4 left-4 rounded-md z-50"
+        onClick={() => setSidebarOpen(true)}
+      >
+        <FaBars size={20} />
+      </button>
+
       {/* Sidebar - List of Messages */}
-      <div className="w-1/3 bg-white p-3">
+      <div
+        className={`fixed md:relative z-40 top-0 left-0 h-full bg-white shadow-md transition-transform transform ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 md:w-1/3 w-full md:block p-4`}
+      >
+        {/* Close Sidebar (Mobile) */}
+        <div className="flex justify-between items-center mb-4 md:hidden">
+          <h2 className="text-xl font-bold text-gray-800">Messages</h2>
+          <button
+            className="text-gray-600 hover:text-gray-800"
+            onClick={() => setSidebarOpen(false)}
+          >
+            ✕
+          </button>
+        </div>
+
         {/* Search Bar */}
         <div className="flex items-center mb-4 bg-gray-50 p-3 rounded-lg shadow-sm">
           <FaSearch className="text-gray-400 text-lg mr-2" />
@@ -62,12 +81,15 @@ const MessagesPage = () => {
         </div>
 
         {/* Messages List */}
-        <ul className="space-y-3">
+        <ul className="space-y-3 overflow-y-auto h-[70vh] md:h-auto">
           {filteredMessages.length > 0 ? (
             filteredMessages.map((msg) => (
               <li
                 key={msg.id}
-                onClick={() => handleSelectMessage(msg)}
+                onClick={() => {
+                  setSelectedMessage(msg);
+                  setSidebarOpen(false); // Close sidebar on mobile
+                }}
                 className={`p-3 rounded-lg flex items-start gap-3 cursor-pointer transition ${
                   selectedMessage?.id === msg.id
                     ? "bg-blue-100"
@@ -91,10 +113,9 @@ const MessagesPage = () => {
           )}
         </ul>
       </div>
-      <span className="hidden md:inline-block w-px h-10 bg-gray-200"></span>
 
       {/* Message Content */}
-      <div className="flex-1 bg-white rounded-r-lg p-6 flex flex-col">
+      <div className="flex-1 bg-white p-6 flex flex-col md:rounded-r-lg h-full">
         {selectedMessage ? (
           <>
             {/* Header */}
@@ -108,7 +129,7 @@ const MessagesPage = () => {
             </div>
 
             {/* Message Body */}
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto p-2">
               <p className="text-gray-700">{selectedMessage.message}</p>
             </div>
 

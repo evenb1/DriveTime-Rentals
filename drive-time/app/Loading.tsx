@@ -1,11 +1,12 @@
 import React from "react";
 
-const Loading: React.FC = () => {
+const Loading = () => {
   return (
-    <div className="flex flex-row gap-2 justify-center items-center">
-      <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
-      <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-0.3s]"></div>
-      <div className="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-0.5s]"></div>
+    <div className="flex items-center justify-center min-h-screen">
+      <div
+        className="w-12 h-12 md:w-16 md:h-16 border-4 md:border-6 border-t-transparent border-blue-500 border-opacity-75 rounded-full animate-spin-custom shadow-lg"
+        aria-label="Loading..."
+      ></div>
     </div>
   );
 };

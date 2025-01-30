@@ -77,7 +77,7 @@ const Counter = () => {
             />
             <p className="mt-2 text-slate-900 text-lg">Years of experience</p>
           </div>
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col max-sm:hidden items-center">
             <CountUp
               end={5}
               suffix="k+"

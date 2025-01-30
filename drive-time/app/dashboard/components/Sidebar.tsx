@@ -121,6 +121,22 @@ const Sidebar = () => {
   );
 };
 
-
+// Function to return icons based on type
+const getIcon = (type: string) => {
+  switch (type) {
+    case "bookmark":
+      return <FaRegBookmark />;
+    case "envelope":
+      return <FaRegMessage />;
+    case "user":
+      return <FaUser />;
+    case "credit-card":
+      return <MdOutlinePayment />;
+    case "settings":
+      return <CiSettings />;
+    default:
+      return <FaBars />;
+  }
+};
 
 export default Sidebar;

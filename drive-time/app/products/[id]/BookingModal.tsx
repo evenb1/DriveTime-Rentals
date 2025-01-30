@@ -48,56 +48,84 @@ const BookingModal: React.FC<BookingModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm transition-opacity duration-300">
+      <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md relative transform transition-all duration-300 scale-95 hover:scale-100">
+        {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors duration-200"
         >
-          ✕
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
         </button>
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Book Your Ride</h2>
-        
+
+        {/* Modal Title */}
+        <h2 className="text-2xl font-bold text-gray-800 mb-6">Book Your Ride</h2>
+
         {/* Start Date Input */}
-        <label className="block mb-2 text-gray-600">Start Date:</label>
-        <input
-          type="date"
-          className="block w-full mb-4 p-2 border rounded-md"
-          value={details.start_date}
-          onChange={(e) =>
-            setDetails((prev) => ({ ...prev, start_date: e.target.value }))
-          }
-        />
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Start Date:
+          </label>
+          <input
+            type="date"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+            value={details.start_date}
+            onChange={(e) =>
+              setDetails((prev) => ({ ...prev, start_date: e.target.value }))
+            }
+          />
+        </div>
 
         {/* End Date Input */}
-        <label className="block mb-2 text-gray-600">End Date:</label>
-        <input
-          type="date"
-          className="block w-full mb-4 p-2 border rounded-md"
-          value={details.end_date}
-          onChange={(e) =>
-            setDetails((prev) => ({ ...prev, end_date: e.target.value }))
-          }
-        />
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            End Date:
+          </label>
+          <input
+            type="date"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+            value={details.end_date}
+            onChange={(e) =>
+              setDetails((prev) => ({ ...prev, end_date: e.target.value }))
+            }
+          />
+        </div>
 
         {/* Special Request Input */}
-        <label className="block mb-2 text-gray-600">Special Requests:</label>
-        <textarea
-          className="block w-full p-2 border rounded-md mb-4"
-          rows={3}
-          placeholder="Special Requests (optional)"
-          value={details.special_request}
-          onChange={(e) =>
-            setDetails((prev) => ({ ...prev, special_request: e.target.value }))
-          }
-        ></textarea>
+        <div className="mb-6">
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Special Requests:
+          </label>
+          <textarea
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+            rows={3}
+            placeholder="Special Requests (optional)"
+            value={details.special_request}
+            onChange={(e) =>
+              setDetails((prev) => ({ ...prev, special_request: e.target.value }))
+            }
+          />
+        </div>
 
         {/* Submit Button */}
         <button
           onClick={handleSubmit}
-          className={`w-full p-2 rounded-md ${
+          className={`w-full p-3 rounded-lg font-semibold transition-all duration-300 ${
             isAuthenticated
-              ? "bg-blue-600 text-white"
+              ? "bg-blue-600 text-white hover:bg-blue-700"
               : "bg-gray-400 text-gray-700 cursor-not-allowed"
           }`}
           disabled={!isAuthenticated}

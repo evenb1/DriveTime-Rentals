@@ -70,13 +70,13 @@ const GlassNavbar: React.FC = () => {
       <nav className="flex items-center justify-between px-4 py-3 mx-4 md:mx-9 my-5 bg-white bg-opacity-90 backdrop-blur-md shadow-xl relative">
         {/* Left Section: Fleet, History, Contact */}
         <div className="hidden md:flex flex-1 justify-start ml-2 gap-8">
-          <a href="#fleet" className="text-gray-600 hover:text-gray-400">
+          <a href="/#fleet" className="text-gray-600 hover:text-gray-400">
             Fleet
           </a>
-          <a href="#history" className="text-gray-600 hover:text-gray-400">
+          <a href="/#history" className="text-gray-600 hover:text-gray-400">
             History
           </a>
-          <a href="#contact" className="text-gray-600 hover:text-gray-400">
+          <a href="/#contact" className="text-gray-600 hover:text-gray-400">
             Contact
           </a>
         </div>
@@ -149,13 +149,13 @@ const GlassNavbar: React.FC = () => {
           >
             <div className="p-4 flex flex-col gap-4">
               {/* Common Links for Small Devices */}
-              <a href="#fleet" className="text-gray-700 hover:text-gray-900 w-full text-left">
+              <a href="/#fleet" className="text-gray-700 hover:text-gray-900 w-full text-left">
                 Fleet
               </a>
-              <a href="#history" className="text-gray-700 hover:text-gray-900 w-full text-left">
+              <a href="/#history" className="text-gray-700 hover:text-gray-900 w-full text-left">
                 History
               </a>
-              <a href="#contact" className="text-gray-700 hover:text-gray-900 w-full text-left">
+              <a href="/#contact" className="text-gray-700 hover:text-gray-900 w-full text-left">
                 Contact
               </a>
               <hr className="border-gray-300" />
